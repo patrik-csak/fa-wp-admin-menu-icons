@@ -1,6 +1,6 @@
 # Font Awesome WordPress Admin Menu Icons
 
-The simplest way to use Font Awesome icons for custom post types and admin manu pages.
+The simplest way to use Font Awesome icons for custom post types and admin menu pages.
 
 ## Usage
 
