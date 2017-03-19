@@ -1,7 +1,7 @@
 <?php
 /*
  * Plugin Name: Font Awesome Admin Menu Icons
- * Plugin URI:
+ * Plugin URI: https://github.com/ptrkcsk/font-awesome-wordpress-admin-menu-icons
  * Description:
  * Version: 1.0.0
  * Author: Patrik Csak
