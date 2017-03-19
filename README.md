@@ -4,7 +4,7 @@ The simplest way to use Font Awesome icons for custom post types and admin menu 
 
 ## Usage
 
-Simply pass `'fa-<icon-name>'` (i.e. `'fa-address-book'`) wherever you would be able to pass `'dashicons-<icon-name>'`.
+Use `'fa-<icon-name>'` (i.e. `'fa-address-book'`) wherever you would use `'dashicons-<icon-name>'`.
 
 ## Examples
 
