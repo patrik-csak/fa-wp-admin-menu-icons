@@ -3,7 +3,7 @@
  * Plugin Name: Font Awesome Admin Menu Icons
  * Plugin URI:
  * Description:
- * Version: 0.1.0
+ * Version: 1.0.0
  * Author: Patrik Csak
  * Author URI: patrikcsak.com
  * License: GPL
