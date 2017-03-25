@@ -1,4 +1,4 @@
-=== Font Awesome WordPress Admin Menu Icons ===
+=== FA WP Admin Menu Icons ===
 Contributors: ptrkcsk
 Tags: fontawesome, icon, icons, custom
 Requires at least: 4.4
@@ -7,13 +7,13 @@ Stable tag: 1.0.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
-The simplest way to use Font Awesome icons for custom post types and admin menu pages.
+A super simple way to use Font Awesome icons for custom post types and custom admin menu pages.
 
 == Description ==
 
 Use `'fa-<icon-name>'` (i.e. `'fa-address-book'`) wherever you would use `'dashicons-<icon-name>'`.
 
-[Font Awesome Admin Menu Icons on GitHub](https://github.com/ptrkcsk/font-awesome-wordpress-admin-menu-icons)
+[FA WP Admin Menu Icons on GitHub](https://github.com/ptrkcsk/font-awesome-wordpress-admin-menu-icons)
 
 = Examples =
 
