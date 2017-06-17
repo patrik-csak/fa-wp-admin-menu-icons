@@ -3,7 +3,7 @@
  * Plugin Name: FA WP Admin Menu Icons
  * Plugin URI: https://github.com/ptrkcsk/font-awesome-wordpress-admin-menu-icons
  * Description:
- * Version: 1.0.2
+ * Version: 1.0.3
  * Author: Patrik Csak
  * Author URI: patrikcsak.com
  * License: GPL
