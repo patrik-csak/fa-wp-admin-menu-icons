@@ -1,6 +1,6 @@
 # FA WP Admin Menu Icons
 
-A super simple way to use Font Awesome icons for custom post types and custom admin menu pages.
+A simple way to use Font Awesome icons for custom post types and custom admin menu pages.
 
 ## Usage
 
@@ -30,7 +30,3 @@ add_menu_page(
 	'fa-<icon-name>',
 );
 ```
-
-## Caveats
-
-At the moment, this plugin relies on [Font-Awesome-SVG-PNG](https://github.com/encharm/Font-Awesome-SVG-PNG), which has not kept up with [Font Awesome](https://github.com/FortAwesome/Font-Awesome). Some icons may be out of date or missing.

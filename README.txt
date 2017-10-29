@@ -2,12 +2,12 @@
 Contributors: ptrkcsk
 Tags: fontawesome, icon, icons, custom
 Requires at least: 4.4
-Tested up to: 4.7.5
+Tested up to: 4.8.2
 Stable tag: 1.0.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
-A super simple way to use Font Awesome icons for custom post types and custom admin menu pages.
+A simple way to use Font Awesome icons for custom post types and custom admin menu pages.
 
 == Description ==
 
