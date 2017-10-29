@@ -62,11 +62,10 @@ function get_icon_path( $icon_name ) {
 function get_icon_svg_data_uri( $path ) {
 	$svg_contents = file_get_contents( $path );
 	$svg          = new \SimpleXMLElement( $svg_contents );
-	/**
-	 * Add necessary fill color to make SVG display properly
+	/*
+	 * Add necessary fill color to make SVG display properly.
 	 *
-	 * Using Yoast's fill color:
-	 * @see https://github.com/Yoast/wordpress-seo/blob/4.4/inc/class-wpseo-utils.php#L916
+	 * Using Yoast's fill color: https://github.com/Yoast/wordpress-seo/blob/4.4/inc/class-wpseo-utils.php#L916
 	 */
 	$svg->addAttribute( 'style', 'fill:#82878c' );
 
@@ -88,12 +87,12 @@ function post_type_font_awesome_icon( $args ) {
 		if ( file_exists( $icon_path ) ) {
 			$args['menu_icon'] = get_icon_svg_data_uri( $icon_path );
 		} else {
-			/**
+			/*
 			 * Couldn't find the icon, so there's nothing we can do. If we leave `menu_icon` as
 			 * 'fa-<icon>', WordPress will use an image for the icon with `src` set to 'http://fa-<icon>',
 			 * which we don't want.
 			 *
-			 * @see https://github.com/WordPress/WordPress/blob/4.7.3/wp-admin/menu.php#L106
+			 * https://github.com/WordPress/WordPress/blob/4.7.3/wp-admin/menu.php#L106
 			 */
 			unset( $args['menu_icon'] );
 		}
@@ -111,12 +110,12 @@ function menu_page_font_awesome_icon( $url ) {
 		if ( file_exists( $icon_path ) ) {
 			return get_icon_svg_data_uri( $icon_path );
 		} else {
-			/**
+			/*
 			 * Couldn't find the icon, so there's nothing we can do. Resetting the url to
 			 * `dashicons-admin-generic`, because that's what WP does if you don't pass an `icon_url`
-			 * parameter to {@see add_menu_page()}
+			 * parameter to `add_menu_page`
 			 *
-			 * @see https://github.com/WordPress/WordPress/blob/4.7.3/wp-admin/includes/plugin.php#L1087
+			 * https://github.com/WordPress/WordPress/blob/4.7.3/wp-admin/includes/plugin.php#L1087
 			 */
 			return 'dashicons-admin-generic';
 		}
