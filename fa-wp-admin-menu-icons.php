@@ -42,7 +42,7 @@ function get_icon_name( $fa_string ) {
 /**
  * Get the path to the icon
  *
- * @param string $icon_name Name of a Font Awesome icon (not prepended with 'fa-'
+ * @param string $icon_name Name of a Font Awesome icon (without 'fa-' prefix)
  *
  * @return string
  */
@@ -51,7 +51,8 @@ function get_icon_path( $icon_name ) {
 }
 
 /**
- * Base64 encode the SVG and prepend with necessary code to make it usable as a data URI
+ * Base64 encode the SVG and prepend with necessary code to make it usable as a
+ * data URI
  *
  * Also add fill color to the SVG
  *
@@ -65,7 +66,8 @@ function get_icon_svg_data_uri( $path ) {
 	/*
 	 * Add necessary fill color to make SVG display properly.
 	 *
-	 * Using Yoast's fill color: https://github.com/Yoast/wordpress-seo/blob/4.4/inc/class-wpseo-utils.php#L916
+	 * Using Yoast's fill color:
+	 * https://github.com/Yoast/wordpress-seo/blob/4.4/inc/class-wpseo-utils.php#L916
 	 */
 	$svg->addAttribute( 'style', 'fill:#82878c' );
 
@@ -81,16 +83,17 @@ function get_icon_svg_data_uri( $path ) {
  */
 function post_type_font_awesome_icon( $args ) {
 	// Does the `menu_icon` arg start with 'fa-'?
-	if ( isset( $args['menu_icon'] ) && strpos( $args['menu_icon'], 'fa-' ) === 0 ) {
+	if ( isset( $args['menu_icon'] ) &&
+	     strpos( $args['menu_icon'], 'fa-' ) === 0 ) {
 		$icon      = get_icon_name( $args['menu_icon'] );
 		$icon_path = get_icon_path( $icon );
 		if ( file_exists( $icon_path ) ) {
 			$args['menu_icon'] = get_icon_svg_data_uri( $icon_path );
 		} else {
 			/*
-			 * Couldn't find the icon, so there's nothing we can do. If we leave `menu_icon` as
-			 * 'fa-<icon>', WordPress will use an image for the icon with `src` set to 'http://fa-<icon>',
-			 * which we don't want.
+			 * Couldn't find the icon, so there's nothing we can do. If we leave
+			 * `menu_icon` as 'fa-<icon>', WordPress will use an image for the icon
+			 * with `src` set to 'http://fa-<icon>', which we don't want.
 			 *
 			 * https://github.com/WordPress/WordPress/blob/4.7.3/wp-admin/menu.php#L106
 			 */
@@ -101,7 +104,10 @@ function post_type_font_awesome_icon( $args ) {
 	return $args;
 }
 
-add_filter( 'register_post_type_args', __NAMESPACE__ . '\\post_type_font_awesome_icon' );
+add_filter(
+	'register_post_type_args',
+	__NAMESPACE__ . '\\post_type_font_awesome_icon'
+);
 
 function menu_page_font_awesome_icon( $url ) {
 	if ( strpos( $url, 'fa-' ) === 0 ) {
@@ -111,9 +117,9 @@ function menu_page_font_awesome_icon( $url ) {
 			return get_icon_svg_data_uri( $icon_path );
 		} else {
 			/*
-			 * Couldn't find the icon, so there's nothing we can do. Resetting the url to
-			 * `dashicons-admin-generic`, because that's what WP does if you don't pass an `icon_url`
-			 * parameter to `add_menu_page`
+			 * Couldn't find the icon, so there's nothing we can do. Resetting the url
+			 * to `dashicons-admin-generic`, because that's what WP does if you don't
+			 * pass an `icon_url` parameter to `add_menu_page`.
 			 *
 			 * https://github.com/WordPress/WordPress/blob/4.7.3/wp-admin/includes/plugin.php#L1087
 			 */
@@ -124,4 +130,7 @@ function menu_page_font_awesome_icon( $url ) {
 	}
 }
 
-add_filter( 'set_url_scheme', __NAMESPACE__ . '\\menu_page_font_awesome_icon' );
+add_filter(
+	'set_url_scheme',
+	__NAMESPACE__ . '\\menu_page_font_awesome_icon'
+);
