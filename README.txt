@@ -2,36 +2,86 @@
 Contributors: ptrkcsk
 Tags: fontawesome, icon, icons, custom
 Requires at least: 4.4
-Tested up to: 4.8.2
-Stable tag: 1.0.4
+Tested up to: 4.9.1
+Requires PHP: 5.5
+Stable tag: 2.0.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
-A simple way to use Font Awesome icons for custom post types and custom admin menu pages.
-
 == Description ==
 
-Use `'fa-<icon-name>'` (i.e. `'fa-address-book'`) wherever you would use `'dashicons-<icon-name>'`.
+Use Font Awesome icons in WP Admin by simply passing in the icon class.
 
-[FA WP Admin Menu Icons on GitHub](https://github.com/ptrkcsk/font-awesome-wordpress-admin-menu-icons)
+    register_post_type( 'custom_post_type', [
+        //...
+        'menu_icon' => 'fas fa-thumbs-up',
+        //...
+    ] );
 
-= Examples =
+== Installation ==
 
-**Use Font Awesome icon for custom post type:**
+= Composer =
 
-	register_post_type( 'custom_post_type', [
-		...
-		'menu_icon' => 'fa-<icon-name>',
-		...
-	] );
+    $ composer require wpackagist-plugin/fa-wp-admin-menu-icons
 
-**Use Font Awesome icon for custom menu page:**
+= Git =
 
-	add_menu_page(
-		'Custom Menu Page',
-		'Custom Menu Page',
-		'manage_options',
-		'custom_menu_page',
-		'',
-		'fa-<icon-name>',
-	);
+    $ cd <wp-content>/plugins
+    $ git clone git@github.com:ptrkcsk/fa-wp-admin-menu-icons.git
+
+= WordPress =
+
+[How to install WordPress plugins.](https://codex.wordpress.org/Managing_Plugins#Installing_Plugins)
+
+== Changelog ==
+
+= 2.0.0 =
+
+**Added**
+
+- Add unit tests
+
+**Changed**
+
+- Upgrade to Font Awesome 5 icons and class syntax
+- Use PSR instead of WordPress for code style
+
+**Deprecated**
+
+- Deprecate use of Font Awesome 4 class syntax
+
+= 1.0.4 =
+
+**Changed**
+
+- Format code
+
+**Removed**
+
+- Remove caveat from documentation because it no longer applies
+
+= 1.0.3 =
+
+**Added**
+
+- Add more icons
+
+= 1.0.2 =
+
+**Fixed**
+
+- Fix undefined index
+
+= 1.0.1 =
+
+**Fixed**
+
+- Add icons to `icons/`. The directory was empty on the WordPress plugin repository.
+
+= 1.0.0 =
+
+== Upgrade Notice ==
+
+= 2.0.0 =
+
+FA WP Admin Icons v2.0.0 supports Font Awesome 5!
