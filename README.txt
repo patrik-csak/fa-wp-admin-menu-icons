@@ -4,19 +4,49 @@ Tags: fontawesome, icon, icons, custom
 Requires at least: 4.4
 Tested up to: 4.9.1
 Requires PHP: 5.5
-Stable tag: 2.0.0
+Stable tag: 2.0.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
+Use Font Awesome icons for custom post types and custom menu pages.
+
 == Description ==
 
-Use Font Awesome icons in WP Admin by simply passing in the icon class.
+Use Font Awesome icons for custom post types and custom menu pages.
 
     register_post_type( 'custom_post_type', [
         //...
         'menu_icon' => 'fas fa-thumbs-up',
         //...
     ] );
+
+[FA WP Admin Menu Icons on GitHub](https://github.com/ptrkcsk/fa-wp-admin-menu-icons)
+
+== Usage ==
+
+FA WP Admin Menu Icons works for the following WordPress functions:
+
+- `register_post_type()`
+- `add_menu_page()`
+
+**Custom post type**
+
+    register_post_type( 'custom_post_type', [
+        //...
+        'menu_icon' => 'fas fa-thumbs-up',
+        //...
+    ] );
+
+**Custom menu page**
+
+    add_menu_page(
+        'Custom Menu Page',
+        'Custom Menu Page',
+        'manage_options',
+        'custom_menu_page',
+        '',
+        'fas fa-thumbs-up', // $icon_url
+    );
 
 == Installation ==
 
@@ -34,6 +64,17 @@ Use Font Awesome icons in WP Admin by simply passing in the icon class.
 [How to install WordPress plugins.](https://codex.wordpress.org/Managing_Plugins#Installing_Plugins)
 
 == Changelog ==
+
+= 2.0.1 =
+
+**Added**
+
+- Add CC BY 4.0 attribution in `icons/README.md` to adhere to [Font Awesome license](https://fontawesome.com/license)
+
+**Fixed**
+
+- Fix old syntax in readme examples
+- Add missing 'Usage' section to `README.txt`
 
 = 2.0.0 =
 

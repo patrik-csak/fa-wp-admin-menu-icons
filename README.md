@@ -2,7 +2,7 @@
 
 [![WordPress plugin rating](https://img.shields.io/wordpress/plugin/r/fa-wp-admin-menu-icons.svg)]() [![WordPress plugin](https://img.shields.io/wordpress/plugin/dt/fa-wp-admin-menu-icons.svg)]() [![WordPress](https://img.shields.io/wordpress/v/fa-wp-admin-menu-icons.svg)]()
 
-Use Font Awesome icons in WP Admin by simply passing in the icon class.
+Use Font Awesome icons for custom post types and custom menu pages.
 
 ```php
 register_post_type( 'custom_post_type', [
@@ -58,6 +58,6 @@ add_menu_page(
     'manage_options',
     'custom_menu_page',
     '',
-    'fa-<icon-name>', // $icon_url
+    'fas fa-thumbs-up', // $icon_url
 );
 ```
