@@ -7,11 +7,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased](https://github.com/ptrkcsk/fa-wp-admin-menu-icons/compare/v2.0.1...HEAD)
 
+### Added
+
+- Add links to changelog
+
 ### Changed
 
 - Instead of storing all icons in the plugin, get them remotely, as needed, and cache them in the database for future use
 
-## [2.0.1] - 2017-12-21
+## [2.0.1](https://github.com/ptrkcsk/fa-wp-admin-menu-icons/compare/v2.0.0...v2.0.1) - 2017-12-21
 
 ### Added
 
@@ -22,7 +26,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fix old syntax in readme examples
 - Add missing 'Usage' section to `README.txt`
 
-## [2.0.0] - 2017-12-20
+## [2.0.0](https://github.com/ptrkcsk/fa-wp-admin-menu-icons/compare/v1.0.4...v2.0.0) - 2017-12-20
 
 ### Added
 
@@ -37,7 +41,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Deprecate use of Font Awesome 4 class syntax
 
-## [1.0.4] - 2017-10-29
+## [1.0.4](https://github.com/ptrkcsk/fa-wp-admin-menu-icons/compare/v1.0.3...v1.0.4) - 2017-10-29
 
 ### Changed
 
@@ -47,22 +51,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Remove caveat from documentation because it no longer applies
 
-## [1.0.3] - 2017-06-17
+## [1.0.3](https://github.com/ptrkcsk/fa-wp-admin-menu-icons/compare/v1.0.2...v1.0.3) - 2017-06-17
 
 ### Added
 
 - Add more icons
 
-## [1.0.2] - 2017-06-16
+## [1.0.2](https://github.com/ptrkcsk/fa-wp-admin-menu-icons/compare/v1.0.1...v1.0.2) - 2017-06-16
 
 ### Fixed
 
 - Fix undefined index
 
-## [1.0.1] - 2017-06-16
+## [1.0.1](https://github.com/ptrkcsk/fa-wp-admin-menu-icons/compare/v1.0.0...v1.0.1) - 2017-06-16
 
 ### Fixed
 
 - Add icons to `icons/`. The directory was empty on the WordPress plugin repository.
 
-## [1.0.0] - 2017-03-25
+## 1.0.0 - 2017-03-25
