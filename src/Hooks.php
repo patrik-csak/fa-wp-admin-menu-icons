@@ -26,30 +26,31 @@ final class Hooks
         };
 
         if (isset($args['menu_icon'])) {
-            $iconName = $args['menu_icon'];
-            if (Fawpami::isFaClass($iconName)) {
-                $icon = new Icon($iconName);
+            $menuIcon = $args['menu_icon'];
+
+            if (Fawpami::isFaClass($menuIcon)) {
                 try {
+                    $icon = new Icon($menuIcon);
                     $args['menu_icon'] = $icon->svgDataUri();
                 } catch (Exception $exception) {
-                    Fawpami::adminNotice($exception->getMessage(), 'error');
+                    AdminNotices::add($exception->getMessage(), 'error');
                     $setErrorIcon();
                 }
-            } elseif (Fawpami::isFaClassDeprecated($iconName)) {
-                $faV5IconName   = Fawpami::faV5IconName(Fawpami::stripFaPrefix($iconName));
-                $faV5IconPrefix = Fawpami::faV5IconPrefix(Fawpami::stripFaPrefix($iconName));
-                $faV5IconClass  = "{$faV5IconPrefix} fa-{$faV5IconName}";
-                $faV5Icon       = new Icon($faV5IconClass);
+            } elseif (Fawpami::isFaClassV4($menuIcon)) {
+                $faV5IconClass = Fawpami::faV5Class($menuIcon);
+
                 try {
+                    $faV5Icon = new Icon($faV5IconClass);
                     $args['menu_icon'] = $faV5Icon->svgDataUri();
-                    Fawpami::adminNotice(
-                      "FA WP Admin Menu Icons now uses Font Awesome 5! Please replace <code>{$iconName}</code> with <code>{$faV5IconClass}</code>.",
-                      'warning'
+
+                    AdminNotices::add(
+                        "FA WP Admin Menu Icons now uses Font Awesome 5! Please replace <code>{$menuIcon}</code> with <code>{$faV5IconClass}</code>.",
+                        'warning'
                     );
                 } catch (Exception $exception) {
-                    Fawpami::adminNotice(
-                      "FA WP Admin Menu Icons now uses Font Awesome 5! Please use the new <a href='https://fontawesome.com/how-to-use/svg-with-js#styles-and-prefixes' target='_blank'>Font Awesome v5 class syntax</a>.",
-                      'error'
+                    AdminNotices::add(
+                        "FA WP Admin Menu Icons now uses Font Awesome 5! Please use the new <a href='https://fontawesome.com/how-to-use/svg-with-js#styles-and-prefixes' target='_blank'>Font Awesome v5 class syntax</a>.",
+                        'error'
                     );
                     $setErrorIcon();
                 }
@@ -78,29 +79,30 @@ final class Hooks
 
         if (Fawpami::isFaClass($url)) {
             $iconName = $url;
-            $icon     = new Icon($iconName);
+
             try {
+                $icon = new Icon($iconName);
                 return $icon->svgDataUri();
             } catch (Exception $exception) {
-                Fawpami::adminNotice($exception->getMessage(), 'error');
+                AdminNotices::add($exception->getMessage(), 'error');
                 $setErrorIcon();
             }
-        } elseif (Fawpami::isFaClassDeprecated($url)) {
-            $iconName       = $url;
-            $faV5IconName   = Fawpami::faV5IconName(Fawpami::stripFaPrefix($iconName));
-            $faV5IconPrefix = Fawpami::faV5IconPrefix(Fawpami::stripFaPrefix($iconName));
-            $faV5IconClass  = "{$faV5IconPrefix} fa-{$faV5IconName}";
-            $faV5Icon       = new Icon($faV5IconClass);
+        } elseif (Fawpami::isFaClassV4($url)) {
+            $iconName = $url;
+            $faV5IconClass = Fawpami::faV5Class($iconName);
+
             try {
+                $faV5Icon = new Icon($faV5IconClass);
                 $url = $faV5Icon->svgDataUri();
-                Fawpami::adminNotice(
-                  "FA WP Admin Menu Icons now uses Font Awesome 5! Please replace <code>{$iconName}</code> with <code>{$faV5IconClass}</code>.",
-                  'warning'
+
+                AdminNotices::add(
+                    "FA WP Admin Menu Icons now uses Font Awesome 5! Please replace <code>{$iconName}</code> with <code>{$faV5IconClass}</code>.",
+                    'warning'
                 );
             } catch (Exception $exception) {
-                Fawpami::adminNotice(
-                  "FA WP Admin Menu Icons now uses Font Awesome 5! Please use the new <a href='https://fontawesome.com/how-to-use/svg-with-js#styles-and-prefixes' target='_blank'>Font Awesome v5 class syntax</a>.",
-                  'error'
+                AdminNotices::add(
+                    "FA WP Admin Menu Icons now uses Font Awesome 5! Please use the new <a href='https://fontawesome.com/how-to-use/svg-with-js#styles-and-prefixes' target='_blank'>Font Awesome v5 class syntax</a>.",
+                    'error'
                 );
                 $setErrorIcon();
             }

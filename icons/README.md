@@ -1,1 +1,0 @@
-The [icons](https://fontawesome.com/icons?) in this directory were created by [Font Awesome](https://fontawesome.com/) and are licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).

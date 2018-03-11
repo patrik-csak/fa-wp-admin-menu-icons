@@ -11,7 +11,10 @@ final class Icon
     private $icon;
 
     /** @var string */
-    private $iconPath;
+    private $iconUrl;
+
+    /** @var string */
+    private $optionName;
 
     /**
      * @param string $faClass Font Awesome class, i.e. `'fas fa-camera-retro'`
@@ -20,21 +23,30 @@ final class Icon
      */
     public function __construct($faClass)
     {
-        if ( ! Fawpami::isFaClass($faClass)) {
-            throw new Exception("'${faClass}' is not a valid Font Awesome class. See Fawpami\Fawpami::isFaClass for more information.");
+        if (!Fawpami::isFaClass($faClass)) {
+            throw new Exception(
+                "'{$faClass}' is not a valid Font Awesome class. See Fawpami\Fawpami::isFaClass() for more information."
+            );
         }
 
-        preg_match('/^fa([bsr])\s+fa-([\w-]+)$/', $faClass, $matches);
+        preg_match(
+            '/^fa(?<style>[bsr])\s+fa-(?<icon>[\w-]+)$/',
+            $faClass,
+            $matches
+        );
 
-        $this->icon = $matches[2];
-        if ($matches[1] === 'b') {
+        $this->icon = $matches['icon'];
+        if ($matches['style'] === 'b') {
             $style = 'brands';
-        } elseif ($matches[1] === 's') {
+        } elseif ($matches['style'] === 's') {
             $style = 'solid';
-        } elseif ($matches[1] === 'r') {
+        } elseif ($matches['style'] === 'r') {
             $style = 'regular';
         }
-        $this->iconPath = __DIR__ . "/../icons/{$style}/{$this->icon}.svg";
+        $this->iconUrl = "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/5.0.8/advanced-options/raw-svg/{$style}/{$this->icon}.svg";
+        $this->optionName = 'fawpami_icon_'
+            . str_replace('-', '_', $this->icon)
+            . "_{$style}";
     }
 
     /**
@@ -43,20 +55,33 @@ final class Icon
      */
     public function svgDataUri()
     {
-        $iconPath = $this->iconPath;
-        $iconFile = @file_get_contents($iconPath);
-
-        if ( ! $iconFile) {
-            throw new Exception("The icon <code>'{$this->icon}'</code> could not be found at <code>${iconPath}</code>.");
+        if ($cached = \get_option($this->optionName)) {
+            return $cached;
         }
+
+        $response = \wp_remote_get($this->iconUrl);
+
+        if (\is_wp_error($response)) {
+            throw new Exception($response->get_error_message());
+        }
+
+        if (($code = \wp_remote_retrieve_response_code($response)) !== 200) {
+            throw new Exception(
+                "HTTP request to <code>{$this->iconUrl}</code> failed with code <code>{$code}</code>"
+            );
+        }
+
+        $svg = new \SimpleXMLElement($response['body']);
 
         /*
          * Add black fill, as recommended by WordPres:
          * https://codex.wordpress.org/Function_Reference/register_post_type#menu_icon
          */
-        $svg = new \SimpleXMLElement($iconFile);
         $svg->addAttribute('style', 'fill:black');
+        $svgDataUri = 'data:image/svg+xml;base64,'
+            . base64_encode($svg->asXML());
+        \add_option($this->optionName, $svgDataUri);
 
-        return 'data:image/svg+xml;base64,' . base64_encode($svg->asXML());
+        return $svgDataUri;
     }
 }
