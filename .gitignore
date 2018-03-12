@@ -2,4 +2,6 @@
 /vendor/
 /tests/coverage/
 
+cc-test-reporter
+clover.xml
 composer.phar

@@ -1,17 +1,40 @@
-.PHONY: clean test testCoverage
+.PHONY: ccReportCoverage clean test testCoverageHtml
 
 composer = php composer.phar
+linux = Linux
 macOs = Darwin
 os = $(shell uname)
 phpunit = vendor/bin/phpunit
 
 all:
-	@echo '`make test` to run tests'
-	@echo '`make testCoverage` to run tests and generate coverage report'
+	$(info Usage:)
+	$(info `make ccReportCoverage` to send test coverage report to Code Climate)
+	$(info `make test` to run tests)
+	$(info `make testCoverageHtml` to run tests and generate coverage report (and open the report if on macOs))
+
+ccReportCoverage: cc-test-reporter
+	@./cc-test-reporter before-build
+	@make clover.xml
+	@./cc-test-reporter after-build --coverage-input-type clover
+
+cc-test-reporter:
+ifeq ($(os), $(linux))
+	@curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+else ifeq ($(os), $(macOs))
+	@curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-darwin-amd64 > ./cc-test-reporter
+else
+	$(error Operating system '$(os)' not supported)
+endif
+	@chmod +x ./cc-test-reporter
 
 clean:
+	rm -f cc-test-reporter
+	rm -f clover.xml
 	rm -f composer.phar
 	rm -rf vendor
+
+clover.xml: vendor
+	@$(phpunit) --coverage-clover clover.xml
 
 composer.phar:
 	@php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
@@ -22,13 +45,12 @@ composer.phar:
 test: vendor
 	@$(phpunit)
 
-testCoverage: vendor
+testCoverageHtml: vendor
 	-@$(phpunit) --coverage-html tests/coverage
 	@#  Open coverage report in the browser
-	@ \
-	if [ $(os) == $(macOs) ]; \
-		then open tests/coverage/index.html; \
-	fi
+ifeq ($(os), $(macOs))
+	open tests/coverage/index.html;
+endif
 
 vendor: composer.phar
 	@$(composer) install
