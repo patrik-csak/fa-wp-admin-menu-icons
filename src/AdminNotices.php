@@ -18,16 +18,21 @@ final class AdminNotices
         ];
     }
 
+    public static function clear()
+    {
+        self::$notices = [];
+    }
+
     public static function html()
     {
         $class = 'notice';
         $pluginName = Fawpami::pluginName();
 
         foreach (self::$notices as $notice) {
-            if (
-            in_array($notice['style'], ['error', 'info', 'success', 'warning'])
-            ) {
-                $class .= " notice-{$notice['style']}";
+            $style = $notice['style'];
+
+            if (in_array($style, ['error', 'info', 'success', 'warning'])) {
+                $class .= " notice-{$style}";
             }
             echo <<< HTML
 <div class='{$class}'>

@@ -17,6 +17,7 @@ class FawpamiTest extends TestCase
     {
         parent::tearDown();
         \WP_Mock::tearDown();
+        AdminNotices::clear();
     }
 
     public function testAddHooks()
@@ -37,6 +38,21 @@ class FawpamiTest extends TestCase
         Fawpami::addHooks();
 
         $this->assertTrue(true);
+    }
+
+    public function testAddV4SyntaxNoticeWithV4Syntax()
+    {
+        WP_Mock::userFunction(
+            'get_plugin_data',
+            ['return' => ['Name' => 'FA WP Admin Menu Icons']]
+        );
+
+        $this->expectOutputRegex(
+            "#<div class='notice notice-warning'>.*?</div>#s"
+        );
+
+        Fawpami::addV4SyntaxWarning('fa-camera-retro');
+        AdminNotices::html();
     }
 
     public function testIsFaClassWithSolidIcon()

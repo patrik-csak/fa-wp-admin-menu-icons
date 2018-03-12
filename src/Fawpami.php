@@ -18,6 +18,22 @@ final class Fawpami
     }
 
     /**
+     * @param string $class
+     *
+     * @return void
+     */
+    public static function addV4SyntaxWarning($class)
+    {
+        if (self::isFaClassV4($class)) {
+            $v5Class = self::faV5Class($class);
+            AdminNotices::add(
+                "FA WP Admin Menu Icons now uses Font Awesome 5! Please replace <code>{$class}</code> with <code>{$v5Class}</code>.",
+                'warning'
+            );
+        }
+    }
+
+    /**
      * Test whether a string is a valid Font Awesome class.
      *
      * For Font Awesome v5, the class should look like this:
