@@ -11,10 +11,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Add links to changelog
 - Add links to readme badges
+- Integrate Code Climate test coverage
 
 ### Changed
 
 - Instead of storing all icons in the plugin, get them remotely, as needed, and cache them in the database for future use
+- Make hooks code DRYer
 
 ## [2.0.1](https://github.com/ptrkcsk/fa-wp-admin-menu-icons/compare/v2.0.0...v2.0.1) - 2017-12-21
 
