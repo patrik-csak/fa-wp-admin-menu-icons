@@ -45,6 +45,7 @@ composer.phar:
 test: vendor
 	@$(phpunit)
 
+# Xdebug must be enabled to generate coverage report
 testCoverageHtml: vendor
 	-@$(phpunit) --coverage-html tests/coverage
 	@#  Open coverage report in the browser
