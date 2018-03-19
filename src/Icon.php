@@ -3,13 +3,9 @@
 namespace Fawpami;
 
 require_once 'Exception.php';
-require_once 'Fawpami.php';
 
-final class Icon
+class Icon
 {
-    /** @var string */
-    private $icon;
-
     /** @var string */
     private $iconUrl;
 
@@ -18,12 +14,13 @@ final class Icon
 
     /**
      * @param string $faClass Font Awesome class, i.e. `'fas fa-camera-retro'`
+     * @param Fawpami $fawpami
      *
      * @throws Exception
      */
-    public function __construct($faClass)
+    public function __construct($faClass, $fawpami)
     {
-        if (!Fawpami::isFaClass($faClass)) {
+        if (!$fawpami->isFaClass($faClass)) {
             throw new Exception(
                 "'{$faClass}' is not a valid Font Awesome class. See Fawpami\Fawpami::isFaClass() for more information."
             );
@@ -35,7 +32,7 @@ final class Icon
             $matches
         );
 
-        $this->icon = $matches['icon'];
+        $icon = $matches['icon'];
         if ($matches['style'] === 'b') {
             $style = 'brands';
         } elseif ($matches['style'] === 's') {
@@ -43,9 +40,9 @@ final class Icon
         } elseif ($matches['style'] === 'r') {
             $style = 'regular';
         }
-        $this->iconUrl = "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/5.0.8/advanced-options/raw-svg/{$style}/{$this->icon}.svg";
+        $this->iconUrl = "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/5.0.8/advanced-options/raw-svg/{$style}/{$icon}.svg";
         $this->optionName = 'fawpami_icon_'
-            . str_replace('-', '_', $this->icon)
+            . str_replace('-', '_', $icon)
             . "_{$style}";
     }
 

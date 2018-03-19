@@ -2,33 +2,33 @@
 
 namespace Fawpami;
 
-final class AdminNotices
+class AdminNotices
 {
-    private static $notices = [];
+    /** @var array */
+    private $notices = [];
 
     /**
      * @param string $message
      * @param string $style 'error', 'info', 'success', 'warning', or ''
+     *
+     * @return void
      */
-    public static function add($message, $style = '')
+    public function add($message, $style = '')
     {
-        self::$notices[] = [
+        $this->notices[] = [
             'message' => $message,
             'style' => $style
         ];
     }
 
-    public static function clear()
-    {
-        self::$notices = [];
-    }
-
-    public static function html()
+    /**
+     * @param string $pluginName
+     */
+    public function html($pluginName)
     {
         $class = 'notice';
-        $pluginName = Fawpami::pluginName();
 
-        foreach (self::$notices as $notice) {
+        foreach ($this->notices as $notice) {
             $style = $notice['style'];
 
             if (in_array($style, ['error', 'info', 'success', 'warning'])) {

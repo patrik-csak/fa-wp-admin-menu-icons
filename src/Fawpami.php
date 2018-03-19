@@ -5,16 +5,31 @@ namespace Fawpami;
 require_once 'AdminNotices.php';
 require_once 'Hooks.php';
 
-final class Fawpami
+class Fawpami
 {
-    public static function addHooks()
+    /** @var AdminNotices */
+    public $adminNotices;
+
+    /**
+     * @param AdminNotices $adminNotices
+     */
+    public function __construct($adminNotices)
     {
-        add_action('admin_notices', [AdminNotices::class, 'html']);
-        add_filter(
-            'register_post_type_args',
-            [Hooks::class, 'filterRegisterPostTypeArgs']
-        );
-        add_filter('set_url_scheme', [Hooks::class, 'filterSetUrlScheme']);
+        $this->adminNotices = $adminNotices;
+    }
+
+    public function addHooks()
+    {
+        $hooks = new Hooks($this);
+        add_action('admin_notices', function () {
+            $this->adminNotices->html($this->pluginName());
+        });
+        add_filter('register_post_type_args', function ($args) use ($hooks) {
+            return $hooks->filterRegisterPostTypeArgs($args);
+        });
+        add_filter('set_url_scheme', function ($url) use ($hooks) {
+            return $hooks->filterSetUrlScheme($url);
+        });
     }
 
     /**
@@ -22,11 +37,11 @@ final class Fawpami
      *
      * @return void
      */
-    public static function addV4SyntaxWarning($class)
+    public function addV4SyntaxWarning($class)
     {
-        if (self::isFaClassV4($class)) {
-            $v5Class = self::faV5Class($class);
-            AdminNotices::add(
+        if ($this->isFaClassV4($class)) {
+            $v5Class = $this->faV5Class($class);
+            $this->adminNotices->add(
                 "FA WP Admin Menu Icons now uses Font Awesome 5! Please replace <code>{$class}</code> with <code>{$v5Class}</code>.",
                 'warning'
             );
@@ -34,7 +49,7 @@ final class Fawpami
     }
 
     /**
-     * Test whether a string is a valid Font Awesome class.
+     * Test whether a string is a valid Font Awesome v5 class.
      *
      * For Font Awesome v5, the class should look like this:
      * `[fas|far|fab] fa-<icon>`, for example: `fas fa-camera-retro`. See
@@ -49,9 +64,9 @@ final class Fawpami
      *
      * @return bool
      */
-    public static function isFaClass($string)
+    public function isFaClass($string)
     {
-        return !!preg_match('/^fa[bsr]\s+fa-[\w-]+$/', $string);
+        return (bool)preg_match('/^fa[bsr]\s+fa-[\w-]+$/', $string);
     }
 
     /**
@@ -62,12 +77,12 @@ final class Fawpami
      *
      * @return bool
      */
-    public static function isFaClassV4($string)
+    public function isFaClassV4($string)
     {
         return strpos($string, 'fa-') === 0;
     }
 
-    public static function pluginName()
+    public function pluginName()
     {
         return \get_plugin_data(
             __DIR__ . '/../fa-wp-admin-menu-icons.php'
@@ -77,7 +92,7 @@ final class Fawpami
     /**
      * @return array
      */
-    public static function shims()
+    public function shims()
     {
         $shims = json_decode(file_get_contents(__DIR__ . '/fa-shims.json'));
 
@@ -100,15 +115,15 @@ final class Fawpami
      *
      * @return string|false
      */
-    public static function faV5Class($faV4Class)
+    public function faV5Class($faV4Class)
     {
-        if (self::isFaClass($faV4Class)) {
+        if ($this->isFaClass($faV4Class)) {
             return $faV4Class;
         }
-        if (self::isFaClassV4($faV4Class)) {
-            $iconName = self::stripFaPrefix($faV4Class);
-            $v5IconName = self::faV5IconName($iconName);
-            $prefix = self::faV5IconPrefix($iconName);
+        if ($this->isFaClassV4($faV4Class)) {
+            $iconName = $this->stripFaPrefix($faV4Class);
+            $v5IconName = $this->faV5IconName($iconName);
+            $prefix = $this->faV5IconPrefix($iconName);
 
             return "{$prefix} fa-{$v5IconName}";
         }
@@ -124,12 +139,13 @@ final class Fawpami
      * @return string The Font Awesome v5 icon name, if found, else the original
      *                name.
      */
-    public static function faV5IconName($faV4IconName)
+    public function faV5IconName($faV4IconName)
     {
-        $shims = self::shims();
-        foreach ($shims as $shim) {
-            if ($shim['v4Name'] === $faV4IconName) {
-                return $shim['v5Name'];
+        if ($shims = $this->shims()) {
+            foreach ($shims as $shim) {
+                if ($shim['v4Name'] === $faV4IconName) {
+                    return $shim['v5Name'];
+                }
             }
         }
 
@@ -143,19 +159,20 @@ final class Fawpami
      *
      * @return string The Font Awesome v5 icon prefix, if found, else `'fas'`.
      */
-    public static function faV5IconPrefix($faV4IconName)
+    public function faV5IconPrefix($faV4IconName)
     {
-        $shims = self::shims();
-        foreach ($shims as $shim) {
-            if ($shim['v4Name'] === $faV4IconName) {
-                return $shim['v5Prefix'];
+        if ($shims = $this->shims()) {
+            foreach ($shims as $shim) {
+                if ($shim['v4Name'] === $faV4IconName) {
+                    return $shim['v5Prefix'];
+                }
             }
         }
 
         return 'fas';
     }
 
-    public static function stripFaPrefix($string)
+    public function stripFaPrefix($string)
     {
         return strpos($string, 'fa-') === 0 ? substr($string, 3) : $string;
     }

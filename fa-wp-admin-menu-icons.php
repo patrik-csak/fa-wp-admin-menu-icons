@@ -28,5 +28,8 @@ if (!defined('WPINC')) {
 
 if (is_admin()) {
     require_once 'src/Fawpami.php';
-    Fawpami::addHooks();
+
+    $adminNotices = new AdminNotices();
+    $fawpami = new Fawpami($adminNotices);
+    $fawpami->addHooks();
 }

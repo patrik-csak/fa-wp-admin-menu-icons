@@ -1,33 +1,19 @@
 <?php
 
 use Fawpami\AdminNotices;
-use Fawpami\Fawpami;
 use PHPUnit\Framework\TestCase;
+
+require_once __DIR__ . '/../src/AdminNotices.php';
 
 class AdminNoticesTest extends TestCase
 {
-    public function setUp()
+    public function testAdminNotices()
     {
-        parent::setUp();
-        WP_Mock::setUp();
-    }
-
-    public function tearDown()
-    {
-        parent::tearDown();
-        WP_Mock::tearDown();
-    }
-
-    public function testHtml()
-    {
-        WP_Mock::userFunction('get_plugin_data', [
-            'return' => ['Name' => 'FA WP Admin Menu Icons']
-        ]);
-
         $message = 'Test';
-        $pluginName = Fawpami::pluginName();
+        $pluginName = 'FA WP Admin Menu Icons';
+        $adminNotices = new AdminNotices();
 
-        AdminNotices::add($message, 'info');
+        $adminNotices->add($message, 'info');
 
         $this->expectOutputString(<<< HTML
 <div class='notice notice-info'>
@@ -36,6 +22,6 @@ class AdminNoticesTest extends TestCase
 HTML
         );
 
-        AdminNotices::html();
+        $adminNotices->html($pluginName);
     }
 }
