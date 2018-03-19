@@ -3,6 +3,7 @@
 use Fawpami\AdminNotices;
 use Fawpami\Fawpami;
 use Fawpami\Hooks;
+use Fawpami\Scripts;
 use PHPUnit\Framework\TestCase;
 
 require_once __DIR__ . '/../src/Fawpami.php';
@@ -22,14 +23,16 @@ class HooksTest extends TestCase
     {
         parent::tearDown();
         \WP_Mock::tearDown();
+        unset($GLOBALS['admin_page_hooks']);
     }
 
     public function testFilterRegisterPostTypeArgsWithoutMenuIcon()
     {
         $fawpami = new Fawpami(new AdminNotices());
-        $hooks = new Hooks($fawpami);
+        $scripts = new Scripts();
+        $hooks = new Hooks($fawpami, $scripts);
 
-        $this->assertEquals([], $hooks->filterRegisterPostTypeArgs([]));
+        $this->assertEquals([], $hooks->filterRegisterPostTypeArgs([], ''));
     }
 
     public function testFilterRegisterPostTypeArgsWithInvalidMenuIcon()
@@ -62,11 +65,15 @@ class HooksTest extends TestCase
         $fawpami->shouldReceive('isFaClass')->andReturn(true);
         $fawpami->shouldReceive('isFaClassV4')->andReturn(false);
 
-        $hooks = new Hooks($fawpami);
+        $scripts = \Mockery::mock('Fawpami\Scripts');
+        $scripts->shouldReceive('registerPostType');
 
-        $args = $hooks->filterRegisterPostTypeArgs([
-            'menu_icon' => 'fas fa-emosewa'
-        ]);
+        $hooks = new Hooks($fawpami, $scripts);
+
+        $args = $hooks->filterRegisterPostTypeArgs(
+            ['menu_icon' => 'fas fa-emosewa'],
+            ''
+        );
 
         $this->assertStringStartsWith(
             $this->svgDataUriPrefix,
@@ -88,8 +95,14 @@ class HooksTest extends TestCase
         $fawpami->shouldReceive('isFaClass')->andReturn(true);
         $fawpami->shouldReceive('isFaClassV4')->andReturn(false);
 
-        $args = (new Hooks($fawpami))->filterRegisterPostTypeArgs(
-            ['menu_icon' => 'fas fa-camera-retro']
+        $scripts = \Mockery::mock('Fawpami\Scripts');
+        $scripts->shouldReceive('registerPostType');
+
+        $hooks = new Hooks($fawpami, $scripts);
+
+        $args = $hooks->filterRegisterPostTypeArgs(
+            ['menu_icon' => 'fas fa-camera-retro'],
+            ''
         );
 
         $this->assertStringStartsWith(
@@ -114,9 +127,14 @@ class HooksTest extends TestCase
         $fawpami->shouldReceive('isFaClass')->andReturn(false, true);
         $fawpami->shouldReceive('isFaClassV4')->andReturn(true, false);
 
-        $hooks = new Hooks($fawpami);
+        $scripts = \Mockery::mock('Fawpami\Scripts');
+        $scripts->shouldReceive('registerPostType');
+
+        $hooks = new Hooks($fawpami, $scripts);
+
         $args = $hooks->filterRegisterPostTypeArgs(
-            ['menu_icon' => 'fa-address-book']
+            ['menu_icon' => 'fa-address-book'],
+            ''
         );
 
         $this->assertStringStartsWith(
@@ -128,10 +146,16 @@ class HooksTest extends TestCase
     public function testFilterSetUrlSchemeWithoutIcon()
     {
         $adminNotices = new AdminNotices();
+
         $fawpami = Mockery::mock('Fawpami\Fawpami', [$adminNotices]);
         $fawpami->shouldReceive('isFaClass')->andReturn(false);
         $fawpami->shouldReceive('isFaClassV4')->andReturn(false);
-        $hooks = new Hooks($fawpami);
+
+        $scripts = Mockery::mock('Fawpami\Scripts');
+        $scripts->shouldReceive('registerMenuPage');
+
+        $hooks = new Hooks($fawpami, $scripts);
+
         $url = 'http://www.example.com';
 
         $this->assertEquals($url, $hooks->filterSetUrlScheme($url));
@@ -139,6 +163,8 @@ class HooksTest extends TestCase
 
     public function testFilterSetUrlSchemeWithInvalidMenuIcon()
     {
+        $GLOBALS['admin_page_hooks'] = ['a' => 'a'];
+
         \WP_Mock::userFunction(
             'get_option',
             [
@@ -159,13 +185,18 @@ class HooksTest extends TestCase
 
         $adminNotices = \Mockery::mock('Fawpami\AdminNotices');
         $adminNotices->shouldReceive('add');
+
         $fawpami = \Mockery::mock('Fawpami\Fawpami', [$adminNotices]);
         $fawpami
             ->shouldReceive('faV5Class')
             ->andReturn('fas fa-glass-martini');
         $fawpami->shouldReceive('isFaClass')->andReturn(true);
         $fawpami->shouldReceive('isFaClassV4')->andReturn(false);
-        $hooks = new Hooks($fawpami);
+
+        $scripts = Mockery::mock('Fawpami\Scripts');
+        $scripts->shouldReceive('registerMenuPage');
+
+        $hooks = new Hooks($fawpami, $scripts);
 
         $this->assertStringStartsWith(
             $this->svgDataUriPrefix,
@@ -175,16 +206,23 @@ class HooksTest extends TestCase
 
     public function testFilterSetUrlSchemeWithValidMenuIcon()
     {
+        $GLOBALS['admin_page_hooks'] = ['a' => 'a'];
+
         \WP_Mock::userFunction(
             'get_option',
             ['return' => $this->svgDataUriPrefix]
         );
 
         $adminNotices = new AdminNotices();
+
         $fawpami = Mockery::mock('Fawpami\Fawpami', [$adminNotices]);
         $fawpami->shouldReceive('isFaClass')->andReturn(true);
         $fawpami->shouldReceive('isFaClassV4')->andReturn(false);
-        $hooks = new Hooks($fawpami);
+
+        $scripts = Mockery::mock('Fawpami\Scripts');
+        $scripts->shouldReceive('registerMenuPage');
+
+        $hooks = new Hooks($fawpami, $scripts);
 
         $this->assertStringStartsWith(
             $this->svgDataUriPrefix,
@@ -194,12 +232,15 @@ class HooksTest extends TestCase
 
     public function testFilterSetUrlSchemeWithValidFaV4MenuIcon()
     {
+        $GLOBALS['admin_page_hooks'] = ['a' => 'a'];
+
         \WP_Mock::userFunction(
             'get_option',
             ['return' => $this->svgDataUriPrefix]
         );
 
         $adminNotices = new AdminNotices();
+
         $fawpami = Mockery::mock('Fawpami\Fawpami', [$adminNotices]);
         $fawpami->shouldReceive('addV4SyntaxWarning');
         $fawpami
@@ -207,7 +248,11 @@ class HooksTest extends TestCase
             ->andReturn('fas fa-glass-martini');
         $fawpami->shouldReceive('isFaClass')->andReturn(true);
         $fawpami->shouldReceive('isFaClassV4')->andReturn(true);
-        $hooks = new Hooks($fawpami);
+
+        $scripts = Mockery::mock();
+        $scripts->shouldReceive('registerMenuPage');
+
+        $hooks = new Hooks($fawpami, $scripts);
 
         $this->assertStringStartsWith(
             $this->svgDataUriPrefix,

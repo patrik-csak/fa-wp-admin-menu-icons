@@ -3,28 +3,35 @@
 namespace Fawpami;
 
 require_once 'Icon.php';
+require_once 'Scripts.php';
 
 class Hooks
 {
     /** @var Fawpami */
     private $fawpami;
 
+    /** @var Scripts */
+    private $scripts;
+
     /**
      * @param Fawpami $fawpami
+     * @param Scripts $scripts
      */
-    public function __construct($fawpami)
+    public function __construct($fawpami, $scripts)
     {
         $this->fawpami = $fawpami;
+        $this->scripts = $scripts;
     }
 
     /**
      * Replace Font Awesome class string with icon SVG data URI
      *
      * @param array $args
+     * @param string $name
      *
      * @return array
      */
-    public function filterRegisterPostTypeArgs($args)
+    public function filterRegisterPostTypeArgs($args, $name)
     {
         if (isset($args['menu_icon'])) {
             $menuIcon = $args['menu_icon'];
@@ -32,6 +39,8 @@ class Hooks
             $isFaClassV4 = $this->fawpami->isFaClassV4($menuIcon);
 
             if ($isFaClass || $isFaClassV4) {
+                $this->scripts->registerPostType($name);
+
                 if ($isFaClassV4) {
                     $this->fawpami->addV4SyntaxWarning($menuIcon);
                     $menuIcon = $this->fawpami->faV5Class($menuIcon);
@@ -76,7 +85,14 @@ class Hooks
         $isFaClassV4 = $this->fawpami->isFaClassV4($url);
 
         if ($isFaClass || $isFaClassV4) {
+            global $admin_page_hooks;
+            $pages = $admin_page_hooks;
             $menuIcon = $url;
+
+            // The most recently registered menu page should be this one
+            end($pages);
+            $this->scripts->registerMenuPage(key($pages));
+
             if ($isFaClassV4) {
                 $this->fawpami->addV4SyntaxWarning($menuIcon);
                 $menuIcon = $this->fawpami->faV5Class($menuIcon);

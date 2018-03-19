@@ -2,6 +2,7 @@
 
 use Fawpami\AdminNotices;
 use Fawpami\Fawpami;
+use Fawpami\Hooks;
 use PHPUnit\Framework\TestCase;
 
 require_once __DIR__ . '/../src/Fawpami.php';

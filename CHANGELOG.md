@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Instead of storing all icons in the plugin, get them remotely, as needed, and cache them in the database for future use
 - Make hooks code DRYer
 - Stop using static methods, to make testing easier
+- Make icons smaller so they look better next to Dashicons
 
 ## [2.0.1](https://github.com/ptrkcsk/fa-wp-admin-menu-icons/compare/v2.0.0...v2.0.1) - 2017-12-21
 

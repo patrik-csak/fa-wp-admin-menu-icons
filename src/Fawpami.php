@@ -4,6 +4,7 @@ namespace Fawpami;
 
 require_once 'AdminNotices.php';
 require_once 'Hooks.php';
+require_once 'Styles.php';
 
 class Fawpami
 {
@@ -20,13 +21,26 @@ class Fawpami
 
     public function addHooks()
     {
-        $hooks = new Hooks($this);
+        $scripts = new Scripts();
+        $hooks = new Hooks($this, $scripts);
+
         add_action('admin_notices', function () {
             $this->adminNotices->html($this->pluginName());
         });
-        add_filter('register_post_type_args', function ($args) use ($hooks) {
-            return $hooks->filterRegisterPostTypeArgs($args);
+        add_action('admin_print_footer_scripts', function () use ($scripts) {
+            $scripts->printScripts();
         });
+        add_action('init', function () {
+            (new Styles())->add();
+        });
+        add_filter(
+            'register_post_type_args',
+            function ($args, $name) use ($hooks) {
+                return $hooks->filterRegisterPostTypeArgs($args, $name);
+            },
+            10,
+            2
+        );
         add_filter('set_url_scheme', function ($url) use ($hooks) {
             return $hooks->filterSetUrlScheme($url);
         });
