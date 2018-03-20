@@ -65,6 +65,22 @@ FA WP Admin Menu Icons works for the following WordPress functions:
 
 == Changelog ==
 
+= 2.1.0 =
+
+**Added**
+
+- Add links to changelog
+- Add links to readme badges
+- Integrate Travis and Code Climate test coverage
+
+**Changed**
+
+- Instead of storing all icons in the plugin, get them remotely, as needed, and cache them in the database for future use
+- Make hooks code DRYer
+- Stop using static methods, to make testing easier
+- Make icons smaller so they look better next to Dashicons
+- Update Font Awesome shims
+
 = 2.0.1 =
 
 **Added**
