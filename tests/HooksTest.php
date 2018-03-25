@@ -13,13 +13,13 @@ class HooksTest extends TestCase
     /** @var string */
     private $svgDataUriPrefix = 'data:image/svg+xml;base64,';
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
         \WP_Mock::setUp();
     }
 
-    public function tearDown()
+    protected function tearDown()
     {
         parent::tearDown();
         \WP_Mock::tearDown();

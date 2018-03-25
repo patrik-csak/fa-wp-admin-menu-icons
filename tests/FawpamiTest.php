@@ -9,7 +9,7 @@ require_once __DIR__ . '/../src/Fawpami.php';
 
 class FawpamiTest extends TestCase
 {
-    public function tearDown()
+    protected function tearDown()
     {
         parent::tearDown();
         Mockery::close();

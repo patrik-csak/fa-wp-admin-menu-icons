@@ -11,13 +11,13 @@ require_once __DIR__ . '/../src/Icon.php';
 
 class IconTest extends TestCase
 {
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
         \WP_Mock::setUp();
     }
 
-    public function tearDown()
+    protected function tearDown()
     {
         parent::tearDown();
         \WP_Mock::tearDown();
