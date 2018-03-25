@@ -22,7 +22,7 @@ class Icon
     {
         if (!$fawpami->isFaClass($faClass)) {
             throw new Exception(
-                "'{$faClass}' is not a valid Font Awesome class. See Fawpami\Fawpami::isFaClass() for more information."
+                "'{$faClass}' is not a valid Font Awesome class"
             );
         }
 
@@ -33,6 +33,7 @@ class Icon
         );
 
         $icon = $matches['icon'];
+
         if ($matches['style'] === 'b') {
             $style = 'brands';
         } elseif ($matches['style'] === 's') {
@@ -64,7 +65,8 @@ class Icon
 
         if (($code = \wp_remote_retrieve_response_code($response)) !== 200) {
             throw new Exception(
-                "HTTP request to <code>{$this->iconUrl}</code> failed with code <code>{$code}</code>"
+                "HTTP request to <code>{$this->iconUrl}</code> failed with " .
+                "code <code>{$code}</code>"
             );
         }
 

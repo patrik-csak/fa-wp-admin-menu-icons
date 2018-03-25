@@ -16,7 +16,7 @@ class Scripts
      */
     private function iconStyle($class)
     {
-        return <<< JS
+        return <<<JS
 document
     .querySelectorAll('.{$class} .svg')[0]
     .classList
@@ -50,7 +50,7 @@ JS;
                 return $this->iconStyle("menu-icon-{$post}");
             }, $this->postTypes));
 
-            echo <<< HTML
+            echo <<<HTML
 <!-- FA WP Admin Menu Icons icon styles -->
 <script>
 (function (){

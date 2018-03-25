@@ -23,23 +23,18 @@ class Fawpami
     {
         $scripts = new Scripts();
         $hooks = new Hooks($this, $scripts);
+        $styles = new Styles();
 
         add_action('admin_notices', function () {
             $this->adminNotices->html($this->pluginName());
         });
-        add_action('admin_print_footer_scripts', function () use ($scripts) {
-            $scripts->printScripts();
-        });
-        add_action('init', function () {
-            (new Styles())->add();
-        });
+        add_action('admin_print_footer_scripts', [$scripts, 'printScripts']);
+        add_action('init', [$styles, 'add']);
         add_filter(
             'register_post_type_args',
             function ($args, $name) use ($hooks) {
                 return $hooks->filterRegisterPostTypeArgs($args, $name);
-            },
-            10,
-            2
+            }, 10, 2
         );
         add_filter('set_url_scheme', function ($url) use ($hooks) {
             return $hooks->filterSetUrlScheme($url);
@@ -56,7 +51,8 @@ class Fawpami
         if ($this->isFaClassV4($class)) {
             $v5Class = $this->faV5Class($class);
             $this->adminNotices->add(
-                "FA WP Admin Menu Icons now uses Font Awesome 5! Please replace <code>{$class}</code> with <code>{$v5Class}</code>.",
+                'FA WP Admin Menu Icons now uses Font Awesome 5! Please ' .
+                "replace <code>{$class}</code> with <code>{$v5Class}</code>.",
                 'warning'
             );
         }
