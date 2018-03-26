@@ -4,7 +4,7 @@ Tags: fontawesome, icon, icons, custom
 Requires at least: 4.4
 Tested up to: 4.9.4
 Requires PHP: 5.6
-Stable tag: 2.1.0
+Stable tag: 2.2.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
@@ -64,6 +64,12 @@ FA WP Admin Menu Icons works for the following WordPress functions:
 [How to install WordPress plugins.](https://codex.wordpress.org/Managing_Plugins#Installing_Plugins)
 
 == Changelog ==
+
+= 2.2.0 =
+
+**Added**
+
+- Add support for Font Awesome versions. Icons are now cached with their Font Awesome version so they can be updated when the Font Awesome version changes.
 
 = 2.1.0 =
 
