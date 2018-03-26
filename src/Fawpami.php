@@ -67,7 +67,7 @@ class Fawpami
             $this->adminNotices->html($this->pluginName());
         });
         add_action('admin_print_footer_scripts', [$scripts, 'printScripts']);
-        add_action('init', [$styles, 'add']);
+        add_action('admin_init', [$styles, 'add']);
         add_filter(
             'register_post_type_args',
             function ($args, $name) use ($hooks) {
