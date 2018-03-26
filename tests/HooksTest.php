@@ -28,7 +28,10 @@ class HooksTest extends TestCase
 
     public function testFilterRegisterPostTypeArgsWithoutMenuIcon()
     {
-        $fawpami = new Fawpami(new AdminNotices());
+        $fawpami = new Fawpami([
+            'adminNotices' => new AdminNotices(),
+            'faVersion' => Fawpami::FA_VERSION
+        ]);
         $scripts = new Scripts();
         $hooks = new Hooks($fawpami, $scripts);
 
@@ -60,7 +63,12 @@ class HooksTest extends TestCase
 
         $fawpami = \Mockery::mock(
             'Fawpami\Fawpami[isFaClass,isFaClassV4]',
-            [$adminNotices]
+            [
+                [
+                    'adminNotices' => $adminNotices,
+                    'faVersion' => Fawpami::FA_VERSION
+                ]
+            ]
         );
         $fawpami->shouldReceive('isFaClass')->andReturn(true);
         $fawpami->shouldReceive('isFaClassV4')->andReturn(false);
@@ -90,7 +98,12 @@ class HooksTest extends TestCase
 
         $fawpami = Mockery::mock(
             'Fawpami\Fawpami[isFaClass,isFaClassV4]',
-            [new AdminNotices()]
+            [
+                [
+                    'adminNotices' => new AdminNotices(),
+                    'faVersion' => Fawpami::FA_VERSION
+                ]
+            ]
         );
         $fawpami->shouldReceive('isFaClass')->andReturn(true);
         $fawpami->shouldReceive('isFaClassV4')->andReturn(false);
@@ -120,7 +133,12 @@ class HooksTest extends TestCase
 
         $fawpami = Mockery::mock(
             'Fawpami\Fawpami[addV4SyntaxWarning,faV5Class,isFaClass,isFaClassV4]',
-            [new AdminNotices()]
+            [
+                [
+                    'adminNotices' => new AdminNotices(),
+                    'faVersion' => Fawpami::FA_VERSION
+                ]
+            ]
         );
         $fawpami->shouldReceive('addV4SyntaxWarning')->andReturnNull();
         $fawpami->shouldReceive('faV5Class')->andReturn('far fa-address-book');
@@ -147,7 +165,15 @@ class HooksTest extends TestCase
     {
         $adminNotices = new AdminNotices();
 
-        $fawpami = Mockery::mock('Fawpami\Fawpami', [$adminNotices]);
+        $fawpami = Mockery::mock(
+            'Fawpami\Fawpami',
+            [
+                [
+                    'adminNotices' => $adminNotices,
+                    'faVersion' => Fawpami::FA_VERSION
+                ]
+            ]
+        );
         $fawpami->shouldReceive('isFaClass')->andReturn(false);
         $fawpami->shouldReceive('isFaClassV4')->andReturn(false);
 
@@ -186,7 +212,15 @@ class HooksTest extends TestCase
         $adminNotices = \Mockery::mock('Fawpami\AdminNotices');
         $adminNotices->shouldReceive('add');
 
-        $fawpami = \Mockery::mock('Fawpami\Fawpami', [$adminNotices]);
+        $fawpami = \Mockery::mock(
+            'Fawpami\Fawpami',
+            [
+                [
+                    'adminNotices' => $adminNotices,
+                    'faVersion' => Fawpami::FA_VERSION
+                ]
+            ]
+        );
         $fawpami
             ->shouldReceive('faV5Class')
             ->andReturn('fas fa-glass-martini');
@@ -215,7 +249,15 @@ class HooksTest extends TestCase
 
         $adminNotices = new AdminNotices();
 
-        $fawpami = Mockery::mock('Fawpami\Fawpami', [$adminNotices]);
+        $fawpami = Mockery::mock(
+            'Fawpami\Fawpami',
+            [
+                [
+                    'adminNotices' => $adminNotices,
+                    'faVersion' => Fawpami::FA_VERSION
+                ]
+            ]
+        );
         $fawpami->shouldReceive('isFaClass')->andReturn(true);
         $fawpami->shouldReceive('isFaClassV4')->andReturn(false);
 
@@ -241,7 +283,15 @@ class HooksTest extends TestCase
 
         $adminNotices = new AdminNotices();
 
-        $fawpami = Mockery::mock('Fawpami\Fawpami', [$adminNotices]);
+        $fawpami = Mockery::mock(
+            'Fawpami\Fawpami',
+            [
+                [
+                    'adminNotices' => $adminNotices,
+                    'faVersion' => Fawpami::FA_VERSION
+                ]
+            ]
+        );
         $fawpami->shouldReceive('addV4SyntaxWarning');
         $fawpami
             ->shouldReceive('faV5Class')

@@ -46,7 +46,10 @@ class Hooks
                     $menuIcon = $this->fawpami->faV5Class($menuIcon);
                 }
                 try {
-                    $icon = new Icon($menuIcon, $this->fawpami);
+                    $icon = new Icon([
+                        'faClass' => $menuIcon,
+                        'fawpami' => $this->fawpami
+                    ]);
                     $args['menu_icon'] = $icon->svgDataUri();
                 } catch (Exception $exception) {
                     $this->fawpami->adminNotices->add(
@@ -54,10 +57,11 @@ class Hooks
                         'error'
                     );
                     try {
-                        $icon = new Icon(
-                            'fas fa-exclamation-triangle',
-                            $this->fawpami
-                        );
+                        $icon = new Icon([
+                            'faClass' => 'fas fa-exclamation-triangle',
+                            'fawpami' => $this->fawpami,
+                            'faVersion' => '5.0.8'
+                        ]);
                         $args['menu_icon'] = $icon->svgDataUri();
                     } catch (Exception $e) {
                         /*
@@ -99,7 +103,10 @@ class Hooks
             }
 
             try {
-                $icon = new Icon($menuIcon, $this->fawpami);
+                $icon = new Icon([
+                    'faClass' => $menuIcon,
+                    'fawpami' => $this->fawpami
+                ]);
                 return $icon->svgDataUri();
             } catch (Exception $exception) {
                 $this->fawpami->adminNotices->add(
@@ -107,10 +114,11 @@ class Hooks
                     'error'
                 );
                 try {
-                    $icon = new Icon(
-                        'fas fa-exclamation-triangle',
-                        $this->fawpami
-                    );
+                    $icon = new Icon([
+                        'faClass' => 'fas fa-exclamation-triangle',
+                        'fawpami' => $this->fawpami,
+                        'faVersion' => '5.0.8'
+                    ]);
                     return $icon->svgDataUri();
                 } catch (Exception $e) {
                     /*

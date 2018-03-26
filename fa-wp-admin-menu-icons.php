@@ -26,10 +26,24 @@ if (!defined('WPINC')) {
     die;
 }
 
-if (is_admin()) {
+if (!is_admin()) {
+    return;
+}
+
+function init()
+{
     require_once 'src/Fawpami.php';
 
-    $adminNotices = new AdminNotices();
-    $fawpami = new Fawpami($adminNotices);
+    $faVersion = apply_filters(
+        __NAMESPACE__ . '\\faVersion',
+        Fawpami::FA_VERSION
+    );
+    $fawpami = new Fawpami([
+        'adminNotices' => new AdminNotices(),
+        'faVersion' => $faVersion
+    ]);
+
     $fawpami->addHooks();
 }
+
+add_action('init', __NAMESPACE__ . '\\init');

@@ -1,18 +1,74 @@
 <?php
 
 use Fawpami\AdminNotices;
+use Fawpami\Exception;
 use Fawpami\Fawpami;
-use Fawpami\Hooks;
 use PHPUnit\Framework\TestCase;
 
 require_once __DIR__ . '/../src/Fawpami.php';
 
 class FawpamiTest extends TestCase
 {
+    /** @var Fawpami */
+    private $fawpami;
+
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->fawpami = new Fawpami([
+            'adminNotices' => new AdminNotices(),
+            'faVersion' => Fawpami::FA_VERSION
+        ]);
+    }
+
     protected function tearDown()
     {
         parent::tearDown();
         Mockery::close();
+    }
+
+    public function testConstruct()
+    {
+        $this->assertInstanceOf(Fawpami::class, $this->fawpami);
+    }
+
+    public function testConstructWithBadAdminNotices()
+    {
+        $this->expectException(Exception::class);
+
+        new Fawpami([
+            'adminNotices' => 'not an instance of AminNotices',
+            'faVersion' => Fawpami::FA_VERSION
+        ]);
+    }
+
+    public function testConstructWithBadFaVersion()
+    {
+        $this->expectException(Exception::class);
+
+        new Fawpami([
+            'adminNotices' => new AdminNotices(),
+            'faVersion' => '5'
+        ]);
+    }
+
+    public function testConstructWithoutAdminNotices()
+    {
+        $this->expectException(Exception::class);
+
+        new Fawpami([
+            'faVersion' => Fawpami::FA_VERSION
+        ]);
+    }
+
+    public function testConstructWithoutFaVersion()
+    {
+        $this->expectException(Exception::class);
+
+        new Fawpami([
+            'adminNotices' => new AdminNotices(),
+        ]);
     }
 
     public function testAddV4SyntaxNotice()
@@ -20,7 +76,13 @@ class FawpamiTest extends TestCase
         $adminNotices = Mockery::mock('Fawpami\AdminNotices');
         $adminNotices->shouldReceive('add');
         $fawpami = \Mockery::mock(
-            'Fawpami\Fawpami[pluginName]', [$adminNotices]
+            'Fawpami\Fawpami[pluginName]',
+            [
+                [
+                    'adminNotices' => $adminNotices,
+                    'faVersion' => Fawpami::FA_VERSION
+                ]
+            ]
         );
         $fawpami->shouldReceive('isFaClassV4')->andReturn(true);
         $fawpami->shouldReceive('faV5Class')->andReturn('fas glass-martini');
@@ -32,23 +94,17 @@ class FawpamiTest extends TestCase
 
     public function testIsFaClassWithSolidIcon()
     {
-        $fawpami = new Fawpami(new AdminNotices());
-
-        $this->assertTrue($fawpami->isFaClass('fas fa-camera-retro'));
+        $this->assertTrue($this->fawpami->isFaClass('fas fa-camera-retro'));
     }
 
     public function testIsFaClassWithRegularIcon()
     {
-        $fawpami = new Fawpami(new AdminNotices());
-
-        $this->assertTrue($fawpami->isFaClass('far fa-camera-retro'));
+        $this->assertTrue($this->fawpami->isFaClass('far fa-camera-retro'));
     }
 
     public function testIsFaClassWithBrandsIcon()
     {
-        $fawpami = new Fawpami(new AdminNotices());
-
-        $this->assertTrue($fawpami->isFaClass('fab fa-font-awesome'));
+        $this->assertTrue($this->fawpami->isFaClass('fab fa-font-awesome'));
     }
 
     /**
@@ -56,85 +112,72 @@ class FawpamiTest extends TestCase
      */
     public function testIsFaClassWithLightIcon()
     {
-        $fawpami = new Fawpami(new AdminNotices());
-
-        $this->assertFalse($fawpami->isFaClass('fal fa-camera-retro'));
+        $this->assertFalse($this->fawpami->isFaClass('fal fa-camera-retro'));
     }
 
     public function testIsFaClassWithFaV4Syntax()
     {
-        $fawpami = new Fawpami(new AdminNotices());
-
-        $this->assertFalse($fawpami->isFaClass('fa-camera-retro'));
+        $this->assertFalse($this->fawpami->isFaClass('fa-camera-retro'));
     }
 
     public function testIsFaClassWithInvalidSyntax()
     {
-        $fawpami = new Fawpami(new AdminNotices());
-
-        $this->assertFalse($fawpami->isFaClass('camera-retro'));
+        $this->assertFalse($this->fawpami->isFaClass('camera-retro'));
     }
 
     public function testIsFaClassV4WithFaV4Syntax()
     {
-        $fawpami = new Fawpami(new AdminNotices());
-
-        $this->assertTrue($fawpami->isFaClassV4('fa-camera-retro'));
+        $this->assertTrue($this->fawpami->isFaClassV4('fa-camera-retro'));
     }
 
     public function testIsFaClassV4WithFaV5Syntax()
     {
-        $fawpami = new Fawpami(new AdminNotices());
-
-        $this->assertFalse($fawpami->isFaClassV4('fas fa-camera-retro'));
+        $this->assertFalse($this->fawpami->isFaClassV4('fas fa-camera-retro'));
     }
 
     public function testShims()
     {
-        $fawpami = new Fawpami(new AdminNotices());
-
         $this->assertArraySubset(
             [
                 'v4Name' => 'glass',
                 'v5Name' => 'glass-martini',
                 'v5Prefix' => 'fas'
             ],
-            $fawpami->shims()[0]
+            $this->fawpami->shims()[0]
         );
     }
 
     public function testFaV5ClassWithV4Icon()
     {
-        $fawpami = new Fawpami(new AdminNotices());
-
         $this->assertEquals(
             'fas fa-address-book',
-            $fawpami->faV5Class('fa-address-book')
+            $this->fawpami->faV5Class('fa-address-book')
         );
     }
 
     public function testFaV5ClassWithV5Class()
     {
-        $fawpami = new Fawpami(new AdminNotices());
-
         $this->assertEquals(
             'fas fa-address-book',
-            $fawpami->faV5Class('fas fa-address-book')
+            $this->fawpami->faV5Class('fas fa-address-book')
         );
     }
 
     public function testFaV5ClassWithInvalidIcon()
     {
-        $fawpami = new Fawpami(new AdminNotices());
-
-        $this->assertFalse($fawpami->faV5Class('emosewa'));
+        $this->assertFalse($this->fawpami->faV5Class('emosewa'));
     }
 
     public function testFaV5IconName()
     {
         $fawpami = Mockery::mock(
             'Fawpami\Fawpami[shims]',
-            [new AdminNotices()]
+            [
+                [
+                    'adminNotices' => new AdminNotices(),
+                    'faVersion' => Fawpami::FA_VERSION
+                ]
+            ]
         );
         $fawpami
             ->shouldReceive('shims')
@@ -152,7 +195,12 @@ class FawpamiTest extends TestCase
     {
         $fawpami = Mockery::mock(
             'Fawpami\Fawpami[shims]',
-            [new AdminNotices()]
+            [
+                [
+                    'adminNotices' => new AdminNotices(),
+                    'faVersion' => Fawpami::FA_VERSION
+                ]
+            ]
         );
         $fawpami
             ->shouldReceive('shims')
@@ -165,7 +213,12 @@ class FawpamiTest extends TestCase
     {
         $fawpami = Mockery::mock(
             'Fawpami\Fawpami[shims]',
-            [new AdminNotices()]
+            [
+                [
+                    'adminNotices' => new AdminNotices(),
+                    'faVersion' => Fawpami::FA_VERSION
+                ]
+            ]
         );
         $fawpami
             ->shouldReceive('shims')
@@ -183,7 +236,12 @@ class FawpamiTest extends TestCase
     {
         $fawpami = Mockery::mock(
             'Fawpami\Fawpami[shims]',
-            [new AdminNotices()]
+            [
+                [
+                    'adminNotices' => new AdminNotices(),
+                    'faVersion' => Fawpami::FA_VERSION
+                ]
+            ]
         );
         $fawpami
             ->shouldReceive('shims')
@@ -194,35 +252,29 @@ class FawpamiTest extends TestCase
 
     public function testStripFaPrefix()
     {
-        $fawpami = new Fawpami(new AdminNotices());
-
         $this->assertEquals(
             'camera-retro',
-            $fawpami->stripFaPrefix('fa-camera-retro')
+            $this->fawpami->stripFaPrefix('fa-camera-retro')
         );
     }
 
     public function testStripFaPrefixReturnsOriginalStringIfNoPrefix()
     {
-        $fawpami = new Fawpami(new AdminNotices());
-
         $this->assertEquals(
             'camera-retro',
-            $fawpami->stripFaPrefix('camera-retro')
+            $this->fawpami->stripFaPrefix('camera-retro')
         );
     }
 
     public function testPluginName()
     {
-        $fawpami = new Fawpami(new AdminNotices());
-
         WP_Mock::userFunction('get_plugin_data', [
             'return' => ['Name' => 'FA WP Admin Menu Icons']
         ]);
 
         $this->assertEquals(
             'FA WP Admin Menu Icons',
-            $fawpami->pluginName()
+            $this->fawpami->pluginName()
         );
     }
 }

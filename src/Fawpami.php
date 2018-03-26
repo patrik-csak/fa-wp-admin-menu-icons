@@ -5,18 +5,56 @@ namespace Fawpami;
 require_once 'AdminNotices.php';
 require_once 'Hooks.php';
 require_once 'Styles.php';
+require_once 'Version.php';
 
 class Fawpami
 {
+    /** @var string */
+    const FA_VERSION = '5.0.8';
+
     /** @var AdminNotices */
     public $adminNotices;
 
+    /** @var string */
+    public $faVersion;
+
     /**
-     * @param AdminNotices $adminNotices
+     * $params['AdminNotices'] AdminNotices
+     * $params['faVersion']    string       Font Awesome version semver string
+     *
+     * @param array $params
+     * @throws Exception
      */
-    public function __construct($adminNotices)
+    public function __construct(array $params)
     {
+        $adminNotices = isset($params['adminNotices'])
+            ? $params['adminNotices']
+            : null;
+        $faVersion = isset($params['faVersion'])
+            ? $params['faVersion']
+            : null;
+
+        foreach (['adminNotices', 'faVersion'] as $param) {
+            if (!$$param) {
+                throw new Exception(
+                    __METHOD__ . ' called with missing parameter ' .
+                    "`\$params['{$param}']`"
+                );
+            }
+        }
+
+        if (!Version::validate($params['faVersion'])) {
+            throw new Exception('Invalid Font Awesome version');
+        }
+
+        if (!$params['adminNotices'] instanceof AdminNotices) {
+            throw new Exception(
+                "`\$params['adminNotices']` must be an instance of AdminNotices"
+            );
+        }
+
         $this->adminNotices = $adminNotices;
+        $this->faVersion = $faVersion;
     }
 
     public function addHooks()

@@ -24,17 +24,46 @@ class IconTest extends TestCase
         \Mockery::close();
     }
 
+    public function testWithBadFaClass()
+    {
+        $fawpami = Mockery::mock(
+            'Fawpami\Fawpami[isFaClass]',
+            [
+                [
+                    'adminNotices' => new AdminNotices(),
+                    'faVersion' => Fawpami::FA_VERSION
+                ]
+            ]
+        );
+        $fawpami->shouldReceive('isFaClass')->andReturn(false);
+
+        $this->expectException(Exception::class);
+
+        new Icon([
+            'faClass' => 'emosewa',
+            'fawpami' => $fawpami
+        ]);
+    }
+
     public function testNewBrandIcon()
     {
         $fawpami = Mockery::mock(
             'Fawpami\Fawpami[isFaClass]',
-            [new AdminNotices()]
+            [
+                [
+                    'adminNotices' => new AdminNotices(),
+                    'faVersion' => Fawpami::FA_VERSION
+                ]
+            ]
         );
         $fawpami->shouldReceive('isFaClass')->andReturn(true);
 
         $this->assertInstanceOf(
             Icon::class,
-            new Icon('fab fa-500px', $fawpami)
+            new Icon([
+                'faClass' => 'fab fa-500px',
+                'fawpami' => $fawpami
+            ])
         );
     }
 
@@ -42,13 +71,21 @@ class IconTest extends TestCase
     {
         $fawpami = Mockery::mock(
             'Fawpami\Fawpami[isFaClass]',
-            [new AdminNotices()]
+            [
+                [
+                    'adminNotices' => new AdminNotices(),
+                    'faVersion' => Fawpami::FA_VERSION
+                ]
+            ]
         );
         $fawpami->shouldReceive('isFaClass')->andReturn(true);
 
         $this->assertInstanceOf(
             Icon::class,
-            new Icon('far fa-address-book', $fawpami)
+            new Icon([
+                'faClass' => 'far fa-address-book',
+                'fawpami' => $fawpami
+            ])
         );
     }
 
@@ -56,13 +93,21 @@ class IconTest extends TestCase
     {
         $fawpami = Mockery::mock(
             'Fawpami\Fawpami[isFaClass]',
-            [new AdminNotices()]
+            [
+                [
+                    'adminNotices' => new AdminNotices(),
+                    'faVersion' => Fawpami::FA_VERSION
+                ]
+            ]
         );
         $fawpami->shouldReceive('isFaClass')->andReturn(true);
 
         $this->assertInstanceOf(
             Icon::class,
-            new Icon('fas fa-address-book', $fawpami)
+            new Icon([
+                'faClass' => 'fas fa-address-book',
+                'fawpami' => $fawpami
+            ])
         );
     }
 
@@ -70,12 +115,21 @@ class IconTest extends TestCase
     {
         $fawpami = Mockery::mock(
             'Fawpami\Fawpami[isFaClass]',
-            [new AdminNotices()]
+            [
+                [
+                    'adminNotices' => new AdminNotices(),
+                    'faVersion' => Fawpami::FA_VERSION
+                ]
+            ]
         );
         $fawpami->shouldReceive('isFaClass')->andReturn(false);
 
         $this->expectException(Exception::class);
-        new Icon('camera-retro', $fawpami);
+
+        new Icon([
+            'faClass' => 'camera-retro',
+            'fawpami' => $fawpami
+        ]);
     }
 
     public function testSvgDataUri()
@@ -94,8 +148,14 @@ class IconTest extends TestCase
         );
 
         $adminNotices = new AdminNotices();
-        $fawpami = new Fawpami($adminNotices);
-        $icon = new Icon('fas fa-camera-retro', $fawpami);
+        $fawpami = new Fawpami([
+            'adminNotices' => $adminNotices,
+            'faVersion' => Fawpami::FA_VERSION
+        ]);
+        $icon = new Icon([
+            'faClass' => 'fas fa-camera-retro',
+            'fawpami' => $fawpami
+        ]);
 
         $this->assertStringStartsWith(
             'data:image/svg+xml;base64,',
@@ -105,14 +165,21 @@ class IconTest extends TestCase
 
     public function testSvgDataUriWithCachedIcon()
     {
+        $faVersion = Fawpami::FA_VERSION;
         \WP_Mock::userFunction('get_option', [
-            'args' => ['fawpami_icon_camera_retro_solid'],
+            'args' => ["fawpami_icon_camera_retro_solid_{$faVersion}"],
             'return' => 'data:image/svg+xml;base64,'
         ]);
 
         $adminNotices = new AdminNotices();
-        $fawpami = new Fawpami($adminNotices);
-        $icon = new Icon('fas fa-camera-retro', $fawpami);
+        $fawpami = new Fawpami([
+            'adminNotices' => $adminNotices,
+            'faVersion' => $faVersion
+        ]);
+        $icon = new Icon([
+            'faClass' => 'fas fa-camera-retro',
+            'fawpami' => $fawpami
+        ]);
 
         $this->assertStringStartsWith(
             'data:image/svg+xml;base64,',
@@ -131,10 +198,42 @@ class IconTest extends TestCase
         );
 
         $adminNotices = new AdminNotices();
-        $fawpami = new Fawpami($adminNotices);
-        $icon = new Icon('fas fa-emosewa', $fawpami);
+        $fawpami = new Fawpami([
+            'adminNotices' => $adminNotices,
+            'faVersion' => Fawpami::FA_VERSION
+        ]);
+        $icon = new Icon([
+            'faClass' => 'fas fa-emosewa',
+            'fawpami' => $fawpami
+        ]);
 
         $this->expectException(Exception::class);
+        $icon->svgDataUri();
+    }
+
+    public function testSvgDataUriWithWpRemoteGetError()
+    {
+        $errorMessage = 'Message from \WP_Error::get_error_message';
+        $wpError = Mockery::mock('WP_Error');
+        $wpError->shouldReceive('get_error_message')->andReturn($errorMessage);
+
+        \WP_Mock::userFunction('get_option', ['return' => false]);
+        \WP_Mock::userFunction('is_wp_error', ['return' => true]);
+        \WP_Mock::userFunction('wp_remote_get', ['return' => $wpError]);
+        \WP_Mock::userFunction('is_wp_error', ['return' => true]);
+
+        $fawpami = new Fawpami([
+            'adminNotices' => new AdminNotices(),
+            'faVersion' => Fawpami::FA_VERSION
+        ]);
+        $icon = new Icon([
+            'faClass' => 'fas fa-camera-retro',
+            'fawpami' => $fawpami
+        ]);
+
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage($errorMessage);
+
         $icon->svgDataUri();
     }
 }

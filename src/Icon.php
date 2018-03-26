@@ -13,13 +13,31 @@ class Icon
     private $optionName;
 
     /**
-     * @param string $faClass Font Awesome class, i.e. `'fas fa-camera-retro'`
-     * @param Fawpami $fawpami
+     * $params['faClass']   string  Font Awesome class, i.e.
+     *                              `'fas fa-camera-retro'`
+     * $params['fawpami']   Fawpami
+     * $params['faVersion'] string  Font Awesome version. Optional. If not set,
+     *                              `$params['fawpami']->version` will be used.
+     *
+     * @param array $params
      *
      * @throws Exception
      */
-    public function __construct($faClass, $fawpami)
+    public function __construct(array $params)
     {
+        $faClass = isset($params['faClass']) ? $params['faClass'] : null;
+        $fawpami = isset($params['fawpami']) ? $params['fawpami'] : null;
+        $faVersion = isset($params['faVersion']) ? $params['faVersion'] : null;
+
+        foreach (['faClass', 'fawpami'] as $param) {
+            if (!$$param) {
+                throw new Exception(
+                    __METHOD__ . ' called with missing parameter ' .
+                    "`\$params['{$param}']`"
+                );
+            }
+        }
+
         if (!$fawpami->isFaClass($faClass)) {
             throw new Exception(
                 "'{$faClass}' is not a valid Font Awesome class"
@@ -41,10 +59,13 @@ class Icon
         } elseif ($matches['style'] === 'r') {
             $style = 'regular';
         }
-        $this->iconUrl = "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/5.0.8/advanced-options/raw-svg/{$style}/{$icon}.svg";
-        $this->optionName = 'fawpami_icon_'
-            . str_replace('-', '_', $icon)
-            . "_{$style}";
+
+        $faVersion = $faVersion ?: $fawpami->faVersion;
+        $this->iconUrl = 'https://raw.githubusercontent.com/FortAwesome' .
+            "/Font-Awesome/{$faVersion}/advanced-options/raw-svg/{$style}" .
+            "/{$icon}.svg";
+        $this->optionName = 'fawpami_icon_' . str_replace('-', '_', $icon) .
+            "_{$style}_{$faVersion}";
     }
 
     /**
