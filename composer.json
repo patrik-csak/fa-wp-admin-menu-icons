@@ -1,7 +1,7 @@
 {
   "name": "ptrkcsk/fa-wp-admin-menu-icons",
   "description": "Use Font Awesome icons for custom post types and custom menu pages.",
-  "version": "2.2.1",
+  "version": "2.3.0",
   "type": "wordpress-plugin",
   "keywords": [
     "wordpress",
