@@ -65,6 +65,18 @@ FA WP Admin Menu Icons works for the following WordPress functions:
 
 == Changelog ==
 
+= 2.3.0 =
+
+**Changed**
+
+- Bumped Font Awesome version from 5.0.8 to 5.0.9
+
+= 2.2.1 =
+
+**Fixed**
+
+- Fix styles action
+
 = 2.2.0 =
 
 **Added**
