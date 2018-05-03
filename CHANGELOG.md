@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 
 - Update Font Awesome from v5.0.10 to v5.0.11
+- Update Composer PHP version range
 
 ## [2.4.0](https://github.com/ptrkcsk/fa-wp-admin-menu-icons/compare/v2.3.1...v2.4.0) - 2018-04-21
 
