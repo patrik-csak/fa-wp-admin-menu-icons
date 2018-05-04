@@ -42,6 +42,9 @@ composer.phar:
 	@php composer-setup.php
 	@php -r "unlink('composer-setup.php');"
 
+src/fa-shims.json: .FORCE
+	@php scripts/get-shims.php
+
 test: vendor
 	@$(phpunit)
 
@@ -55,3 +58,5 @@ endif
 
 vendor: composer.phar
 	@$(composer) install
+
+.FORCE:

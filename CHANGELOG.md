@@ -10,10 +10,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 
 - Add `.gitattributes` to set `export-ignore` attribute for files not needed in production
+- Add script to get Font Awesome shims file
 
 ### Changed
 
 - Update Font Awesome from v5.0.11 to v5.0.12
+- Update Font Awesome shims
 
 ## [2.5.0](https://github.com/ptrkcsk/fa-wp-admin-menu-icons/compare/v2.4.0...v2.5.0) - 2018-05-02
 
