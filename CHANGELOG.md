@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased](https://github.com/ptrkcsk/fa-wp-admin-menu-icons/compare/v2.7.0...HEAD)
 
+### Added
+
+- Tested with WordPress v4.9.6
+
 ### Changed
 
 - Update `.gitattributes`
