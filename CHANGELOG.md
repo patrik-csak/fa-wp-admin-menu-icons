@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [Unreleased](https://github.com/ptrkcsk/fa-wp-admin-menu-icons/compare/v3.0.0...HEAD)
+
+### Changed
+
+- Update Font Awesome from v5.1.0 to v5.2.0
+
 ## [v3.0.0](https://github.com/ptrkcsk/fa-wp-admin-menu-icons/compare/v2.8.0...v3.0.0) - 2018-07-05
 
 ### Changed
