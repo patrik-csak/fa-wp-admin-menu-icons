@@ -10,7 +10,7 @@ require_once 'Version.php';
 class Fawpami
 {
     /** @var string */
-    const FA_VERSION = '5.2.0';
+    const FA_VERSION = '5.3.1';
 
     /** @var AdminNotices */
     public $adminNotices;
