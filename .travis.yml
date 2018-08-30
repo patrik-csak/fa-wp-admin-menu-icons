@@ -4,7 +4,5 @@ php:
   - '7.0'
   - '7.1'
   - '7.2'
-install:
-  - make vendor
-script:
-  - make ccReportCoverage
+install: true
+script: make test-coverage-code-climate

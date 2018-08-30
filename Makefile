@@ -1,21 +1,49 @@
-.PHONY: ccReportCoverage clean test testCoverageHtml
-
 composer = php composer.phar
 linux = Linux
 macOs = Darwin
 os = $(shell uname)
 phpunit = vendor/bin/phpunit
 
-all:
-	$(info Usage:)
-	$(info `make ccReportCoverage` to send test coverage report to Code Climate)
-	$(info `make test` to run tests)
-	$(info `make testCoverageHtml` to run tests and generate coverage report (and open the report if on macOs))
+########################################################################
+# Standard targets
+# See https://www.gnu.org/software/make/manual/html_node/Standard-Targets.html
+########################################################################
 
-ccReportCoverage: cc-test-reporter
-	@./cc-test-reporter before-build
-	@make clover.xml
-	@./cc-test-reporter after-build --coverage-input-type clover
+.PHONY : all
+all: ;
+
+.PHONY : clean
+clean:
+	@$(RM) cc-test-reporter
+	@$(RM) clover.xml
+	@$(RM) composer.phar
+	@$(RM) src/fa-shims.json
+	@$(RM) -r vendor
+
+########################################################################
+# Phony targets
+########################################################################
+
+.PHONY : test
+test : $(phpunit) ; @$<
+
+.PHONY : test-coverage-code-climate
+test-coverage-code-climate: cc-test-reporter clover.xml
+	@./$< before-build
+	@./$< after-build --coverage-input-type clover
+
+# Xdebug must be enabled to generate coverage report
+.PHONY : test-coverage-html
+test-coverage-html: $(phpunit)
+	@$< --coverage-html tests/coverage
+	@#  Open coverage report in the browser
+ifeq ($(os), $(macOs))
+	open tests/coverage/index.html;
+endif
+
+########################################################################
+# Real targets
+########################################################################
 
 cc-test-reporter:
 ifeq ($(os), $(linux))
@@ -27,14 +55,7 @@ else
 endif
 	@chmod +x ./cc-test-reporter
 
-clean:
-	rm -f cc-test-reporter
-	rm -f clover.xml
-	rm -f composer.phar
-	rm -rf vendor
-
-clover.xml: vendor
-	@$(phpunit) --coverage-clover clover.xml
+clover.xml: $(phpunit) ; @$< --coverage-clover clover.xml
 
 composer.phar:
 	@php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
@@ -42,21 +63,8 @@ composer.phar:
 	@php composer-setup.php
 	@php -r "unlink('composer-setup.php');"
 
-src/fa-shims.json: .FORCE
-	@php scripts/get-shims.php
+src/fa-shims.json: FORCE ; @php scripts/get-shims.php
 
-test: vendor
-	@$(phpunit)
+vendor/%: composer.phar ; @$(composer) install
 
-# Xdebug must be enabled to generate coverage report
-testCoverageHtml: vendor
-	-@$(phpunit) --coverage-html tests/coverage
-	@#  Open coverage report in the browser
-ifeq ($(os), $(macOs))
-	open tests/coverage/index.html;
-endif
-
-vendor: composer.phar
-	@$(composer) install
-
-.FORCE:
+FORCE: ;
