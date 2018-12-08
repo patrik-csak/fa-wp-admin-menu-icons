@@ -20,6 +20,18 @@ class VersionTest extends TestCase
     }
 
     /**
+     * @dataProvider lessThanProvider
+     *
+     * @param string $a
+     * @param string $b
+     * @param bool $expected
+     */
+    public function testLessThan($a, $b, $expected)
+    {
+        $this->assertEquals($expected, Version::lessThan($a, $b));
+    }
+
+    /**
      * @dataProvider validateProvider
      *
      * @param string $version
@@ -39,12 +51,21 @@ class VersionTest extends TestCase
         ];
     }
 
+    public function lessThanProvider()
+    {
+        return [
+            ['1.2.3', '1.2.3', false],
+            ['1.2.3', '1.2.4', true],
+            ['1.2.3', '1.2.0', false],
+        ];
+    }
+
     public function validateProvider()
     {
         return [
             ['1.2.3', true],
             ['1.2', false],
-            ['1', false]
+            ['1', false],
         ];
     }
 }

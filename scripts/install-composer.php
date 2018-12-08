@@ -12,7 +12,7 @@ $actualSignature = hash_file('SHA384', $setupFile);
 if ($expectedSignature !== $actualSignature) {
     echo 'ERROR: Invalid installer signature';
     unlink($setupFile);
-    exit (1);
+    exit(1);
 }
 
 include $setupFile;

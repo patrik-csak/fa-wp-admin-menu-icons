@@ -28,6 +28,7 @@ class Icon
         $faClass = isset($params['faClass']) ? $params['faClass'] : null;
         $fawpami = isset($params['fawpami']) ? $params['fawpami'] : null;
         $faVersion = isset($params['faVersion']) ? $params['faVersion'] : null;
+        $faGithubUrl = 'https://raw.githubusercontent.com/FortAwesome/Font-Awesome';
 
         foreach (['faClass', 'fawpami'] as $param) {
             if (!$$param) {
@@ -61,11 +62,17 @@ class Icon
         }
 
         $faVersion = $faVersion ?: $fawpami->faVersion;
-        $this->iconUrl = 'https://raw.githubusercontent.com/FortAwesome' .
-            "/Font-Awesome/{$faVersion}/advanced-options/raw-svg/{$style}" .
-            "/{$icon}.svg";
+
+        if (Version::lessThan($faVersion, '5.6.0')) {
+            $this->iconUrl = "{$faGithubUrl}/{$faVersion}/advanced-options/" .
+                             "raw-svg/{$style}/{$icon}.svg";
+        } else {
+            $this->iconUrl = "{$faGithubUrl}/{$faVersion}/svgs/{$style}" .
+                             "/{$icon}.svg";
+        }
+
         $this->optionName = 'fawpami_icon_' . str_replace('-', '_', $icon) .
-            "_{$style}_{$faVersion}";
+                            "_{$style}_{$faVersion}";
     }
 
     /**
@@ -99,7 +106,7 @@ class Icon
          */
         $svg->addAttribute('style', 'fill:black');
         $svgDataUri = 'data:image/svg+xml;base64,'
-            . base64_encode($svg->asXML());
+                      . base64_encode($svg->asXML());
         \add_option($this->optionName, $svgDataUri);
 
         return $svgDataUri;
