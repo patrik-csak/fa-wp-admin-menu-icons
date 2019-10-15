@@ -1,6 +1,6 @@
 # FA WP Admin Menu Icons
 
-[![FA WP Admin Menu Icons download count](https://img.shields.io/wordpress/plugin/dt/fa-wp-admin-menu-icons.svg)](https://wordpress.org/plugins/fa-wp-admin-menu-icons/) [![FA WP Admin Menu Icons WordPress support](https://img.shields.io/wordpress/v/fa-wp-admin-menu-icons.svg)](https://wordpress.org/plugins/fa-wp-admin-menu-icons/) [![Test Coverage](https://api.codeclimate.com/v1/badges/8e7095f8f9347a38a868/test_coverage)](https://codeclimate.com/github/ptrkcsk/fa-wp-admin-menu-icons/test_coverage)
+![FA WP Admin Menu Icons: Tested WP Version](https://img.shields.io/wordpress/plugin/tested/fa-wp-admin-menu-icons.svg) [![Test Coverage](https://api.codeclimate.com/v1/badges/8e7095f8f9347a38a868/test_coverage)](https://codeclimate.com/github/ptrkcsk/fa-wp-admin-menu-icons/test_coverage) [![FA WP Admin Menu Icons download count](https://img.shields.io/wordpress/plugin/dt/fa-wp-admin-menu-icons.svg)](https://wordpress.org/plugins/fa-wp-admin-menu-icons/)
 
 Use Font Awesome icons for custom post types and custom menu pages.
 
