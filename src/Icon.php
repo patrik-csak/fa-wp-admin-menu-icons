@@ -79,7 +79,7 @@ class Icon
      * @return string
      * @throws Exception
      */
-    public function svgDataUri()
+    public function svgDataUri(): string
     {
         if ($cached = \get_option($this->optionName)) {
             return $cached;

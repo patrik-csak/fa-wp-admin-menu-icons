@@ -57,7 +57,7 @@ class Fawpami
         $this->faVersion = $faVersion;
     }
 
-    public function addHooks()
+    public function addHooks(): void
     {
         $scripts = new Scripts();
         $hooks = new Hooks($this, $scripts);
@@ -84,7 +84,7 @@ class Fawpami
      *
      * @return void
      */
-    public function addV4SyntaxWarning($class)
+    public function addV4SyntaxWarning($class): void
     {
         if ($this->isFaClassV4($class)) {
             $v5Class = $this->faV5Class($class);
@@ -112,7 +112,7 @@ class Fawpami
      *
      * @return bool
      */
-    public function isFaClass($string)
+    public function isFaClass($string): bool
     {
         return (bool)preg_match('/^fa[bsr]\s+fa-[\w-]+$/', $string);
     }
@@ -125,7 +125,7 @@ class Fawpami
      *
      * @return bool
      */
-    public function isFaClassV4($string)
+    public function isFaClassV4($string): bool
     {
         return strpos($string, 'fa-') === 0;
     }
@@ -137,10 +137,7 @@ class Fawpami
         )['Name'];
     }
 
-    /**
-     * @return array
-     */
-    public function shims()
+    public function shims(): array
     {
         $shims = json_decode(
             file_get_contents(__DIR__ . '/fa-shims.json'),
@@ -190,7 +187,7 @@ class Fawpami
      * @return string The Font Awesome v5 icon name, if found, else the original
      *                name.
      */
-    public function faV5IconName($faV4IconName)
+    public function faV5IconName($faV4IconName): string
     {
         if ($shims = $this->shims()) {
             foreach ($shims as $shim) {
@@ -210,7 +207,7 @@ class Fawpami
      *
      * @return string The Font Awesome v5 icon prefix, if found, else `'fas'`.
      */
-    public function faV5IconPrefix($faV4IconName)
+    public function faV5IconPrefix($faV4IconName): string
     {
         if ($shims = $this->shims()) {
             foreach ($shims as $shim) {

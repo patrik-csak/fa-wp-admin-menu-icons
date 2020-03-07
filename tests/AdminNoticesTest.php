@@ -7,7 +7,7 @@ require_once __DIR__ . '/../src/AdminNotices.php';
 
 class AdminNoticesTest extends TestCase
 {
-    public function testHtml()
+    public function testHtml(): void
     {
         $message = 'Test';
         $pluginName = 'FA WP Admin Menu Icons';

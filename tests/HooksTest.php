@@ -26,7 +26,7 @@ class HooksTest extends TestCase
         unset($GLOBALS['admin_page_hooks']);
     }
 
-    public function testFilterRegisterPostTypeArgsWithoutMenuIcon()
+    public function testFilterRegisterPostTypeArgsWithoutMenuIcon(): void
     {
         $fawpami = new Fawpami([
             'adminNotices' => new AdminNotices(),
@@ -38,7 +38,7 @@ class HooksTest extends TestCase
         $this->assertEquals([], $hooks->filterRegisterPostTypeArgs([], ''));
     }
 
-    public function testFilterRegisterPostTypeArgsWithInvalidMenuIcon()
+    public function testFilterRegisterPostTypeArgsWithInvalidMenuIcon(): void
     {
         \WP_Mock::userFunction(
             'get_option',
@@ -89,7 +89,7 @@ class HooksTest extends TestCase
         );
     }
 
-    public function testFilterRegisterPostTypeArgsWithValidMenuIcon()
+    public function testFilterRegisterPostTypeArgsWithValidMenuIcon(): void
     {
         \WP_Mock::userFunction(
             'get_option',
@@ -124,7 +124,7 @@ class HooksTest extends TestCase
         );
     }
 
-    public function testFilterRegisterPostTypeArgsWithValidFaV4MenuIcon()
+    public function testFilterRegisterPostTypeArgsWithValidFaV4MenuIcon(): void
     {
         \WP_Mock::userFunction(
             'get_option',
@@ -161,7 +161,7 @@ class HooksTest extends TestCase
         );
     }
 
-    public function testFilterSetUrlSchemeWithoutIcon()
+    public function testFilterSetUrlSchemeWithoutIcon(): void
     {
         $adminNotices = new AdminNotices();
 
@@ -187,7 +187,7 @@ class HooksTest extends TestCase
         $this->assertEquals($url, $hooks->filterSetUrlScheme($url));
     }
 
-    public function testFilterSetUrlSchemeWithInvalidMenuIcon()
+    public function testFilterSetUrlSchemeWithInvalidMenuIcon(): void
     {
         $GLOBALS['admin_page_hooks'] = ['a' => 'a'];
 
@@ -238,7 +238,7 @@ class HooksTest extends TestCase
         );
     }
 
-    public function testFilterSetUrlSchemeWithValidMenuIcon()
+    public function testFilterSetUrlSchemeWithValidMenuIcon(): void
     {
         $GLOBALS['admin_page_hooks'] = ['a' => 'a'];
 
@@ -272,7 +272,7 @@ class HooksTest extends TestCase
         );
     }
 
-    public function testFilterSetUrlSchemeWithValidFaV4MenuIcon()
+    public function testFilterSetUrlSchemeWithValidFaV4MenuIcon(): void
     {
         $GLOBALS['admin_page_hooks'] = ['a' => 'a'];
 
