@@ -32,9 +32,9 @@ class Icon
      */
     public function __construct(array $params)
     {
-        $faClass = isset($params['faClass']) ? $params['faClass'] : null;
-        $fawpami = isset($params['fawpami']) ? $params['fawpami'] : null;
-        $faVersion = isset($params['faVersion']) ? $params['faVersion'] : null;
+        $faClass = $params['faClass'] ?? null;
+        $fawpami = $params['fawpami'] ?? null;
+        $faVersion = $params['faVersion'] ?? null;
         $faGithubUrl = 'https://raw.githubusercontent.com/FortAwesome/Font-Awesome';
 
         foreach (['faClass', 'fawpami'] as $param) {

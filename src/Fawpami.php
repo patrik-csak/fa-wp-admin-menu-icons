@@ -29,12 +29,8 @@ class Fawpami
      */
     public function __construct(array $params)
     {
-        $adminNotices = isset($params['adminNotices'])
-            ? $params['adminNotices']
-            : null;
-        $faVersion = isset($params['faVersion'])
-            ? $params['faVersion']
-            : null;
+        $adminNotices = $params['adminNotices'] ?? null;
+        $faVersion = $params['faVersion'] ?? null;
 
         foreach (['adminNotices', 'faVersion'] as $param) {
             if (!$$param) {
