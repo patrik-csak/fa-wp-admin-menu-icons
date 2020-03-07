@@ -16,13 +16,13 @@ class HooksTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
-        \WP_Mock::setUp();
+        WP_Mock::setUp();
     }
 
     protected function tearDown()
     {
         parent::tearDown();
-        \WP_Mock::tearDown();
+        WP_Mock::tearDown();
         unset($GLOBALS['admin_page_hooks']);
     }
 
@@ -40,7 +40,7 @@ class HooksTest extends TestCase
 
     public function testFilterRegisterPostTypeArgsWithInvalidMenuIcon(): void
     {
-        \WP_Mock::userFunction(
+        WP_Mock::userFunction(
             'get_option',
             [
                 'return_in_order' => [
@@ -51,9 +51,9 @@ class HooksTest extends TestCase
                 ]
             ]
         );
-        \WP_Mock::userFunction('is_wp_error', ['return' => false]);
-        \WP_Mock::userFunction('wp_remote_get', ['return' => []]);
-        \WP_Mock::userFunction(
+        WP_Mock::userFunction('is_wp_error', ['return' => false]);
+        WP_Mock::userFunction('wp_remote_get', ['return' => []]);
+        WP_Mock::userFunction(
             'wp_remote_retrieve_response_code',
             ['return' => 404]
         );
@@ -61,7 +61,7 @@ class HooksTest extends TestCase
         $adminNotices = \Mockery::mock('Fawpami\AdminNotices');
         $adminNotices->shouldReceive('add');
 
-        $fawpami = \Mockery::mock(
+        $fawpami = Mockery::mock(
             'Fawpami\Fawpami[isFaClass,isFaClassV4]',
             [
                 [
@@ -91,7 +91,7 @@ class HooksTest extends TestCase
 
     public function testFilterRegisterPostTypeArgsWithValidMenuIcon(): void
     {
-        \WP_Mock::userFunction(
+        WP_Mock::userFunction(
             'get_option',
             ['return' => $this->svgDataUriPrefix]
         );
@@ -126,7 +126,7 @@ class HooksTest extends TestCase
 
     public function testFilterRegisterPostTypeArgsWithValidFaV4MenuIcon(): void
     {
-        \WP_Mock::userFunction(
+        WP_Mock::userFunction(
             'get_option',
             ['return' => $this->svgDataUriPrefix]
         );
@@ -191,7 +191,7 @@ class HooksTest extends TestCase
     {
         $GLOBALS['admin_page_hooks'] = ['a' => 'a'];
 
-        \WP_Mock::userFunction(
+        WP_Mock::userFunction(
             'get_option',
             [
                 'return_in_order' => [
@@ -202,9 +202,9 @@ class HooksTest extends TestCase
                 ]
             ]
         );
-        \WP_Mock::userFunction('is_wp_error', ['return' => false]);
-        \WP_Mock::userFunction('wp_remote_get', ['return' => []]);
-        \WP_Mock::userFunction(
+        WP_Mock::userFunction('is_wp_error', ['return' => false]);
+        WP_Mock::userFunction('wp_remote_get', ['return' => []]);
+        WP_Mock::userFunction(
             'wp_remote_retrieve_response_code',
             ['return' => 404]
         );
@@ -242,7 +242,7 @@ class HooksTest extends TestCase
     {
         $GLOBALS['admin_page_hooks'] = ['a' => 'a'];
 
-        \WP_Mock::userFunction(
+        WP_Mock::userFunction(
             'get_option',
             ['return' => $this->svgDataUriPrefix]
         );
@@ -276,7 +276,7 @@ class HooksTest extends TestCase
     {
         $GLOBALS['admin_page_hooks'] = ['a' => 'a'];
 
-        \WP_Mock::userFunction(
+        WP_Mock::userFunction(
             'get_option',
             ['return' => $this->svgDataUriPrefix]
         );

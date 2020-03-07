@@ -75,7 +75,7 @@ class FawpamiTest extends TestCase
     {
         $adminNotices = Mockery::mock('Fawpami\AdminNotices');
         $adminNotices->shouldReceive('add');
-        $fawpami = \Mockery::mock(
+        $fawpami = Mockery::mock(
             'Fawpami\Fawpami[pluginName]',
             [
                 [

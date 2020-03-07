@@ -2,6 +2,8 @@
 
 namespace Fawpami;
 
+use function get_plugin_data;
+
 require_once 'AdminNotices.php';
 require_once 'Hooks.php';
 require_once 'Styles.php';
@@ -132,7 +134,7 @@ class Fawpami
 
     public function pluginName()
     {
-        return \get_plugin_data(
+        return get_plugin_data(
             __DIR__ . '/../fa-wp-admin-menu-icons.php'
         )['Name'];
     }

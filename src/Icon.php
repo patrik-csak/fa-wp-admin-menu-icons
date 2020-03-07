@@ -2,6 +2,13 @@
 
 namespace Fawpami;
 
+use SimpleXMLElement;
+use function add_option;
+use function get_option;
+use function is_wp_error;
+use function wp_remote_get;
+use function wp_remote_retrieve_response_code;
+
 require_once 'Exception.php';
 
 class Icon
@@ -81,24 +88,24 @@ class Icon
      */
     public function svgDataUri(): string
     {
-        if ($cached = \get_option($this->optionName)) {
+        if ($cached = get_option($this->optionName)) {
             return $cached;
         }
 
-        $response = \wp_remote_get($this->iconUrl);
+        $response = wp_remote_get($this->iconUrl);
 
-        if (\is_wp_error($response)) {
+        if (is_wp_error($response)) {
             throw new Exception($response->get_error_message());
         }
 
-        if (($code = \wp_remote_retrieve_response_code($response)) !== 200) {
+        if (($code = wp_remote_retrieve_response_code($response)) !== 200) {
             throw new Exception(
                 "HTTP request to <code>{$this->iconUrl}</code> failed with " .
                 "code <code>{$code}</code>"
             );
         }
 
-        $svg = new \SimpleXMLElement($response['body']);
+        $svg = new SimpleXMLElement($response['body']);
 
         /*
          * Add black fill, as recommended by WordPres:
@@ -107,7 +114,7 @@ class Icon
         $svg->addAttribute('style', 'fill:black');
         $svgDataUri = 'data:image/svg+xml;base64,'
                       . base64_encode($svg->asXML());
-        \add_option($this->optionName, $svgDataUri);
+        add_option($this->optionName, $svgDataUri);
 
         return $svgDataUri;
     }
