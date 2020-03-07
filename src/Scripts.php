@@ -58,7 +58,7 @@ JS;
         {$menuPageStyles}
         {$postTypeStyles}
     }
-    
+
     if (document.readyState !== 'loading') {
         main();
     } else {
