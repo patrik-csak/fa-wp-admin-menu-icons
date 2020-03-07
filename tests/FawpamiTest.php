@@ -73,7 +73,7 @@ class FawpamiTest extends TestCase
 
     public function testAddV4SyntaxNotice(): void
     {
-        $adminNotices = Mockery::mock('Fawpami\AdminNotices');
+        $adminNotices = Mockery::mock(AdminNotices::class);
         $adminNotices->shouldReceive('add');
         $fawpami = Mockery::mock(
             'Fawpami\Fawpami[pluginName]',

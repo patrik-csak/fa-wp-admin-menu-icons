@@ -58,7 +58,7 @@ class HooksTest extends TestCase
             ['return' => 404]
         );
 
-        $adminNotices = \Mockery::mock('Fawpami\AdminNotices');
+        $adminNotices = Mockery::mock(AdminNotices::class);
         $adminNotices->shouldReceive('add');
 
         $fawpami = Mockery::mock(
@@ -73,7 +73,7 @@ class HooksTest extends TestCase
         $fawpami->shouldReceive('isFaClass')->andReturn(true);
         $fawpami->shouldReceive('isFaClassV4')->andReturn(false);
 
-        $scripts = \Mockery::mock('Fawpami\Scripts');
+        $scripts = Mockery::mock(Scripts::class);
         $scripts->shouldReceive('registerPostType');
 
         $hooks = new Hooks($fawpami, $scripts);
@@ -108,7 +108,7 @@ class HooksTest extends TestCase
         $fawpami->shouldReceive('isFaClass')->andReturn(true);
         $fawpami->shouldReceive('isFaClassV4')->andReturn(false);
 
-        $scripts = \Mockery::mock('Fawpami\Scripts');
+        $scripts = Mockery::mock(Scripts::class);
         $scripts->shouldReceive('registerPostType');
 
         $hooks = new Hooks($fawpami, $scripts);
@@ -145,7 +145,7 @@ class HooksTest extends TestCase
         $fawpami->shouldReceive('isFaClass')->andReturn(false, true);
         $fawpami->shouldReceive('isFaClassV4')->andReturn(true, false);
 
-        $scripts = \Mockery::mock('Fawpami\Scripts');
+        $scripts = Mockery::mock(Scripts::class);
         $scripts->shouldReceive('registerPostType');
 
         $hooks = new Hooks($fawpami, $scripts);
@@ -166,7 +166,7 @@ class HooksTest extends TestCase
         $adminNotices = new AdminNotices();
 
         $fawpami = Mockery::mock(
-            'Fawpami\Fawpami',
+            Fawpami::class,
             [
                 [
                     'adminNotices' => $adminNotices,
@@ -177,7 +177,7 @@ class HooksTest extends TestCase
         $fawpami->shouldReceive('isFaClass')->andReturn(false);
         $fawpami->shouldReceive('isFaClassV4')->andReturn(false);
 
-        $scripts = Mockery::mock('Fawpami\Scripts');
+        $scripts = Mockery::mock(Scripts::class);
         $scripts->shouldReceive('registerMenuPage');
 
         $hooks = new Hooks($fawpami, $scripts);
@@ -209,11 +209,11 @@ class HooksTest extends TestCase
             ['return' => 404]
         );
 
-        $adminNotices = \Mockery::mock('Fawpami\AdminNotices');
+        $adminNotices = Mockery::mock(AdminNotices::class);
         $adminNotices->shouldReceive('add');
 
-        $fawpami = \Mockery::mock(
-            'Fawpami\Fawpami',
+        $fawpami = Mockery::mock(
+            Fawpami::class,
             [
                 [
                     'adminNotices' => $adminNotices,
@@ -227,7 +227,7 @@ class HooksTest extends TestCase
         $fawpami->shouldReceive('isFaClass')->andReturn(true);
         $fawpami->shouldReceive('isFaClassV4')->andReturn(false);
 
-        $scripts = Mockery::mock('Fawpami\Scripts');
+        $scripts = Mockery::mock(Scripts::class);
         $scripts->shouldReceive('registerMenuPage');
 
         $hooks = new Hooks($fawpami, $scripts);
@@ -250,7 +250,7 @@ class HooksTest extends TestCase
         $adminNotices = new AdminNotices();
 
         $fawpami = Mockery::mock(
-            'Fawpami\Fawpami',
+            Fawpami::class,
             [
                 [
                     'adminNotices' => $adminNotices,
@@ -261,7 +261,7 @@ class HooksTest extends TestCase
         $fawpami->shouldReceive('isFaClass')->andReturn(true);
         $fawpami->shouldReceive('isFaClassV4')->andReturn(false);
 
-        $scripts = Mockery::mock('Fawpami\Scripts');
+        $scripts = Mockery::mock(Scripts::class);
         $scripts->shouldReceive('registerMenuPage');
 
         $hooks = new Hooks($fawpami, $scripts);
@@ -284,7 +284,7 @@ class HooksTest extends TestCase
         $adminNotices = new AdminNotices();
 
         $fawpami = Mockery::mock(
-            'Fawpami\Fawpami',
+            Fawpami::class,
             [
                 [
                     'adminNotices' => $adminNotices,
