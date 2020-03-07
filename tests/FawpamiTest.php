@@ -38,7 +38,7 @@ class FawpamiTest extends TestCase
         $this->expectException(Exception::class);
 
         new Fawpami([
-            'adminNotices' => 'not an instance of AminNotices',
+            'adminNotices' => 'not an instance of AdminNotices',
             'faVersion' => Fawpami::FA_VERSION
         ]);
     }
