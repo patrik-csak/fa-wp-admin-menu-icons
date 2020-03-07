@@ -142,7 +142,10 @@ class Fawpami
      */
     public function shims()
     {
-        $shims = json_decode(file_get_contents(__DIR__ . '/fa-shims.json'));
+        $shims = json_decode(
+            file_get_contents(__DIR__ . '/fa-shims.json'),
+            true
+        );
 
         foreach ($shims as &$shim) {
             $shim['v4Name'] = $shim[0];
