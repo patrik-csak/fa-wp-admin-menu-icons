@@ -70,11 +70,11 @@ class Fawpami
         add_action('admin_init', [$styles, 'add']);
         add_filter(
             'register_post_type_args',
-            function ($args, $name) use ($hooks) {
+            static function ($args, $name) use ($hooks) {
                 return $hooks->filterRegisterPostTypeArgs($args, $name);
             }, 10, 2
         );
-        add_filter('set_url_scheme', function ($url) use ($hooks) {
+        add_filter('set_url_scheme', static function ($url) use ($hooks) {
             return $hooks->filterSetUrlScheme($url);
         });
     }
