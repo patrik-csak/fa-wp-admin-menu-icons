@@ -2,6 +2,7 @@
 /vendor/
 /tests/coverage/
 
+.phpunit.result.cache
 cc-test-reporter
 clover.xml
 composer.phar
