@@ -187,11 +187,13 @@ class Fawpami
      */
     public function faV5IconName($faV4IconName): string
     {
-        if ($shims = $this->shims()) {
-            foreach ($shims as $shim) {
-                if ($shim['v4Name'] === $faV4IconName) {
-                    return $shim['v5Name'];
-                }
+        if (!$shims = $this->shims()) {
+            return $faV4IconName;
+        }
+
+        foreach ($shims as $shim) {
+            if ($shim['v4Name'] === $faV4IconName) {
+                return $shim['v5Name'];
             }
         }
 
@@ -207,15 +209,19 @@ class Fawpami
      */
     public function faV5IconPrefix($faV4IconName): string
     {
-        if ($shims = $this->shims()) {
-            foreach ($shims as $shim) {
-                if ($shim['v4Name'] === $faV4IconName) {
-                    return $shim['v5Prefix'];
-                }
+        $default = 'fas';
+
+        if (!$shims = $this->shims()) {
+            return $default;
+        }
+
+        foreach ($shims as $shim) {
+            if ($shim['v4Name'] === $faV4IconName) {
+                return $shim['v5Prefix'];
             }
         }
 
-        return 'fas';
+        return $default;
     }
 
     public function stripFaPrefix($string)

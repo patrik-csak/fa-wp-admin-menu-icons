@@ -33,43 +33,45 @@ class Hooks
      */
     public function filterRegisterPostTypeArgs($args, $name): array
     {
-        if (isset($args['menu_icon'])) {
-            $menuIcon = $args['menu_icon'];
-            $isFaClass = $this->fawpami->isFaClass($menuIcon);
-            $isFaClassV4 = $this->fawpami->isFaClassV4($menuIcon);
+        if (!isset($args['menu_icon'])) {
+            return $args;
+        }
 
-            if ($isFaClass || $isFaClassV4) {
-                $this->scripts->registerPostType($name);
+        $menuIcon = $args['menu_icon'];
+        $isFaClass = $this->fawpami->isFaClass($menuIcon);
+        $isFaClassV4 = $this->fawpami->isFaClassV4($menuIcon);
 
-                if ($isFaClassV4) {
-                    $this->fawpami->addV4SyntaxWarning($menuIcon);
-                    $menuIcon = $this->fawpami->faV5Class($menuIcon);
-                }
-                try {
-                    $icon = new Icon([
-                        'faClass' => $menuIcon,
-                        'fawpami' => $this->fawpami
-                    ]);
-                    $args['menu_icon'] = $icon->svgDataUri();
-                } catch (Exception $exception) {
-                    $this->fawpami->adminNotices->add(
-                        $exception->getMessage(),
-                        'error'
-                    );
-                    try {
-                        $icon = new Icon([
-                            'faClass' => 'fas fa-exclamation-triangle',
-                            'fawpami' => $this->fawpami,
-                            'faVersion' => '5.12.1'
-                        ]);
-                        $args['menu_icon'] = $icon->svgDataUri();
-                    } catch (Exception $e) {
-                        /*
-                         * This shouldn't happen because we know the exclamation
-                         * triangle icon is valid
-                         */
-                    }
-                }
+        if (!($isFaClass || $isFaClassV4)) {
+            return $args;
+        }
+
+        $this->scripts->registerPostType($name);
+
+        if ($isFaClassV4) {
+            $this->fawpami->addV4SyntaxWarning($menuIcon);
+            $menuIcon = $this->fawpami->faV5Class($menuIcon);
+        }
+        try {
+            $icon = new Icon([
+                'faClass' => $menuIcon,
+                'fawpami' => $this->fawpami,
+            ]);
+            $args['menu_icon'] = $icon->svgDataUri();
+        } catch (Exception $exception) {
+            $this->fawpami->adminNotices->add(
+                $exception->getMessage(),
+                'error'
+            );
+            try {
+                $icon = new Icon([
+                    'faClass' => 'fas fa-exclamation-triangle',
+                    'fawpami' => $this->fawpami,
+                    'faVersion' => '5.12.1',
+                ]);
+                $args['menu_icon'] = $icon->svgDataUri();
+            } catch (Exception $e) {
+                // This shouldn't happen because we know the exclamation
+                // triangle icon is valid
             }
         }
 
@@ -88,44 +90,46 @@ class Hooks
         $isFaClass = $this->fawpami->isFaClass($url);
         $isFaClassV4 = $this->fawpami->isFaClassV4($url);
 
-        if ($isFaClass || $isFaClassV4) {
-            global $admin_page_hooks;
-            $pages = $admin_page_hooks;
-            $menuIcon = $url;
+        if (!($isFaClass || $isFaClassV4)) {
+            return $url;
+        }
 
-            // The most recently registered menu page should be this one
-            end($pages);
-            $this->scripts->registerMenuPage(key($pages));
+        global $admin_page_hooks;
+        $pages = $admin_page_hooks;
+        $menuIcon = $url;
 
-            if ($isFaClassV4) {
-                $this->fawpami->addV4SyntaxWarning($menuIcon);
-                $menuIcon = $this->fawpami->faV5Class($menuIcon);
-            }
+        // The most recently registered menu page should be this one
+        end($pages);
+        $this->scripts->registerMenuPage(key($pages));
 
+        if ($isFaClassV4) {
+            $this->fawpami->addV4SyntaxWarning($menuIcon);
+            $menuIcon = $this->fawpami->faV5Class($menuIcon);
+        }
+
+        try {
+            $icon = new Icon([
+                'faClass' => $menuIcon,
+                'fawpami' => $this->fawpami,
+            ]);
+
+            return $icon->svgDataUri();
+        } catch (Exception $exception) {
+            $this->fawpami->adminNotices->add(
+                $exception->getMessage(),
+                'error'
+            );
             try {
                 $icon = new Icon([
-                    'faClass' => $menuIcon,
-                    'fawpami' => $this->fawpami
+                    'faClass' => 'fas fa-exclamation-triangle',
+                    'fawpami' => $this->fawpami,
+                    'faVersion' => '5.12.1',
                 ]);
+
                 return $icon->svgDataUri();
-            } catch (Exception $exception) {
-                $this->fawpami->adminNotices->add(
-                    $exception->getMessage(),
-                    'error'
-                );
-                try {
-                    $icon = new Icon([
-                        'faClass' => 'fas fa-exclamation-triangle',
-                        'fawpami' => $this->fawpami,
-                        'faVersion' => '5.12.1'
-                    ]);
-                    return $icon->svgDataUri();
-                } catch (Exception $e) {
-                    /*
-                     * This shouldn't happen because we know the exclamation
-                     * triangle icon is valid
-                     */
-                }
+            } catch (Exception $e) {
+                // This shouldn't happen because we know the exclamation
+                // triangle icon is valid
             }
         }
 
