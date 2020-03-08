@@ -135,7 +135,7 @@ class Fawpami
         )['Name'];
     }
 
-    public function shims(): array
+    public function shims(): ?array
     {
         $shims = json_decode(
             file_get_contents(__DIR__ . '/fa-shims.json'),

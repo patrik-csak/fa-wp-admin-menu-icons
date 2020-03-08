@@ -12,7 +12,7 @@ class FawpamiTest extends TestCase
     /** @var Fawpami */
     private $fawpami;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -22,7 +22,7 @@ class FawpamiTest extends TestCase
         ]);
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
         Mockery::close();
@@ -137,11 +137,11 @@ class FawpamiTest extends TestCase
 
     public function testShims(): void
     {
-        $this->assertArraySubset(
+        $this->assertEquals(
             [
                 'v4Name' => 'glass',
                 'v5Name' => 'glass-martini',
-                'v5Prefix' => 'fas'
+                'v5Prefix' => 'fas',
             ],
             $this->fawpami->shims()[0]
         );
