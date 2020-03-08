@@ -31,7 +31,7 @@ class Hooks
      *
      * @return array
      */
-    public function filterRegisterPostTypeArgs($args, $name)
+    public function filterRegisterPostTypeArgs($args, $name): array
     {
         if (isset($args['menu_icon'])) {
             $menuIcon = $args['menu_icon'];
@@ -83,7 +83,7 @@ class Hooks
      *
      * @return string
      */
-    public function filterSetUrlScheme($url)
+    public function filterSetUrlScheme($url): string
     {
         $isFaClass = $this->fawpami->isFaClass($url);
         $isFaClassV4 = $this->fawpami->isFaClassV4($url);

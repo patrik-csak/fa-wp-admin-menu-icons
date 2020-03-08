@@ -7,7 +7,7 @@ require_once __DIR__ . '/../src/Styles.php';
 
 class StylesTest extends TestCase
 {
-    public function testAdd()
+    public function testAdd(): void
     {
         WP_Mock::userFunction('wp_add_inline_style', ['return' => true]);
 

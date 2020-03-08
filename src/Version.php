@@ -10,7 +10,7 @@ class Version
      *
      * @return bool
      */
-    public static function different($a, $b)
+    public static function different($a, $b): bool
     {
         $vA = self::parse($a);
         $vB = self::parse($b);
@@ -26,7 +26,7 @@ class Version
      *
      * @return bool
      */
-    public static function lessThan($a, $b)
+    public static function lessThan($a, $b): bool
     {
         $vA = self::parse($a);
         $vB = self::parse($b);
@@ -51,7 +51,7 @@ class Version
      *
      * @return array
      */
-    private static function parse($version)
+    private static function parse($version): array
     {
         preg_match(
             '/^(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)$/',
@@ -71,7 +71,7 @@ class Version
      *
      * @return bool
      */
-    public static function validate($version)
+    public static function validate($version): bool
     {
         return (bool)preg_match('/^\d+\.\d+\.\d+$/', $version);
     }
