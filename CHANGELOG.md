@@ -5,11 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [v3.9.0](https://github.com/ptrkcsk/fa-wp-admin-menu-icons/compare/v3.7.0...v3.9.0) - 2020-03-07
+## [Unreleased](https://github.com/ptrkcsk/fa-wp-admin-menu-icons/compare/v3.9.0...HEAD)
+
+### Added
+
+- Restore support for EOL PHP versions because it's a breaking change
+
+## [v3.9.0](https://github.com/ptrkcsk/fa-wp-admin-menu-icons/compare/v3.8.0...v3.9.0) - 2020-03-07
 
 ### Changed
 
 - Upgrade Font Awesome to v5.12.1
+
+### Removed
+
+- Support for EOL PHP versions
 
 ## [v3.8.0](https://github.com/ptrkcsk/fa-wp-admin-menu-icons/compare/v3.7.0...v3.8.0) - 2019-10-14
 
