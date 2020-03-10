@@ -14,7 +14,7 @@ class VersionTest extends TestCase
      * @param string $b
      * @param bool $expected
      */
-    public function testDifferent($a, $b, $expected)
+    public function testDifferent($a, $b, $expected): void
     {
         $this->assertEquals($expected, Version::different($a, $b));
     }
@@ -26,7 +26,7 @@ class VersionTest extends TestCase
      * @param string $b
      * @param bool $expected
      */
-    public function testLessThan($a, $b, $expected)
+    public function testLessThan($a, $b, $expected): void
     {
         $this->assertEquals($expected, Version::lessThan($a, $b));
     }
@@ -37,12 +37,12 @@ class VersionTest extends TestCase
      * @param string $version
      * @param bool $expected
      */
-    public function testValidate($version, $expected)
+    public function testValidate($version, $expected): void
     {
         $this->assertEquals($expected, Version::validate($version));
     }
 
-    public function differentProvider()
+    public function differentProvider(): array
     {
         return [
             ['1.2.3', '1.2.3', false],
@@ -51,7 +51,7 @@ class VersionTest extends TestCase
         ];
     }
 
-    public function lessThanProvider()
+    public function lessThanProvider(): array
     {
         return [
             ['1.2.3', '1.2.3', false],
@@ -60,7 +60,7 @@ class VersionTest extends TestCase
         ];
     }
 
-    public function validateProvider()
+    public function validateProvider(): array
     {
         return [
             ['1.2.3', true],
