@@ -13,7 +13,7 @@ class AdminNotices
      *
      * @return void
      */
-    public function add($message, $style = ''): void
+    public function add($message, $style = '')
     {
         $this->notices[] = [
             'message' => $message,
@@ -24,7 +24,7 @@ class AdminNotices
     /**
      * @param string $pluginName
      */
-    public function html($pluginName): void
+    public function html($pluginName)
     {
         $class = 'notice';
 

@@ -12,7 +12,7 @@ class FawpamiTest extends TestCase
     /** @var Fawpami */
     private $fawpami;
 
-    protected function setUp(): void
+    protected function setUp()
     {
         parent::setUp();
 
@@ -22,18 +22,18 @@ class FawpamiTest extends TestCase
         ]);
     }
 
-    protected function tearDown(): void
+    protected function tearDown()
     {
         parent::tearDown();
         Mockery::close();
     }
 
-    public function testConstruct(): void
+    public function testConstruct()
     {
         $this->assertInstanceOf(Fawpami::class, $this->fawpami);
     }
 
-    public function testConstructWithBadAdminNotices(): void
+    public function testConstructWithBadAdminNotices()
     {
         $this->expectException(Exception::class);
 
@@ -43,7 +43,7 @@ class FawpamiTest extends TestCase
         ]);
     }
 
-    public function testConstructWithBadFaVersion(): void
+    public function testConstructWithBadFaVersion()
     {
         $this->expectException(Exception::class);
 
@@ -53,7 +53,7 @@ class FawpamiTest extends TestCase
         ]);
     }
 
-    public function testConstructWithoutAdminNotices(): void
+    public function testConstructWithoutAdminNotices()
     {
         $this->expectException(Exception::class);
 
@@ -62,7 +62,7 @@ class FawpamiTest extends TestCase
         ]);
     }
 
-    public function testConstructWithoutFaVersion(): void
+    public function testConstructWithoutFaVersion()
     {
         $this->expectException(Exception::class);
 
@@ -71,11 +71,11 @@ class FawpamiTest extends TestCase
         ]);
     }
 
-    public function testAddV4SyntaxNotice(): void
+    public function testAddV4SyntaxNotice()
     {
-        $adminNotices = Mockery::mock(AdminNotices::class);
+        $adminNotices = Mockery::mock('Fawpami\AdminNotices');
         $adminNotices->shouldReceive('add');
-        $fawpami = Mockery::mock(
+        $fawpami = \Mockery::mock(
             'Fawpami\Fawpami[pluginName]',
             [
                 [
@@ -92,17 +92,17 @@ class FawpamiTest extends TestCase
         $this->assertTrue(true);
     }
 
-    public function testIsFaClassWithSolidIcon(): void
+    public function testIsFaClassWithSolidIcon()
     {
         $this->assertTrue($this->fawpami->isFaClass('fas fa-camera-retro'));
     }
 
-    public function testIsFaClassWithRegularIcon(): void
+    public function testIsFaClassWithRegularIcon()
     {
         $this->assertTrue($this->fawpami->isFaClass('far fa-camera-retro'));
     }
 
-    public function testIsFaClassWithBrandsIcon(): void
+    public function testIsFaClassWithBrandsIcon()
     {
         $this->assertTrue($this->fawpami->isFaClass('fab fa-font-awesome'));
     }
@@ -110,44 +110,44 @@ class FawpamiTest extends TestCase
     /**
      * This plugin doesn't support Font Awesome Pro yet.
      */
-    public function testIsFaClassWithLightIcon(): void
+    public function testIsFaClassWithLightIcon()
     {
         $this->assertFalse($this->fawpami->isFaClass('fal fa-camera-retro'));
     }
 
-    public function testIsFaClassWithFaV4Syntax(): void
+    public function testIsFaClassWithFaV4Syntax()
     {
         $this->assertFalse($this->fawpami->isFaClass('fa-camera-retro'));
     }
 
-    public function testIsFaClassWithInvalidSyntax(): void
+    public function testIsFaClassWithInvalidSyntax()
     {
         $this->assertFalse($this->fawpami->isFaClass('camera-retro'));
     }
 
-    public function testIsFaClassV4WithFaV4Syntax(): void
+    public function testIsFaClassV4WithFaV4Syntax()
     {
         $this->assertTrue($this->fawpami->isFaClassV4('fa-camera-retro'));
     }
 
-    public function testIsFaClassV4WithFaV5Syntax(): void
+    public function testIsFaClassV4WithFaV5Syntax()
     {
         $this->assertFalse($this->fawpami->isFaClassV4('fas fa-camera-retro'));
     }
 
-    public function testShims(): void
+    public function testShims()
     {
-        $this->assertEquals(
+        $this->assertArraySubset(
             [
                 'v4Name' => 'glass',
                 'v5Name' => 'glass-martini',
-                'v5Prefix' => 'fas',
+                'v5Prefix' => 'fas'
             ],
             $this->fawpami->shims()[0]
         );
     }
 
-    public function testFaV5ClassWithV4Icon(): void
+    public function testFaV5ClassWithV4Icon()
     {
         $this->assertEquals(
             'fas fa-address-book',
@@ -155,7 +155,7 @@ class FawpamiTest extends TestCase
         );
     }
 
-    public function testFaV5ClassWithV5Class(): void
+    public function testFaV5ClassWithV5Class()
     {
         $this->assertEquals(
             'fas fa-address-book',
@@ -163,12 +163,12 @@ class FawpamiTest extends TestCase
         );
     }
 
-    public function testFaV5ClassWithInvalidIcon(): void
+    public function testFaV5ClassWithInvalidIcon()
     {
         $this->assertFalse($this->fawpami->faV5Class('emosewa'));
     }
 
-    public function testFaV5IconName(): void
+    public function testFaV5IconName()
     {
         $fawpami = Mockery::mock(
             'Fawpami\Fawpami[shims]',
@@ -191,7 +191,7 @@ class FawpamiTest extends TestCase
         $this->assertEquals('glass-martini', $fawpami->faV5IconName('glass'));
     }
 
-    public function testFaV5IconNameWithNonExistentIcon(): void
+    public function testFaV5IconNameWithNonExistentIcon()
     {
         $fawpami = Mockery::mock(
             'Fawpami\Fawpami[shims]',
@@ -209,7 +209,7 @@ class FawpamiTest extends TestCase
         $this->assertEquals('emosewa', $fawpami->faV5IconName('emosewa'));
     }
 
-    public function testFaV5IconPrefix(): void
+    public function testFaV5IconPrefix()
     {
         $fawpami = Mockery::mock(
             'Fawpami\Fawpami[shims]',
@@ -232,7 +232,7 @@ class FawpamiTest extends TestCase
         $this->assertEquals('far', $fawpami->faV5IconPrefix('address-book-o'));
     }
 
-    public function testFaV5IconPrefixWithNonExistentIcon(): void
+    public function testFaV5IconPrefixWithNonExistentIcon()
     {
         $fawpami = Mockery::mock(
             'Fawpami\Fawpami[shims]',
@@ -250,7 +250,7 @@ class FawpamiTest extends TestCase
         $this->assertEquals('fas', $fawpami->faV5IconPrefix('emosewa'));
     }
 
-    public function testStripFaPrefix(): void
+    public function testStripFaPrefix()
     {
         $this->assertEquals(
             'camera-retro',
@@ -258,7 +258,7 @@ class FawpamiTest extends TestCase
         );
     }
 
-    public function testStripFaPrefixReturnsOriginalStringIfNoPrefix(): void
+    public function testStripFaPrefixReturnsOriginalStringIfNoPrefix()
     {
         $this->assertEquals(
             'camera-retro',
@@ -266,7 +266,7 @@ class FawpamiTest extends TestCase
         );
     }
 
-    public function testPluginName(): void
+    public function testPluginName()
     {
         WP_Mock::userFunction('get_plugin_data', [
             'return' => ['Name' => 'FA WP Admin Menu Icons']

@@ -2,8 +2,6 @@
 
 namespace Fawpami;
 
-use function get_plugin_data;
-
 require_once 'AdminNotices.php';
 require_once 'Hooks.php';
 require_once 'Styles.php';
@@ -12,7 +10,7 @@ require_once 'Version.php';
 class Fawpami
 {
     /** @var string */
-    public const FA_VERSION = '5.12.1';
+    const FA_VERSION = '5.12.1';
 
     /** @var AdminNotices */
     public $adminNotices;
@@ -29,8 +27,12 @@ class Fawpami
      */
     public function __construct(array $params)
     {
-        $adminNotices = $params['adminNotices'] ?? null;
-        $faVersion = $params['faVersion'] ?? null;
+        $adminNotices = isset($params['adminNotices'])
+            ? $params['adminNotices']
+            : null;
+        $faVersion = isset($params['faVersion'])
+            ? $params['faVersion']
+            : null;
 
         foreach (['adminNotices', 'faVersion'] as $param) {
             if (!$$param) {
@@ -55,7 +57,7 @@ class Fawpami
         $this->faVersion = $faVersion;
     }
 
-    public function addHooks(): void
+    public function addHooks()
     {
         $scripts = new Scripts();
         $hooks = new Hooks($this, $scripts);
@@ -82,7 +84,7 @@ class Fawpami
      *
      * @return void
      */
-    public function addV4SyntaxWarning($class): void
+    public function addV4SyntaxWarning($class)
     {
         if ($this->isFaClassV4($class)) {
             $v5Class = $this->faV5Class($class);
@@ -110,7 +112,7 @@ class Fawpami
      *
      * @return bool
      */
-    public function isFaClass($string): bool
+    public function isFaClass($string)
     {
         return (bool)preg_match('/^fa[bsr]\s+fa-[\w-]+$/', $string);
     }
@@ -123,19 +125,22 @@ class Fawpami
      *
      * @return bool
      */
-    public function isFaClassV4($string): bool
+    public function isFaClassV4($string)
     {
         return strpos($string, 'fa-') === 0;
     }
 
     public function pluginName()
     {
-        return get_plugin_data(
+        return \get_plugin_data(
             __DIR__ . '/../fa-wp-admin-menu-icons.php'
         )['Name'];
     }
 
-    public function shims(): ?array
+    /**
+     * @return array
+     */
+    public function shims()
     {
         $shims = json_decode(
             file_get_contents(__DIR__ . '/fa-shims.json'),
@@ -185,7 +190,7 @@ class Fawpami
      * @return string The Font Awesome v5 icon name, if found, else the original
      *                name.
      */
-    public function faV5IconName($faV4IconName): string
+    public function faV5IconName($faV4IconName)
     {
         if (!$shims = $this->shims()) {
             return $faV4IconName;
@@ -207,7 +212,7 @@ class Fawpami
      *
      * @return string The Font Awesome v5 icon prefix, if found, else `'fas'`.
      */
-    public function faV5IconPrefix($faV4IconName): string
+    public function faV5IconPrefix($faV4IconName)
     {
         $default = 'fas';
 

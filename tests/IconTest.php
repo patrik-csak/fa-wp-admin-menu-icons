@@ -11,20 +11,20 @@ require_once __DIR__ . '/../src/Icon.php';
 
 class IconTest extends TestCase
 {
-    protected function setUp(): void
+    protected function setUp()
     {
         parent::setUp();
-        WP_Mock::setUp();
+        \WP_Mock::setUp();
     }
 
-    protected function tearDown(): void
+    protected function tearDown()
     {
         parent::tearDown();
-        WP_Mock::tearDown();
-        Mockery::close();
+        \WP_Mock::tearDown();
+        \Mockery::close();
     }
 
-    public function testWithBadFaClass(): void
+    public function testWithBadFaClass()
     {
         $fawpami = Mockery::mock(
             'Fawpami\Fawpami[isFaClass]',
@@ -45,7 +45,7 @@ class IconTest extends TestCase
         ]);
     }
 
-    public function testNewBrandIcon(): void
+    public function testNewBrandIcon()
     {
         $fawpami = Mockery::mock(
             'Fawpami\Fawpami[isFaClass]',
@@ -67,7 +67,7 @@ class IconTest extends TestCase
         );
     }
 
-    public function testNewRegularIcon(): void
+    public function testNewRegularIcon()
     {
         $fawpami = Mockery::mock(
             'Fawpami\Fawpami[isFaClass]',
@@ -89,7 +89,7 @@ class IconTest extends TestCase
         );
     }
 
-    public function testNewSolidIcon(): void
+    public function testNewSolidIcon()
     {
         $fawpami = Mockery::mock(
             'Fawpami\Fawpami[isFaClass]',
@@ -111,7 +111,7 @@ class IconTest extends TestCase
         );
     }
 
-    public function testNewIconWithInvalidClass(): void
+    public function testNewIconWithInvalidClass()
     {
         $fawpami = Mockery::mock(
             'Fawpami\Fawpami[isFaClass]',
@@ -132,17 +132,17 @@ class IconTest extends TestCase
         ]);
     }
 
-    public function testSvgDataUri(): void
+    public function testSvgDataUri()
     {
-        WP_Mock::userFunction('add_option', ['return' => true]);
-        WP_Mock::userFunction('get_option', ['return' => false]);
-        WP_Mock::userFunction('is_wp_error', ['return' => false]);
-        WP_Mock::userFunction('wp_remote_get', [
+        \WP_Mock::userFunction('add_option', ['return' => true]);
+        \WP_Mock::userFunction('get_option', ['return' => false]);
+        \WP_Mock::userFunction('is_wp_error', ['return' => false]);
+        \WP_Mock::userFunction('wp_remote_get', [
             'return' => [
                 'body' => '<svg xmlns="http://www.w3.org/2000/svg"></svg>'
             ]
         ]);
-        WP_Mock::userFunction(
+        \WP_Mock::userFunction(
             'wp_remote_retrieve_response_code',
             ['return' => 200]
         );
@@ -163,10 +163,10 @@ class IconTest extends TestCase
         );
     }
 
-    public function testSvgDataUriWithCachedIcon(): void
+    public function testSvgDataUriWithCachedIcon()
     {
         $faVersion = Fawpami::FA_VERSION;
-        WP_Mock::userFunction('get_option', [
+        \WP_Mock::userFunction('get_option', [
             'args' => ["fawpami_icon_camera_retro_solid_{$faVersion}"],
             'return' => 'data:image/svg+xml;base64,'
         ]);
@@ -187,12 +187,12 @@ class IconTest extends TestCase
         );
     }
 
-    public function testSvgDataUriWithInvalidIcon(): void
+    public function testSvgDataUriWithInvalidIcon()
     {
-        WP_Mock::userFunction('get_option', ['return' => false]);
-        WP_Mock::userFunction('is_wp_error', ['return' => false]);
-        WP_Mock::userFunction('wp_remote_get', ['return' => []]);
-        WP_Mock::userFunction(
+        \WP_Mock::userFunction('get_option', ['return' => false]);
+        \WP_Mock::userFunction('is_wp_error', ['return' => false]);
+        \WP_Mock::userFunction('wp_remote_get', ['return' => []]);
+        \WP_Mock::userFunction(
             'wp_remote_retrieve_response_code',
             ['return' => 404]
         );
@@ -211,16 +211,16 @@ class IconTest extends TestCase
         $icon->svgDataUri();
     }
 
-    public function testSvgDataUriWithWpRemoteGetError(): void
+    public function testSvgDataUriWithWpRemoteGetError()
     {
         $errorMessage = 'Message from \WP_Error::get_error_message';
         $wpError = Mockery::mock('WP_Error');
         $wpError->shouldReceive('get_error_message')->andReturn($errorMessage);
 
-        WP_Mock::userFunction('get_option', ['return' => false]);
-        WP_Mock::userFunction('is_wp_error', ['return' => true]);
-        WP_Mock::userFunction('wp_remote_get', ['return' => $wpError]);
-        WP_Mock::userFunction('is_wp_error', ['return' => true]);
+        \WP_Mock::userFunction('get_option', ['return' => false]);
+        \WP_Mock::userFunction('is_wp_error', ['return' => true]);
+        \WP_Mock::userFunction('wp_remote_get', ['return' => $wpError]);
+        \WP_Mock::userFunction('is_wp_error', ['return' => true]);
 
         $fawpami = new Fawpami([
             'adminNotices' => new AdminNotices(),

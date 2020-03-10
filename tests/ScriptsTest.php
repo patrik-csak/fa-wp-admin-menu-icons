@@ -7,7 +7,7 @@ require_once __DIR__ . '/../src/Scripts.php';
 
 class ScriptsTest extends TestCase
 {
-    public function testPrintScripts(): void
+    public function testPrintScripts()
     {
         $menuPage = 'fawpamimenupage';
         $postType = 'fawpamiposttype';

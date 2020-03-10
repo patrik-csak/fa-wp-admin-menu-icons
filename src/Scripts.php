@@ -14,7 +14,7 @@ class Scripts
      * @param string $class
      * @return string
      */
-    private function iconStyle($class): string
+    private function iconStyle($class)
     {
         return <<<JS
 document
@@ -27,7 +27,7 @@ JS;
     /**
      * @param string $page
      */
-    public function registerMenuPage($page): void
+    public function registerMenuPage($page)
     {
         $this->menuPages[] = $page;
     }
@@ -35,12 +35,12 @@ JS;
     /**
      * @param string $postType
      */
-    public function registerPostType($postType): void
+    public function registerPostType($postType)
     {
         $this->postTypes[] = $postType;
     }
 
-    public function printScripts(): void
+    public function printScripts()
     {
         if ($this->menuPages || $this->postTypes) {
             $menuPageStyles = implode("\n", array_map(function ($page) {

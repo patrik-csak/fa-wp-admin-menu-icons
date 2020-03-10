@@ -4,7 +4,7 @@ namespace Fawpami;
 
 class Styles
 {
-    public function add(): void
+    public function add()
     {
         $css = <<<CSS
 #adminmenu div.wp-menu-image--fawpami.svg { background-size: 20px 20px }
