@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 
 - Test with WordPress v5.2.1
+- Upgrade Font Awesome to v5.13.0
 
 ## [v4.0.0](https://github.com/ptrkcsk/fa-wp-admin-menu-icons/compare/v3.9.1...v4.0.0)
 
