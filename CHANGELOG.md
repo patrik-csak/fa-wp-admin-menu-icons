@@ -13,14 +13,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Test with WordPress v5.5.3
 - Drop support for PHP v7.2
 
-## [v4.1.0](https://github.com/ptrkcsk/fa-wp-admin-menu-icons/compare/v4.0.0...v4.1.0)
+## [v4.1.0](https://github.com/ptrkcsk/fa-wp-admin-menu-icons/compare/v4.0.0...v4.1.0) - 2020-04-14
 
 ### Changed
 
 - Test with WordPress v5.2.1
 - Upgrade Font Awesome to v5.13.0
 
-## [v4.0.0](https://github.com/ptrkcsk/fa-wp-admin-menu-icons/compare/v3.9.1...v4.0.0)
+## [v4.0.0](https://github.com/ptrkcsk/fa-wp-admin-menu-icons/compare/v3.9.1...v4.0.0) - 2020-03-10
 
 ### Removed
 
