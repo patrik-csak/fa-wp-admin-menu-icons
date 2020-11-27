@@ -10,11 +10,7 @@ class Scripts
     /** @var string[] */
     private $postTypes = [];
 
-    /**
-     * @param string $class
-     * @return string
-     */
-    private function iconStyle($class): string
+    private function iconStyle(string $class): string
     {
         return <<<JS
 document
@@ -24,18 +20,12 @@ document
 JS;
     }
 
-    /**
-     * @param string $page
-     */
-    public function registerMenuPage($page): void
+    public function registerMenuPage(string $page): void
     {
         $this->menuPages[] = $page;
     }
 
-    /**
-     * @param string $postType
-     */
-    public function registerPostType($postType): void
+    public function registerPostType(string $postType): void
     {
         $this->postTypes[] = $postType;
     }

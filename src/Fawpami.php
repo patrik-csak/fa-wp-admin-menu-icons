@@ -77,12 +77,7 @@ class Fawpami
         });
     }
 
-    /**
-     * @param string $class
-     *
-     * @return void
-     */
-    public function addV4SyntaxWarning($class): void
+    public function addV4SyntaxWarning(string $class): void
     {
         if ($this->isFaClassV4($class)) {
             $v5Class = $this->faV5Class($class);
@@ -110,7 +105,7 @@ class Fawpami
      *
      * @return bool
      */
-    public function isFaClass($string): bool
+    public function isFaClass(string $string): bool
     {
         return (bool)preg_match('/^fa[bsr]\s+fa-[\w-]+$/', $string);
     }
@@ -185,7 +180,7 @@ class Fawpami
      * @return string The Font Awesome v5 icon name, if found, else the original
      *                name.
      */
-    public function faV5IconName($faV4IconName): string
+    public function faV5IconName(string $faV4IconName): string
     {
         if (!$shims = $this->shims()) {
             return $faV4IconName;
@@ -207,7 +202,7 @@ class Fawpami
      *
      * @return string The Font Awesome v5 icon prefix, if found, else `'fas'`.
      */
-    public function faV5IconPrefix($faV4IconName): string
+    public function faV5IconPrefix(string $faV4IconName): string
     {
         $default = 'fas';
 

@@ -4,13 +4,7 @@ namespace Fawpami;
 
 class Version
 {
-    /**
-     * @param string $a
-     * @param string $b
-     *
-     * @return bool
-     */
-    public static function different($a, $b): bool
+    public static function different(string $a, string $b): bool
     {
         $vA = self::parse($a);
         $vB = self::parse($b);
@@ -20,13 +14,7 @@ class Version
                $vA['patch'] !== $vB['patch'];
     }
 
-    /**
-     * @param string $a
-     * @param string $b
-     *
-     * @return bool
-     */
-    public static function lessThan($a, $b): bool
+    public static function lessThan(string $a, string $b): bool
     {
         $vA = self::parse($a);
         $vB = self::parse($b);
@@ -46,12 +34,7 @@ class Version
         return false;
     }
 
-    /**
-     * @param string $version
-     *
-     * @return array
-     */
-    private static function parse($version): array
+    private static function parse(string $version): array
     {
         preg_match(
             '/^(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)$/',
@@ -66,12 +49,7 @@ class Version
         ];
     }
 
-    /**
-     * @param string $version
-     *
-     * @return bool
-     */
-    public static function validate($version): bool
+    public static function validate(string $version): bool
     {
         return (bool)preg_match('/^\d+\.\d+\.\d+$/', $version);
     }
