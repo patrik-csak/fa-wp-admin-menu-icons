@@ -2,6 +2,7 @@
 
 namespace Fawpami;
 
+use JsonException;
 use function get_plugin_data;
 
 require_once 'AdminNotices.php';
@@ -132,10 +133,16 @@ class Fawpami
 
     public function shims(): ?array
     {
-        $shims = json_decode(
-            file_get_contents(__DIR__ . '/fa-shims.json'),
-            true
-        );
+        try {
+            $shims = json_decode(
+                file_get_contents(__DIR__ . '/fa-shims.json'),
+                true,
+                512,
+                JSON_THROW_ON_ERROR
+            );
+        } catch (JsonException $exception) {
+            return [];
+        }
 
         foreach ($shims as &$shim) {
             $shim['v4Name'] = $shim[0];
