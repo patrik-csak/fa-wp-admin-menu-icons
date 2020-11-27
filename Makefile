@@ -19,6 +19,7 @@ clean:
 	@$(RM) composer.phar
 	@$(RM) src/fa-shims.json
 	@$(RM) -r vendor
+	@$(RM) .phpunit.result.cache
 
 ########################################################################
 # Phony targets
