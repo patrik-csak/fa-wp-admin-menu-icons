@@ -48,6 +48,12 @@ FA WP Admin Menu Icons works for the following WordPress functions:
         'fas fa-thumbs-up', // $icon_url
     );
 
+== Requirements ==
+
+- WordPress v4.4+
+- PHP v7.3+
+- [SimpleXML PHP extension](https://www.php.net/manual/en/simplexml.installation.php) (enabled by default)
+
 == Installation ==
 
 = Composer =

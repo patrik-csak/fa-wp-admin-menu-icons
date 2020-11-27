@@ -12,6 +12,12 @@ register_post_type( 'custom_post_type', [
 ] );
 ```
 
+## Requirements
+
+- WordPress v4.4+
+- PHP v7.3+
+- [SimpleXML PHP extension](https://www.php.net/manual/en/simplexml.installation.php) (enabled by default)
+
 ## Installation
 
 ### Composer
