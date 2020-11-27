@@ -26,7 +26,7 @@ clean:
 ########################################################################
 
 .PHONY : test
-test : $(phpunit) ; @$< tests
+test : $(phpunit) src/fa-shims.json ; @$< tests
 
 .PHONY : test-coverage-code-climate
 test-coverage-code-climate: cc-test-reporter clover.xml
