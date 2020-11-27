@@ -25,7 +25,7 @@ clean:
 ########################################################################
 
 .PHONY : test
-test : $(phpunit) ; @$<
+test : $(phpunit) ; @$< tests
 
 .PHONY : test-coverage-code-climate
 test-coverage-code-climate: cc-test-reporter clover.xml
