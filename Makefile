@@ -36,7 +36,7 @@ test-coverage-code-climate: cc-test-reporter clover.xml
 # Xdebug must be enabled to generate coverage report
 .PHONY : test-coverage-html
 test-coverage-html: $(phpunit)
-	$(phpunit) --coverage-html tests/coverage
+	XDEBUG_MODE=coverage $(phpunit) --coverage-html tests/coverage
 	@#  Open coverage report in the browser
 ifeq ($(os), $(macOs))
 	open tests/coverage/index.html;
@@ -56,7 +56,7 @@ else
 endif
 	@chmod +x ./cc-test-reporter
 
-clover.xml: $(phpunit) ; $(phpunit) --coverage-clover clover.xml
+clover.xml: $(phpunit) ; XDEBUG_MODE=coverage $(phpunit) --coverage-clover clover.xml
 
 composer.phar:
 	php scripts/install-composer.php
