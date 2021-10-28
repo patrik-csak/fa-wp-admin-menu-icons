@@ -18,7 +18,7 @@
     "issues": "https://github.com/ptrkcsk/fa-wp-admin-menu-icons/issues"
   },
   "require": {
-    "php": "7.3 - 7.4",
+    "php": "7.3 - 8.0",
     "ext-simplexml": "*"
   },
   "require-dev": {
