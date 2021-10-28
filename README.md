@@ -67,3 +67,7 @@ add_menu_page(
     'fas fa-thumbs-up', // $icon_url
 );
 ```
+
+## Caveats
+
+FA WP Admin Menu Icons only supports Font Awesome's [free icons](https://fontawesome.com/v5.15/icons?d=gallery&p=2&m=free)

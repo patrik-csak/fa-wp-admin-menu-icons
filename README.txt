@@ -69,6 +69,10 @@ FA WP Admin Menu Icons works for the following WordPress functions:
 
 [How to install WordPress plugins.](https://codex.wordpress.org/Managing_Plugins#Installing_Plugins)
 
+== Caveats ==
+
+FA WP Admin Menu Icons only supports Font Awesome's [free icons](https://fontawesome.com/v5.15/icons?d=gallery&p=2&m=free)
+
 == Changelog ==
 
 = 5.0.0 =
