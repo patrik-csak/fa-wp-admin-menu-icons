@@ -2,7 +2,7 @@
 Contributors: ptrkcsk
 Tags: fontawesome, icon, icons, custom
 Requires at least: 4.4
-Tested up to: 5.5.3
+Tested up to: 5.8.1
 Requires PHP: 7.3
 Stable tag: 5.0.0
 License: GPLv3
