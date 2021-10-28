@@ -26,17 +26,17 @@ clean:
 ########################################################################
 
 .PHONY : test
-test : $(phpunit) src/fa-shims.json ; @$< tests
+test : $(phpunit) src/fa-shims.json ; $(phpunit) tests
 
 .PHONY : test-coverage-code-climate
 test-coverage-code-climate: cc-test-reporter clover.xml
-	@./$< before-build
-	@./$< after-build --coverage-input-type clover
+	./cc-test-reporter before-build
+	./cc-test-reporter after-build --coverage-input-type clover
 
 # Xdebug must be enabled to generate coverage report
 .PHONY : test-coverage-html
 test-coverage-html: $(phpunit)
-	@$< --coverage-html tests/coverage
+	$(phpunit) --coverage-html tests/coverage
 	@#  Open coverage report in the browser
 ifeq ($(os), $(macOs))
 	open tests/coverage/index.html;
@@ -56,14 +56,14 @@ else
 endif
 	@chmod +x ./cc-test-reporter
 
-clover.xml: $(phpunit) ; @$< --coverage-clover clover.xml
+clover.xml: $(phpunit) ; $(phpunit) --coverage-clover clover.xml
 
 composer.phar:
-	@php scripts/install-composer.php
-	@$(RM) composer-setup.php
+	php scripts/install-composer.php
+	$(RM) composer-setup.php
 
-src/fa-shims.json: FORCE ; @php scripts/get-shims.php
+src/fa-shims.json: FORCE ; php scripts/get-shims.php
 
-vendor/%: composer.phar ; @$(composer) install
+vendor/%: composer.phar ; $(composer) install
 
 FORCE: ;
