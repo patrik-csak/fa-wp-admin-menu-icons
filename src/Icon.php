@@ -13,11 +13,8 @@ require_once 'Exception.php';
 
 class Icon
 {
-    /** @var string */
-    private $iconUrl;
-
-    /** @var string */
-    private $optionName;
+    private string $iconUrl;
+    private string $optionName;
 
     /**
      * $params['faClass']   string  Font Awesome class, i.e.

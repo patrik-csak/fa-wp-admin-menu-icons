@@ -299,7 +299,7 @@ class HooksTest extends TestCase
         $fawpami->shouldReceive('isFaClass')->andReturn(true);
         $fawpami->shouldReceive('isFaClassV4')->andReturn(true);
 
-        $scripts = Mockery::mock();
+        $scripts = Mockery::mock(Scripts::class);
         $scripts->shouldReceive('registerMenuPage');
 
         $hooks = new Hooks($fawpami, $scripts);

@@ -7,17 +7,14 @@ require_once 'Scripts.php';
 
 class Hooks
 {
-    /** @var Fawpami */
-    private $fawpami;
-
-    /** @var Scripts */
-    private $scripts;
+    private Fawpami $fawpami;
+    private Scripts $scripts;
 
     /**
      * @param Fawpami $fawpami
      * @param Scripts $scripts
      */
-    public function __construct($fawpami, $scripts)
+    public function __construct(Fawpami $fawpami, Scripts $scripts)
     {
         $this->fawpami = $fawpami;
         $this->scripts = $scripts;

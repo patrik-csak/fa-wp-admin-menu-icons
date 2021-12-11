@@ -5,10 +5,10 @@ namespace Fawpami;
 class Scripts
 {
     /** @var string[] */
-    private $menuPages = [];
+    private array $menuPages = [];
 
     /** @var string[] */
-    private $postTypes = [];
+    private array $postTypes = [];
 
     private function iconStyle(string $class): string
     {
