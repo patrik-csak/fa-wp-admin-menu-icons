@@ -15,7 +15,8 @@ class AdminNoticesTest extends TestCase
 
         $adminNotices->add($message, 'info');
 
-        $this->expectOutputString(<<< HTML
+        $this->expectOutputString(
+            <<< HTML
 <div class='notice notice-info'>
     <p><b>{$pluginName}:</b> {$message}</p>
 </div>

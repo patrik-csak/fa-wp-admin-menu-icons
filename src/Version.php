@@ -10,8 +10,8 @@ class Version
         $vB = self::parse($b);
 
         return $vA['major'] !== $vB['major'] ||
-               $vA['minor'] !== $vB['minor'] ||
-               $vA['patch'] !== $vB['patch'];
+            $vA['minor'] !== $vB['minor'] ||
+            $vA['patch'] !== $vB['patch'];
     }
 
     public static function lessThan(string $a, string $b): bool
@@ -27,7 +27,6 @@ class Version
             if ($vA[$version] < $vB[$version]) {
                 return true;
             }
-
             // Versions match, continue to next version part
         }
 

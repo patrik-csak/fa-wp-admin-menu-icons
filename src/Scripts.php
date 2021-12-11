@@ -33,12 +33,18 @@ JS;
     public function printScripts(): void
     {
         if ($this->menuPages || $this->postTypes) {
-            $menuPageStyles = implode("\n", array_map(function ($page) {
-                return $this->iconStyle("toplevel_page_{$page}");
-            }, $this->menuPages));
-            $postTypeStyles = implode("\n", array_map(function ($post) {
-                return $this->iconStyle("menu-icon-{$post}");
-            }, $this->postTypes));
+            $menuPageStyles = implode(
+                "\n",
+                array_map(function ($page) {
+                    return $this->iconStyle("toplevel_page_{$page}");
+                }, $this->menuPages)
+            );
+            $postTypeStyles = implode(
+                "\n",
+                array_map(function ($post) {
+                    return $this->iconStyle("menu-icon-{$post}");
+                }, $this->postTypes)
+            );
 
             echo <<<HTML
 <!-- FA WP Admin Menu Icons icon styles -->

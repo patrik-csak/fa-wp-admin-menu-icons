@@ -3,6 +3,7 @@
 namespace Fawpami;
 
 use JsonException;
+
 use function get_plugin_data;
 
 require_once 'AdminNotices.php';
@@ -71,7 +72,9 @@ class Fawpami
             'register_post_type_args',
             static function ($args, $name) use ($hooks) {
                 return $hooks->filterRegisterPostTypeArgs($args, $name);
-            }, 10, 2
+            },
+            10,
+            2
         );
         add_filter('set_url_scheme', static function ($url) use ($hooks) {
             return $hooks->filterSetUrlScheme($url);

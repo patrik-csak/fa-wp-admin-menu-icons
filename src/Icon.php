@@ -3,6 +3,7 @@
 namespace Fawpami;
 
 use SimpleXMLElement;
+
 use function add_option;
 use function get_option;
 use function is_wp_error;
@@ -69,14 +70,14 @@ class Icon
 
         if (Version::lessThan($faVersion, '5.6.0')) {
             $this->iconUrl = "{$faGithubUrl}/{$faVersion}/advanced-options/" .
-                             "raw-svg/{$style}/{$icon}.svg";
+                "raw-svg/{$style}/{$icon}.svg";
         } else {
             $this->iconUrl = "{$faGithubUrl}/{$faVersion}/svgs/{$style}" .
-                             "/{$icon}.svg";
+                "/{$icon}.svg";
         }
 
         $this->optionName = 'fawpami_icon_' . str_replace('-', '_', $icon) .
-                            "_{$style}_{$faVersion}";
+            "_{$style}_{$faVersion}";
     }
 
     /**
@@ -110,7 +111,7 @@ class Icon
          */
         $svg->addAttribute('style', 'fill:black');
         $svgDataUri = 'data:image/svg+xml;base64,'
-                      . base64_encode($svg->asXML());
+            . base64_encode($svg->asXML());
         add_option($this->optionName, $svgDataUri);
 
         return $svgDataUri;
