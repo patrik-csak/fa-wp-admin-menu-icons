@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 
 - Require PHP v7.4+
+- Test with WordPress v5.9
 
 ## [v5.0.1](https://github.com/ptrkcsk/fa-wp-admin-menu-icons/compare/v5.0.0...v5.0.1) - 2021-10-27
 
