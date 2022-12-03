@@ -59,8 +59,7 @@ endif
 clover.xml: $(phpunit) ; XDEBUG_MODE=coverage $(phpunit) --coverage-clover clover.xml
 
 composer.phar:
-	php scripts/install-composer.php
-	$(RM) composer-setup.php
+	scripts/download-composer.sh
 
 src/fa-shims.json: FORCE ; php scripts/get-shims.php
 
