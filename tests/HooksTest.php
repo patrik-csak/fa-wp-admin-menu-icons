@@ -29,7 +29,6 @@ class HooksTest extends TestCase
     public function testFilterRegisterPostTypeArgsWithoutMenuIcon(): void
     {
         $fawpami = new Fawpami([
-            'adminNotices' => new AdminNotices(),
             'faVersion' => Fawpami::FA_VERSION
         ]);
         $scripts = new Scripts();
@@ -63,12 +62,7 @@ class HooksTest extends TestCase
 
         $fawpami = Mockery::mock(
             'Fawpami\Fawpami[isFaClass,isFaClassV4]',
-            [
-                [
-                    'adminNotices' => $adminNotices,
-                    'faVersion' => Fawpami::FA_VERSION
-                ]
-            ]
+            [['faVersion' => Fawpami::FA_VERSION]],
         );
         $fawpami->shouldReceive('isFaClass')->andReturn(true);
         $fawpami->shouldReceive('isFaClassV4')->andReturn(false);
@@ -98,12 +92,7 @@ class HooksTest extends TestCase
 
         $fawpami = Mockery::mock(
             'Fawpami\Fawpami[isFaClass,isFaClassV4]',
-            [
-                [
-                    'adminNotices' => new AdminNotices(),
-                    'faVersion' => Fawpami::FA_VERSION
-                ]
-            ]
+            [['faVersion' => Fawpami::FA_VERSION]],
         );
         $fawpami->shouldReceive('isFaClass')->andReturn(true);
         $fawpami->shouldReceive('isFaClassV4')->andReturn(false);
@@ -133,12 +122,7 @@ class HooksTest extends TestCase
 
         $fawpami = Mockery::mock(
             'Fawpami\Fawpami[addV4SyntaxWarning,faV5Class,isFaClass,isFaClassV4]',
-            [
-                [
-                    'adminNotices' => new AdminNotices(),
-                    'faVersion' => Fawpami::FA_VERSION
-                ]
-            ]
+            [['faVersion' => Fawpami::FA_VERSION]],
         );
         $fawpami->shouldReceive('addV4SyntaxWarning')->andReturnNull();
         $fawpami->shouldReceive('faV5Class')->andReturn('far fa-address-book');
@@ -163,16 +147,9 @@ class HooksTest extends TestCase
 
     public function testFilterSetUrlSchemeWithoutIcon(): void
     {
-        $adminNotices = new AdminNotices();
-
         $fawpami = Mockery::mock(
             Fawpami::class,
-            [
-                [
-                    'adminNotices' => $adminNotices,
-                    'faVersion' => Fawpami::FA_VERSION
-                ]
-            ]
+            [['faVersion' => Fawpami::FA_VERSION]],
         );
         $fawpami->shouldReceive('isFaClass')->andReturn(false);
         $fawpami->shouldReceive('isFaClassV4')->andReturn(false);
@@ -214,12 +191,7 @@ class HooksTest extends TestCase
 
         $fawpami = Mockery::mock(
             Fawpami::class,
-            [
-                [
-                    'adminNotices' => $adminNotices,
-                    'faVersion' => Fawpami::FA_VERSION
-                ]
-            ]
+            [['faVersion' => Fawpami::FA_VERSION]],
         );
         $fawpami
             ->shouldReceive('faV5Class')
@@ -247,16 +219,9 @@ class HooksTest extends TestCase
             ['return' => $this->svgDataUriPrefix]
         );
 
-        $adminNotices = new AdminNotices();
-
         $fawpami = Mockery::mock(
             Fawpami::class,
-            [
-                [
-                    'adminNotices' => $adminNotices,
-                    'faVersion' => Fawpami::FA_VERSION
-                ]
-            ]
+            [['faVersion' => Fawpami::FA_VERSION]],
         );
         $fawpami->shouldReceive('isFaClass')->andReturn(true);
         $fawpami->shouldReceive('isFaClassV4')->andReturn(false);
@@ -281,16 +246,9 @@ class HooksTest extends TestCase
             ['return' => $this->svgDataUriPrefix]
         );
 
-        $adminNotices = new AdminNotices();
-
         $fawpami = Mockery::mock(
             Fawpami::class,
-            [
-                [
-                    'adminNotices' => $adminNotices,
-                    'faVersion' => Fawpami::FA_VERSION
-                ]
-            ]
+            [['faVersion' => Fawpami::FA_VERSION]],
         );
         $fawpami->shouldReceive('addV4SyntaxWarning');
         $fawpami

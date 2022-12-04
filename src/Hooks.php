@@ -2,6 +2,7 @@
 
 namespace Fawpami;
 
+require_once 'AdminNotices.php';
 require_once 'Icon.php';
 require_once 'Scripts.php';
 
@@ -55,10 +56,8 @@ class Hooks
             ]);
             $args['menu_icon'] = $icon->svgDataUri();
         } catch (Exception $exception) {
-            $this->fawpami->adminNotices->add(
-                $exception->getMessage(),
-                'error'
-            );
+            AdminNotices::add($exception->getMessage(), 'error');
+
             try {
                 $icon = new Icon([
                     'faClass' => 'fas fa-exclamation-triangle',
@@ -112,10 +111,8 @@ class Hooks
 
             return $icon->svgDataUri();
         } catch (Exception $exception) {
-            $this->fawpami->adminNotices->add(
-                $exception->getMessage(),
-                'error'
-            );
+            AdminNotices::add($exception->getMessage(), 'error');
+
             try {
                 $icon = new Icon([
                     'faClass' => 'fas fa-exclamation-triangle',

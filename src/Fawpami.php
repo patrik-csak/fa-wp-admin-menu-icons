@@ -16,44 +16,30 @@ class Fawpami
     /** @var string */
     public const FA_VERSION = '5.15.4';
 
-    /** @var AdminNotices */
-    public $adminNotices;
-
     /** @var string */
     public $faVersion;
 
     /**
-     * $params['AdminNotices'] AdminNotices
      * $params['faVersion']    string       Font Awesome version semver string
      *
      * @param array $params
      * @throws Exception
      */
-    public function __construct(array $params)
+    public function __construct(array $params = [])
     {
-        $adminNotices = $params['adminNotices'] ?? null;
         $faVersion = $params['faVersion'] ?? null;
 
-        foreach (['adminNotices', 'faVersion'] as $param) {
-            if (!$$param) {
-                throw new Exception(
-                    __METHOD__ . ' called with missing parameter ' .
-                    "`\$params['{$param}']`"
-                );
-            }
+        if (!$faVersion) {
+            throw new Exception(
+                __METHOD__ . ' called with missing parameter ' .
+                "`\$params['faVersion']`"
+            );
         }
 
         if (!Version::validate($params['faVersion'])) {
             throw new Exception('Invalid Font Awesome version');
         }
 
-        if (!$params['adminNotices'] instanceof AdminNotices) {
-            throw new Exception(
-                "`\$params['adminNotices']` must be an instance of AdminNotices"
-            );
-        }
-
-        $this->adminNotices = $adminNotices;
         $this->faVersion = $faVersion;
     }
 
@@ -63,9 +49,7 @@ class Fawpami
         $hooks = new Hooks($this, $scripts);
         $styles = new Styles();
 
-        add_action('admin_notices', function () {
-            $this->adminNotices->html($this->pluginName());
-        });
+        add_action('admin_notices', [AdminNotices::class, 'print']);
         add_action('admin_print_footer_scripts', [$scripts, 'printScripts']);
         add_action('admin_init', [$styles, 'add']);
         add_filter(
@@ -85,7 +69,7 @@ class Fawpami
     {
         if ($this->isFaClassV4($class)) {
             $v5Class = $this->faV5Class($class);
-            $this->adminNotices->add(
+            AdminNotices::add(
                 'FA WP Admin Menu Icons now uses Font Awesome 5! Please ' .
                 "replace <code>{$class}</code> with <code>{$v5Class}</code>.",
                 'warning'

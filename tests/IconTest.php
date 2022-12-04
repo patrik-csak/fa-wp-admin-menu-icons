@@ -28,12 +28,7 @@ class IconTest extends TestCase
     {
         $fawpami = Mockery::mock(
             'Fawpami\Fawpami[isFaClass]',
-            [
-                [
-                    'adminNotices' => new AdminNotices(),
-                    'faVersion' => Fawpami::FA_VERSION
-                ]
-            ]
+            [['faVersion' => Fawpami::FA_VERSION]],
         );
         $fawpami->shouldReceive('isFaClass')->andReturn(false);
 
@@ -49,12 +44,7 @@ class IconTest extends TestCase
     {
         $fawpami = Mockery::mock(
             'Fawpami\Fawpami[isFaClass]',
-            [
-                [
-                    'adminNotices' => new AdminNotices(),
-                    'faVersion' => Fawpami::FA_VERSION
-                ]
-            ]
+            [['faVersion' => Fawpami::FA_VERSION]],
         );
         $fawpami->shouldReceive('isFaClass')->andReturn(true);
 
@@ -71,12 +61,7 @@ class IconTest extends TestCase
     {
         $fawpami = Mockery::mock(
             'Fawpami\Fawpami[isFaClass]',
-            [
-                [
-                    'adminNotices' => new AdminNotices(),
-                    'faVersion' => Fawpami::FA_VERSION
-                ]
-            ]
+            [['faVersion' => Fawpami::FA_VERSION]],
         );
         $fawpami->shouldReceive('isFaClass')->andReturn(true);
 
@@ -93,12 +78,7 @@ class IconTest extends TestCase
     {
         $fawpami = Mockery::mock(
             'Fawpami\Fawpami[isFaClass]',
-            [
-                [
-                    'adminNotices' => new AdminNotices(),
-                    'faVersion' => Fawpami::FA_VERSION
-                ]
-            ]
+            [['faVersion' => Fawpami::FA_VERSION]],
         );
         $fawpami->shouldReceive('isFaClass')->andReturn(true);
 
@@ -115,12 +95,7 @@ class IconTest extends TestCase
     {
         $fawpami = Mockery::mock(
             'Fawpami\Fawpami[isFaClass]',
-            [
-                [
-                    'adminNotices' => new AdminNotices(),
-                    'faVersion' => Fawpami::FA_VERSION
-                ]
-            ]
+            [['faVersion' => Fawpami::FA_VERSION]],
         );
         $fawpami->shouldReceive('isFaClass')->andReturn(false);
 
@@ -147,11 +122,7 @@ class IconTest extends TestCase
             ['return' => 200]
         );
 
-        $adminNotices = new AdminNotices();
-        $fawpami = new Fawpami([
-            'adminNotices' => $adminNotices,
-            'faVersion' => Fawpami::FA_VERSION
-        ]);
+        $fawpami = new Fawpami(['faVersion' => Fawpami::FA_VERSION]);
         $icon = new Icon([
             'faClass' => 'fas fa-camera-retro',
             'fawpami' => $fawpami
@@ -171,11 +142,7 @@ class IconTest extends TestCase
             'return' => 'data:image/svg+xml;base64,'
         ]);
 
-        $adminNotices = new AdminNotices();
-        $fawpami = new Fawpami([
-            'adminNotices' => $adminNotices,
-            'faVersion' => $faVersion
-        ]);
+        $fawpami = new Fawpami(['faVersion' => $faVersion]);
         $icon = new Icon([
             'faClass' => 'fas fa-camera-retro',
             'fawpami' => $fawpami
@@ -197,11 +164,7 @@ class IconTest extends TestCase
             ['return' => 404]
         );
 
-        $adminNotices = new AdminNotices();
-        $fawpami = new Fawpami([
-            'adminNotices' => $adminNotices,
-            'faVersion' => Fawpami::FA_VERSION
-        ]);
+        $fawpami = new Fawpami(['faVersion' => Fawpami::FA_VERSION]);
         $icon = new Icon([
             'faClass' => 'fas fa-emosewa',
             'fawpami' => $fawpami
@@ -222,10 +185,7 @@ class IconTest extends TestCase
         WP_Mock::userFunction('wp_remote_get', ['return' => $wpError]);
         WP_Mock::userFunction('is_wp_error', ['return' => true]);
 
-        $fawpami = new Fawpami([
-            'adminNotices' => new AdminNotices(),
-            'faVersion' => Fawpami::FA_VERSION
-        ]);
+        $fawpami = new Fawpami(['faVersion' => Fawpami::FA_VERSION]);
         $icon = new Icon([
             'faClass' => 'fas fa-camera-retro',
             'fawpami' => $fawpami

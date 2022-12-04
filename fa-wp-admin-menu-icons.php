@@ -41,7 +41,6 @@ function init()
         Fawpami::FA_VERSION
     );
     $fawpami = new Fawpami([
-        'adminNotices' => new AdminNotices(),
         'faVersion' => $faVersion
     ]);
 

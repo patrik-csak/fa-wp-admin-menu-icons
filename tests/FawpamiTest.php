@@ -17,7 +17,6 @@ class FawpamiTest extends TestCase
         parent::setUp();
 
         $this->fawpami = new Fawpami([
-            'adminNotices' => new AdminNotices(),
             'faVersion' => Fawpami::FA_VERSION
         ]);
     }
@@ -33,32 +32,12 @@ class FawpamiTest extends TestCase
         $this->assertInstanceOf(Fawpami::class, $this->fawpami);
     }
 
-    public function testConstructWithBadAdminNotices(): void
-    {
-        $this->expectException(Exception::class);
-
-        new Fawpami([
-            'adminNotices' => 'not an instance of AdminNotices',
-            'faVersion' => Fawpami::FA_VERSION
-        ]);
-    }
-
     public function testConstructWithBadFaVersion(): void
     {
         $this->expectException(Exception::class);
 
         new Fawpami([
-            'adminNotices' => new AdminNotices(),
             'faVersion' => '5'
-        ]);
-    }
-
-    public function testConstructWithoutAdminNotices(): void
-    {
-        $this->expectException(Exception::class);
-
-        new Fawpami([
-            'faVersion' => Fawpami::FA_VERSION
         ]);
     }
 
@@ -66,9 +45,7 @@ class FawpamiTest extends TestCase
     {
         $this->expectException(Exception::class);
 
-        new Fawpami([
-            'adminNotices' => new AdminNotices(),
-        ]);
+        new Fawpami();
     }
 
     public function testAddV4SyntaxNotice(): void
@@ -77,12 +54,7 @@ class FawpamiTest extends TestCase
         $adminNotices->shouldReceive('add');
         $fawpami = Mockery::mock(
             'Fawpami\Fawpami[pluginName]',
-            [
-                [
-                    'adminNotices' => $adminNotices,
-                    'faVersion' => Fawpami::FA_VERSION
-                ]
-            ]
+            [['faVersion' => Fawpami::FA_VERSION]],
         );
         $fawpami->shouldReceive('isFaClassV4')->andReturn(true);
         $fawpami->shouldReceive('faV5Class')->andReturn('fas glass-martini');
@@ -172,12 +144,7 @@ class FawpamiTest extends TestCase
     {
         $fawpami = Mockery::mock(
             'Fawpami\Fawpami[shims]',
-            [
-                [
-                    'adminNotices' => new AdminNotices(),
-                    'faVersion' => Fawpami::FA_VERSION
-                ]
-            ]
+            [['faVersion' => Fawpami::FA_VERSION]],
         );
         $fawpami
             ->shouldReceive('shims')
@@ -195,12 +162,7 @@ class FawpamiTest extends TestCase
     {
         $fawpami = Mockery::mock(
             'Fawpami\Fawpami[shims]',
-            [
-                [
-                    'adminNotices' => new AdminNotices(),
-                    'faVersion' => Fawpami::FA_VERSION
-                ]
-            ]
+            [['faVersion' => Fawpami::FA_VERSION]],
         );
         $fawpami
             ->shouldReceive('shims')
@@ -213,12 +175,7 @@ class FawpamiTest extends TestCase
     {
         $fawpami = Mockery::mock(
             'Fawpami\Fawpami[shims]',
-            [
-                [
-                    'adminNotices' => new AdminNotices(),
-                    'faVersion' => Fawpami::FA_VERSION
-                ]
-            ]
+            [['faVersion' => Fawpami::FA_VERSION]],
         );
         $fawpami
             ->shouldReceive('shims')
@@ -236,12 +193,7 @@ class FawpamiTest extends TestCase
     {
         $fawpami = Mockery::mock(
             'Fawpami\Fawpami[shims]',
-            [
-                [
-                    'adminNotices' => new AdminNotices(),
-                    'faVersion' => Fawpami::FA_VERSION
-                ]
-            ]
+            [['faVersion' => Fawpami::FA_VERSION]],
         );
         $fawpami
             ->shouldReceive('shims')

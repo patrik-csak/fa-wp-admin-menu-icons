@@ -2,10 +2,14 @@
 
 namespace Fawpami;
 
+use function get_plugin_data;
+
+require_once 'AdminNotice.php';
+
 class AdminNotices
 {
-    /** @var array */
-    private $notices = [];
+    /** @var AdminNotice[] */
+    private static array $notices = [];
 
     /**
      * @param string $message
@@ -13,27 +17,21 @@ class AdminNotices
      *
      * @return void
      */
-    public function add(string $message, string $style = ''): void
+    public static function add(string $message, string $style = ''): void
     {
-        $this->notices[] = [
-            'message' => $message,
-            'style' => $style
-        ];
+        self::$notices[] = new AdminNotice($message, $style);
     }
 
-    public function html(string $pluginName): void
+    public static function print(): void
     {
-        $class = 'notice';
+        $pluginName = get_plugin_data(
+            __DIR__ . '/../fa-wp-admin-menu-icons.php'
+        )['Name'];
 
-        foreach ($this->notices as $notice) {
-            $style = $notice['style'];
-
-            if (in_array($style, ['error', 'info', 'success', 'warning'])) {
-                $class .= " notice-{$style}";
-            }
+        foreach (self::$notices as $notice) {
             echo <<< HTML
-<div class='{$class}'>
-    <p><b>{$pluginName}:</b> {$notice['message']}</p>
+<div class='notice notice-{$notice->style}'>
+    <p><b>{$pluginName}:</b> {$notice->message}</p>
 </div>
 HTML;
         }
