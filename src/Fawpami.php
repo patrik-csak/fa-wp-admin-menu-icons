@@ -17,8 +17,7 @@ class Fawpami
     /** @var string */
     public const FA_VERSION = '5.15.4';
 
-    /** @var string */
-    public $faVersion;
+    public string $faVersion;
 
     /**
      * $params['faVersion']    string       Font Awesome version semver string
