@@ -56,11 +56,8 @@ class HooksTest extends TestCase
         $adminNotices = Mockery::mock(AdminNotices::class);
         $adminNotices->shouldReceive('add');
 
-        $fawpami = Mockery::mock(
-            'Fawpami\Fawpami[isFaClass,isFaClassV4]',
-        );
+        $fawpami = Mockery::mock('Fawpami\Fawpami[isFaClass]');
         $fawpami->shouldReceive('isFaClass')->andReturn(true);
-        $fawpami->shouldReceive('isFaClassV4')->andReturn(false);
 
         $hooks = new Hooks($fawpami);
 
@@ -82,11 +79,8 @@ class HooksTest extends TestCase
             ['return' => $this->svgDataUriPrefix]
         );
 
-        $fawpami = Mockery::mock(
-            'Fawpami\Fawpami[isFaClass,isFaClassV4]',
-        );
+        $fawpami = Mockery::mock('Fawpami\Fawpami[isFaClass]');
         $fawpami->shouldReceive('isFaClass')->andReturn(true);
-        $fawpami->shouldReceive('isFaClassV4')->andReturn(false);
 
         $hooks = new Hooks($fawpami);
 
@@ -101,39 +95,10 @@ class HooksTest extends TestCase
         );
     }
 
-    public function testFilterRegisterPostTypeArgsWithValidFaV4MenuIcon(): void
-    {
-        WP_Mock::userFunction(
-            'get_option',
-            ['return' => $this->svgDataUriPrefix]
-        );
-
-        $fawpami = Mockery::mock(
-            'Fawpami\Fawpami[addV4SyntaxWarning,faV5Class,isFaClass,isFaClassV4]',
-        );
-        $fawpami->shouldReceive('addV4SyntaxWarning')->andReturnNull();
-        $fawpami->shouldReceive('faV5Class')->andReturn('far fa-address-book');
-        $fawpami->shouldReceive('isFaClass')->andReturn(false, true);
-        $fawpami->shouldReceive('isFaClassV4')->andReturn(true, false);
-
-        $hooks = new Hooks($fawpami);
-
-        $args = $hooks->filterRegisterPostTypeArgs(
-            ['menu_icon' => 'fa-address-book'],
-            ''
-        );
-
-        $this->assertStringStartsWith(
-            $this->svgDataUriPrefix,
-            $args['menu_icon']
-        );
-    }
-
     public function testFilterSetUrlSchemeWithoutIcon(): void
     {
         $fawpami = Mockery::mock(Fawpami::class,);
         $fawpami->shouldReceive('isFaClass')->andReturn(false);
-        $fawpami->shouldReceive('isFaClassV4')->andReturn(false);
 
         $hooks = new Hooks($fawpami);
 
@@ -168,11 +133,7 @@ class HooksTest extends TestCase
         $adminNotices->shouldReceive('add');
 
         $fawpami = Mockery::mock(Fawpami::class);
-        $fawpami
-            ->shouldReceive('faV5Class')
-            ->andReturn('fas fa-glass-martini');
         $fawpami->shouldReceive('isFaClass')->andReturn(true);
-        $fawpami->shouldReceive('isFaClassV4')->andReturn(false);
 
         $hooks = new Hooks($fawpami);
 
@@ -193,38 +154,12 @@ class HooksTest extends TestCase
 
         $fawpami = Mockery::mock(Fawpami::class);
         $fawpami->shouldReceive('isFaClass')->andReturn(true);
-        $fawpami->shouldReceive('isFaClassV4')->andReturn(false);
 
         $hooks = new Hooks($fawpami);
 
         $this->assertStringStartsWith(
             $this->svgDataUriPrefix,
             $hooks->filterSetUrlScheme('fas fa-camera-retro')
-        );
-    }
-
-    public function testFilterSetUrlSchemeWithValidFaV4MenuIcon(): void
-    {
-        $GLOBALS['admin_page_hooks'] = ['a' => 'a'];
-
-        WP_Mock::userFunction(
-            'get_option',
-            ['return' => $this->svgDataUriPrefix]
-        );
-
-        $fawpami = Mockery::mock(Fawpami::class);
-        $fawpami->shouldReceive('addV4SyntaxWarning');
-        $fawpami
-            ->shouldReceive('faV5Class')
-            ->andReturn('fas fa-glass-martini');
-        $fawpami->shouldReceive('isFaClass')->andReturn(true);
-        $fawpami->shouldReceive('isFaClassV4')->andReturn(true);
-
-        $hooks = new Hooks($fawpami);
-
-        $this->assertStringStartsWith(
-            $this->svgDataUriPrefix,
-            $hooks->filterSetUrlScheme('fa-glass')
         );
     }
 }

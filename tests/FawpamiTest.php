@@ -30,19 +30,6 @@ class FawpamiTest extends TestCase
         $this->assertInstanceOf(Fawpami::class, $this->fawpami);
     }
 
-    public function testAddV4SyntaxNotice(): void
-    {
-        $adminNotices = Mockery::mock(AdminNotices::class);
-        $adminNotices->shouldReceive('add');
-        $fawpami = Mockery::mock('Fawpami\Fawpami[pluginName]');
-        $fawpami->shouldReceive('isFaClassV4')->andReturn(true);
-        $fawpami->shouldReceive('faV5Class')->andReturn('fas glass-martini');
-
-        $fawpami->addV4SyntaxWarning('fa-glass', $adminNotices);
-
-        $this->assertTrue(true);
-    }
-
     public function testIsFaClassWithSolidIcon(): void
     {
         $this->assertTrue($this->fawpami->isFaClass('fas fa-camera-retro'));
@@ -74,115 +61,6 @@ class FawpamiTest extends TestCase
     public function testIsFaClassWithInvalidSyntax(): void
     {
         $this->assertFalse($this->fawpami->isFaClass('camera-retro'));
-    }
-
-    public function testIsFaClassV4WithFaV4Syntax(): void
-    {
-        $this->assertTrue($this->fawpami->isFaClassV4('fa-camera-retro'));
-    }
-
-    public function testIsFaClassV4WithFaV5Syntax(): void
-    {
-        $this->assertFalse($this->fawpami->isFaClassV4('fas fa-camera-retro'));
-    }
-
-    public function testShims(): void
-    {
-        $this->assertEquals(
-            [
-                'v4Name' => 'glass',
-                'v5Name' => 'glass-martini',
-                'v5Prefix' => 'fas',
-            ],
-            $this->fawpami->shims()[0]
-        );
-    }
-
-    public function testFaV5ClassWithV4Icon(): void
-    {
-        $this->assertEquals(
-            'fas fa-address-book',
-            $this->fawpami->faV5Class('fa-address-book')
-        );
-    }
-
-    public function testFaV5ClassWithV5Class(): void
-    {
-        $this->assertEquals(
-            'fas fa-address-book',
-            $this->fawpami->faV5Class('fas fa-address-book')
-        );
-    }
-
-    public function testFaV5ClassWithInvalidIcon(): void
-    {
-        $this->assertFalse($this->fawpami->faV5Class('emosewa'));
-    }
-
-    public function testFaV5IconName(): void
-    {
-        $fawpami = Mockery::mock('Fawpami\Fawpami[shims]');
-        $fawpami
-            ->shouldReceive('shims')
-            ->andReturn([
-                [
-                    'v4Name' => 'glass',
-                    'v5Name' => 'glass-martini'
-                ]
-            ]);
-
-        $this->assertEquals('glass-martini', $fawpami->faV5IconName('glass'));
-    }
-
-    public function testFaV5IconNameWithNonExistentIcon(): void
-    {
-        $fawpami = Mockery::mock('Fawpami\Fawpami[shims]');
-        $fawpami
-            ->shouldReceive('shims')
-            ->andReturnNull();
-
-        $this->assertEquals('emosewa', $fawpami->faV5IconName('emosewa'));
-    }
-
-    public function testFaV5IconPrefix(): void
-    {
-        $fawpami = Mockery::mock('Fawpami\Fawpami[shims]');
-        $fawpami
-            ->shouldReceive('shims')
-            ->andReturn([
-                [
-                    'v4Name' => 'address-book-o',
-                    'v5Prefix' => 'far'
-                ]
-            ]);
-
-        $this->assertEquals('far', $fawpami->faV5IconPrefix('address-book-o'));
-    }
-
-    public function testFaV5IconPrefixWithNonExistentIcon(): void
-    {
-        $fawpami = Mockery::mock('Fawpami\Fawpami[shims]');
-        $fawpami
-            ->shouldReceive('shims')
-            ->andReturnNull();
-
-        $this->assertEquals('fas', $fawpami->faV5IconPrefix('emosewa'));
-    }
-
-    public function testStripFaPrefix(): void
-    {
-        $this->assertEquals(
-            'camera-retro',
-            $this->fawpami->stripFaPrefix('fa-camera-retro')
-        );
-    }
-
-    public function testStripFaPrefixReturnsOriginalStringIfNoPrefix(): void
-    {
-        $this->assertEquals(
-            'camera-retro',
-            $this->fawpami->stripFaPrefix('camera-retro')
-        );
     }
 
     public function testPluginName(): void

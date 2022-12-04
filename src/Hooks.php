@@ -17,32 +17,17 @@ class Hooks
 
     /**
      * Replace Font Awesome class string with icon SVG data URI
-     *
-     * @param array $args
-     * @param string $name
-     *
-     * @return array
      */
     public function filterRegisterPostTypeArgs(array $args, string $name): array
     {
-        if (!isset($args['menu_icon'])) {
-            return $args;
-        }
+        $menuIcon = $args['menu_icon'] ?? null;
 
-        $menuIcon = $args['menu_icon'];
-        $isFaClass = $this->fawpami->isFaClass($menuIcon);
-        $isFaClassV4 = $this->fawpami->isFaClassV4($menuIcon);
-
-        if (!($isFaClass || $isFaClassV4)) {
+        if (!$menuIcon || !$this->fawpami->isFaClass($menuIcon)) {
             return $args;
         }
 
         Scripts::registerPostType($name);
 
-        if ($isFaClassV4) {
-            $this->fawpami->addV4SyntaxWarning($menuIcon);
-            $menuIcon = $this->fawpami->faV5Class($menuIcon);
-        }
         try {
             $icon = new Icon([
                 'faClass' => $menuIcon,
@@ -69,17 +54,10 @@ class Hooks
 
     /**
      * Replace Font Awesome class string with icon SVG data URI
-     *
-     * @param string $url
-     *
-     * @return string
      */
     public function filterSetUrlScheme(string $url): string
     {
-        $isFaClass = $this->fawpami->isFaClass($url);
-        $isFaClassV4 = $this->fawpami->isFaClassV4($url);
-
-        if (!($isFaClass || $isFaClassV4)) {
+        if (!$this->fawpami->isFaClass($url)) {
             return $url;
         }
 
@@ -90,11 +68,6 @@ class Hooks
         // The most recently registered menu page should be this one
         end($pages);
         Scripts::registerMenuPage(key($pages));
-
-        if ($isFaClassV4) {
-            $this->fawpami->addV4SyntaxWarning($menuIcon);
-            $menuIcon = $this->fawpami->faV5Class($menuIcon);
-        }
 
         try {
             $icon = new Icon([

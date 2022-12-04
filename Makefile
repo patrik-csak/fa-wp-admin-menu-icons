@@ -17,7 +17,6 @@ clean:
 	@$(RM) cc-test-reporter
 	@$(RM) clover.xml
 	@$(RM) composer.phar
-	@$(RM) src/fa-shims.json
 	@$(RM) -r vendor
 	@$(RM) .phpunit.result.cache
 
@@ -26,7 +25,7 @@ clean:
 ########################################################################
 
 .PHONY : test
-test : $(phpunit) src/fa-shims.json ; $(phpunit) tests
+test : $(phpunit) ; $(phpunit) tests
 
 .PHONY : test-coverage-code-climate
 test-coverage-code-climate: cc-test-reporter clover.xml
@@ -60,8 +59,6 @@ clover.xml: $(phpunit) ; XDEBUG_MODE=coverage $(phpunit) --coverage-clover clove
 
 composer.phar:
 	scripts/download-composer.sh
-
-src/fa-shims.json: FORCE ; php scripts/get-shims.php
 
 vendor/%: composer.phar ; $(composer) install
 
