@@ -32,19 +32,11 @@ if (!is_admin()) {
     return;
 }
 
-function init()
+function init(): void
 {
     require_once 'src/Fawpami.php';
 
-    $faVersion = apply_filters(
-        __NAMESPACE__ . '\\faVersion',
-        Fawpami::FA_VERSION
-    );
-    $fawpami = new Fawpami([
-        'faVersion' => $faVersion
-    ]);
-
-    $fawpami->addHooks();
+    (new Fawpami())->addHooks();
 }
 
 add_action('plugins_loaded', __NAMESPACE__ . '\\init');

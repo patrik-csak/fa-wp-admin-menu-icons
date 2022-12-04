@@ -16,9 +16,7 @@ class FawpamiTest extends TestCase
     {
         parent::setUp();
 
-        $this->fawpami = new Fawpami([
-            'faVersion' => Fawpami::FA_VERSION
-        ]);
+        $this->fawpami = new Fawpami();
     }
 
     protected function tearDown(): void
@@ -32,30 +30,11 @@ class FawpamiTest extends TestCase
         $this->assertInstanceOf(Fawpami::class, $this->fawpami);
     }
 
-    public function testConstructWithBadFaVersion(): void
-    {
-        $this->expectException(Exception::class);
-
-        new Fawpami([
-            'faVersion' => '5'
-        ]);
-    }
-
-    public function testConstructWithoutFaVersion(): void
-    {
-        $this->expectException(Exception::class);
-
-        new Fawpami();
-    }
-
     public function testAddV4SyntaxNotice(): void
     {
         $adminNotices = Mockery::mock(AdminNotices::class);
         $adminNotices->shouldReceive('add');
-        $fawpami = Mockery::mock(
-            'Fawpami\Fawpami[pluginName]',
-            [['faVersion' => Fawpami::FA_VERSION]],
-        );
+        $fawpami = Mockery::mock('Fawpami\Fawpami[pluginName]');
         $fawpami->shouldReceive('isFaClassV4')->andReturn(true);
         $fawpami->shouldReceive('faV5Class')->andReturn('fas glass-martini');
 
@@ -142,10 +121,7 @@ class FawpamiTest extends TestCase
 
     public function testFaV5IconName(): void
     {
-        $fawpami = Mockery::mock(
-            'Fawpami\Fawpami[shims]',
-            [['faVersion' => Fawpami::FA_VERSION]],
-        );
+        $fawpami = Mockery::mock('Fawpami\Fawpami[shims]');
         $fawpami
             ->shouldReceive('shims')
             ->andReturn([
@@ -160,10 +136,7 @@ class FawpamiTest extends TestCase
 
     public function testFaV5IconNameWithNonExistentIcon(): void
     {
-        $fawpami = Mockery::mock(
-            'Fawpami\Fawpami[shims]',
-            [['faVersion' => Fawpami::FA_VERSION]],
-        );
+        $fawpami = Mockery::mock('Fawpami\Fawpami[shims]');
         $fawpami
             ->shouldReceive('shims')
             ->andReturnNull();
@@ -173,10 +146,7 @@ class FawpamiTest extends TestCase
 
     public function testFaV5IconPrefix(): void
     {
-        $fawpami = Mockery::mock(
-            'Fawpami\Fawpami[shims]',
-            [['faVersion' => Fawpami::FA_VERSION]],
-        );
+        $fawpami = Mockery::mock('Fawpami\Fawpami[shims]');
         $fawpami
             ->shouldReceive('shims')
             ->andReturn([
@@ -191,10 +161,7 @@ class FawpamiTest extends TestCase
 
     public function testFaV5IconPrefixWithNonExistentIcon(): void
     {
-        $fawpami = Mockery::mock(
-            'Fawpami\Fawpami[shims]',
-            [['faVersion' => Fawpami::FA_VERSION]],
-        );
+        $fawpami = Mockery::mock('Fawpami\Fawpami[shims]');
         $fawpami
             ->shouldReceive('shims')
             ->andReturnNull();

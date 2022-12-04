@@ -21,8 +21,6 @@ class Icon
      * $params['faClass']   string  Font Awesome class, i.e.
      *                              `'fas fa-camera-retro'`
      * $params['fawpami']   Fawpami
-     * $params['faVersion'] string  Font Awesome version. Optional. If not set,
-     *                              `$params['fawpami']->version` will be used.
      *
      * @param array $params
      *
@@ -32,7 +30,6 @@ class Icon
     {
         $faClass = $params['faClass'] ?? null;
         $fawpami = $params['fawpami'] ?? null;
-        $faVersion = $params['faVersion'] ?? null;
         $faGithubUrl = 'https://raw.githubusercontent.com/FortAwesome/Font-Awesome';
 
         foreach (['faClass', 'fawpami'] as $param) {
@@ -66,18 +63,11 @@ class Icon
             $style = 'regular';
         }
 
-        $faVersion = $faVersion ?: $fawpami->faVersion;
-
-        if (Version::lessThan($faVersion, '5.6.0')) {
-            $this->iconUrl = "{$faGithubUrl}/{$faVersion}/advanced-options/" .
-                "raw-svg/{$style}/{$icon}.svg";
-        } else {
-            $this->iconUrl = "{$faGithubUrl}/{$faVersion}/svgs/{$style}" .
-                "/{$icon}.svg";
-        }
-
-        $this->optionName = 'fawpami_icon_' . str_replace('-', '_', $icon) .
-            "_{$style}_{$faVersion}";
+        $this->iconUrl = "{$faGithubUrl}/" . (Fawpami::FA_VERSION) .
+            "/svgs/{$style}/{$icon}.svg";
+        $this->optionName = 'fawpami_icon_'
+            . str_replace('-', '_', $icon) . "_{$style}_" .
+            (Fawpami::FA_VERSION);
     }
 
     /**

@@ -56,7 +56,6 @@ class Hooks
                 $icon = new Icon([
                     'faClass' => 'fas fa-exclamation-triangle',
                     'fawpami' => $this->fawpami,
-                    'faVersion' => '5.15.4',
                 ]);
                 $args['menu_icon'] = $icon->svgDataUri();
             } catch (Exception $e) {
@@ -111,7 +110,6 @@ class Hooks
                 $icon = new Icon([
                     'faClass' => 'fas fa-exclamation-triangle',
                     'fawpami' => $this->fawpami,
-                    'faVersion' => '5.15.4',
                 ]);
 
                 return $icon->svgDataUri();

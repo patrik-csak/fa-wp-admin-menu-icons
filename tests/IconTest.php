@@ -26,10 +26,7 @@ class IconTest extends TestCase
 
     public function testWithBadFaClass(): void
     {
-        $fawpami = Mockery::mock(
-            'Fawpami\Fawpami[isFaClass]',
-            [['faVersion' => Fawpami::FA_VERSION]],
-        );
+        $fawpami = Mockery::mock('Fawpami\Fawpami[isFaClass]');
         $fawpami->shouldReceive('isFaClass')->andReturn(false);
 
         $this->expectException(Exception::class);
@@ -42,10 +39,7 @@ class IconTest extends TestCase
 
     public function testNewBrandIcon(): void
     {
-        $fawpami = Mockery::mock(
-            'Fawpami\Fawpami[isFaClass]',
-            [['faVersion' => Fawpami::FA_VERSION]],
-        );
+        $fawpami = Mockery::mock('Fawpami\Fawpami[isFaClass]');
         $fawpami->shouldReceive('isFaClass')->andReturn(true);
 
         $this->assertInstanceOf(
@@ -59,10 +53,7 @@ class IconTest extends TestCase
 
     public function testNewRegularIcon(): void
     {
-        $fawpami = Mockery::mock(
-            'Fawpami\Fawpami[isFaClass]',
-            [['faVersion' => Fawpami::FA_VERSION]],
-        );
+        $fawpami = Mockery::mock('Fawpami\Fawpami[isFaClass]');
         $fawpami->shouldReceive('isFaClass')->andReturn(true);
 
         $this->assertInstanceOf(
@@ -76,10 +67,7 @@ class IconTest extends TestCase
 
     public function testNewSolidIcon(): void
     {
-        $fawpami = Mockery::mock(
-            'Fawpami\Fawpami[isFaClass]',
-            [['faVersion' => Fawpami::FA_VERSION]],
-        );
+        $fawpami = Mockery::mock('Fawpami\Fawpami[isFaClass]');
         $fawpami->shouldReceive('isFaClass')->andReturn(true);
 
         $this->assertInstanceOf(
@@ -93,10 +81,7 @@ class IconTest extends TestCase
 
     public function testNewIconWithInvalidClass(): void
     {
-        $fawpami = Mockery::mock(
-            'Fawpami\Fawpami[isFaClass]',
-            [['faVersion' => Fawpami::FA_VERSION]],
-        );
+        $fawpami = Mockery::mock('Fawpami\Fawpami[isFaClass]');
         $fawpami->shouldReceive('isFaClass')->andReturn(false);
 
         $this->expectException(Exception::class);
@@ -122,7 +107,7 @@ class IconTest extends TestCase
             ['return' => 200]
         );
 
-        $fawpami = new Fawpami(['faVersion' => Fawpami::FA_VERSION]);
+        $fawpami = new Fawpami();
         $icon = new Icon([
             'faClass' => 'fas fa-camera-retro',
             'fawpami' => $fawpami
@@ -136,13 +121,12 @@ class IconTest extends TestCase
 
     public function testSvgDataUriWithCachedIcon(): void
     {
-        $faVersion = Fawpami::FA_VERSION;
         WP_Mock::userFunction('get_option', [
-            'args' => ["fawpami_icon_camera_retro_solid_{$faVersion}"],
+            'args' => ['fawpami_icon_camera_retro_solid_' . Fawpami::FA_VERSION],
             'return' => 'data:image/svg+xml;base64,'
         ]);
 
-        $fawpami = new Fawpami(['faVersion' => $faVersion]);
+        $fawpami = new Fawpami();
         $icon = new Icon([
             'faClass' => 'fas fa-camera-retro',
             'fawpami' => $fawpami
@@ -164,7 +148,7 @@ class IconTest extends TestCase
             ['return' => 404]
         );
 
-        $fawpami = new Fawpami(['faVersion' => Fawpami::FA_VERSION]);
+        $fawpami = new Fawpami();
         $icon = new Icon([
             'faClass' => 'fas fa-emosewa',
             'fawpami' => $fawpami
@@ -185,7 +169,7 @@ class IconTest extends TestCase
         WP_Mock::userFunction('wp_remote_get', ['return' => $wpError]);
         WP_Mock::userFunction('is_wp_error', ['return' => true]);
 
-        $fawpami = new Fawpami(['faVersion' => Fawpami::FA_VERSION]);
+        $fawpami = new Fawpami();
         $icon = new Icon([
             'faClass' => 'fas fa-camera-retro',
             'fawpami' => $fawpami

@@ -27,9 +27,7 @@ class HooksTest extends TestCase
 
     public function testFilterRegisterPostTypeArgsWithoutMenuIcon(): void
     {
-        $fawpami = new Fawpami([
-            'faVersion' => Fawpami::FA_VERSION
-        ]);
+        $fawpami = new Fawpami();
         $hooks = new Hooks($fawpami);
 
         $this->assertEquals([], $hooks->filterRegisterPostTypeArgs([], ''));
@@ -60,7 +58,6 @@ class HooksTest extends TestCase
 
         $fawpami = Mockery::mock(
             'Fawpami\Fawpami[isFaClass,isFaClassV4]',
-            [['faVersion' => Fawpami::FA_VERSION]],
         );
         $fawpami->shouldReceive('isFaClass')->andReturn(true);
         $fawpami->shouldReceive('isFaClassV4')->andReturn(false);
@@ -87,7 +84,6 @@ class HooksTest extends TestCase
 
         $fawpami = Mockery::mock(
             'Fawpami\Fawpami[isFaClass,isFaClassV4]',
-            [['faVersion' => Fawpami::FA_VERSION]],
         );
         $fawpami->shouldReceive('isFaClass')->andReturn(true);
         $fawpami->shouldReceive('isFaClassV4')->andReturn(false);
@@ -114,7 +110,6 @@ class HooksTest extends TestCase
 
         $fawpami = Mockery::mock(
             'Fawpami\Fawpami[addV4SyntaxWarning,faV5Class,isFaClass,isFaClassV4]',
-            [['faVersion' => Fawpami::FA_VERSION]],
         );
         $fawpami->shouldReceive('addV4SyntaxWarning')->andReturnNull();
         $fawpami->shouldReceive('faV5Class')->andReturn('far fa-address-book');
@@ -136,10 +131,7 @@ class HooksTest extends TestCase
 
     public function testFilterSetUrlSchemeWithoutIcon(): void
     {
-        $fawpami = Mockery::mock(
-            Fawpami::class,
-            [['faVersion' => Fawpami::FA_VERSION]],
-        );
+        $fawpami = Mockery::mock(Fawpami::class,);
         $fawpami->shouldReceive('isFaClass')->andReturn(false);
         $fawpami->shouldReceive('isFaClassV4')->andReturn(false);
 
@@ -175,10 +167,7 @@ class HooksTest extends TestCase
         $adminNotices = Mockery::mock(AdminNotices::class);
         $adminNotices->shouldReceive('add');
 
-        $fawpami = Mockery::mock(
-            Fawpami::class,
-            [['faVersion' => Fawpami::FA_VERSION]],
-        );
+        $fawpami = Mockery::mock(Fawpami::class);
         $fawpami
             ->shouldReceive('faV5Class')
             ->andReturn('fas fa-glass-martini');
@@ -202,10 +191,7 @@ class HooksTest extends TestCase
             ['return' => $this->svgDataUriPrefix]
         );
 
-        $fawpami = Mockery::mock(
-            Fawpami::class,
-            [['faVersion' => Fawpami::FA_VERSION]],
-        );
+        $fawpami = Mockery::mock(Fawpami::class);
         $fawpami->shouldReceive('isFaClass')->andReturn(true);
         $fawpami->shouldReceive('isFaClassV4')->andReturn(false);
 
@@ -226,10 +212,7 @@ class HooksTest extends TestCase
             ['return' => $this->svgDataUriPrefix]
         );
 
-        $fawpami = Mockery::mock(
-            Fawpami::class,
-            [['faVersion' => Fawpami::FA_VERSION]],
-        );
+        $fawpami = Mockery::mock(Fawpami::class);
         $fawpami->shouldReceive('addV4SyntaxWarning');
         $fawpami
             ->shouldReceive('faV5Class')

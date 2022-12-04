@@ -10,38 +10,11 @@ require_once 'AdminNotices.php';
 require_once 'Hooks.php';
 require_once 'Scripts.php';
 require_once 'Styles.php';
-require_once 'Version.php';
 
 class Fawpami
 {
     /** @var string */
     public const FA_VERSION = '5.15.4';
-
-    public string $faVersion;
-
-    /**
-     * $params['faVersion']    string       Font Awesome version semver string
-     *
-     * @param array $params
-     * @throws Exception
-     */
-    public function __construct(array $params = [])
-    {
-        $faVersion = $params['faVersion'] ?? null;
-
-        if (!$faVersion) {
-            throw new Exception(
-                __METHOD__ . ' called with missing parameter ' .
-                "`\$params['faVersion']`"
-            );
-        }
-
-        if (!Version::validate($params['faVersion'])) {
-            throw new Exception('Invalid Font Awesome version');
-        }
-
-        $this->faVersion = $faVersion;
-    }
 
     public function addHooks(): void
     {
