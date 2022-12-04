@@ -19,11 +19,10 @@ class Fawpami
     public function addHooks(): void
     {
         $hooks = new Hooks($this);
-        $styles = new Styles();
 
         add_action('admin_notices', [AdminNotices::class, 'print']);
         add_action('admin_print_footer_scripts', [Scripts::class, 'print']);
-        add_action('admin_init', [$styles, 'add']);
+        add_action('admin_init', [Styles::class, 'add']);
         add_filter(
             'register_post_type_args',
             static function ($args, $name) use ($hooks) {
