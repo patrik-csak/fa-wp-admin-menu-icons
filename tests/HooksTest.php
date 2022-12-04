@@ -3,7 +3,6 @@
 use Fawpami\AdminNotices;
 use Fawpami\Fawpami;
 use Fawpami\Hooks;
-use Fawpami\Scripts;
 use PHPUnit\Framework\TestCase;
 
 require_once __DIR__ . '/../src/Fawpami.php';
@@ -31,8 +30,7 @@ class HooksTest extends TestCase
         $fawpami = new Fawpami([
             'faVersion' => Fawpami::FA_VERSION
         ]);
-        $scripts = new Scripts();
-        $hooks = new Hooks($fawpami, $scripts);
+        $hooks = new Hooks($fawpami);
 
         $this->assertEquals([], $hooks->filterRegisterPostTypeArgs([], ''));
     }
@@ -67,10 +65,7 @@ class HooksTest extends TestCase
         $fawpami->shouldReceive('isFaClass')->andReturn(true);
         $fawpami->shouldReceive('isFaClassV4')->andReturn(false);
 
-        $scripts = Mockery::mock(Scripts::class);
-        $scripts->shouldReceive('registerPostType');
-
-        $hooks = new Hooks($fawpami, $scripts);
+        $hooks = new Hooks($fawpami);
 
         $args = $hooks->filterRegisterPostTypeArgs(
             ['menu_icon' => 'fas fa-emosewa'],
@@ -97,10 +92,7 @@ class HooksTest extends TestCase
         $fawpami->shouldReceive('isFaClass')->andReturn(true);
         $fawpami->shouldReceive('isFaClassV4')->andReturn(false);
 
-        $scripts = Mockery::mock(Scripts::class);
-        $scripts->shouldReceive('registerPostType');
-
-        $hooks = new Hooks($fawpami, $scripts);
+        $hooks = new Hooks($fawpami);
 
         $args = $hooks->filterRegisterPostTypeArgs(
             ['menu_icon' => 'fas fa-camera-retro'],
@@ -129,10 +121,7 @@ class HooksTest extends TestCase
         $fawpami->shouldReceive('isFaClass')->andReturn(false, true);
         $fawpami->shouldReceive('isFaClassV4')->andReturn(true, false);
 
-        $scripts = Mockery::mock(Scripts::class);
-        $scripts->shouldReceive('registerPostType');
-
-        $hooks = new Hooks($fawpami, $scripts);
+        $hooks = new Hooks($fawpami);
 
         $args = $hooks->filterRegisterPostTypeArgs(
             ['menu_icon' => 'fa-address-book'],
@@ -154,10 +143,7 @@ class HooksTest extends TestCase
         $fawpami->shouldReceive('isFaClass')->andReturn(false);
         $fawpami->shouldReceive('isFaClassV4')->andReturn(false);
 
-        $scripts = Mockery::mock(Scripts::class);
-        $scripts->shouldReceive('registerMenuPage');
-
-        $hooks = new Hooks($fawpami, $scripts);
+        $hooks = new Hooks($fawpami);
 
         $url = 'http://www.example.com';
 
@@ -199,10 +185,7 @@ class HooksTest extends TestCase
         $fawpami->shouldReceive('isFaClass')->andReturn(true);
         $fawpami->shouldReceive('isFaClassV4')->andReturn(false);
 
-        $scripts = Mockery::mock(Scripts::class);
-        $scripts->shouldReceive('registerMenuPage');
-
-        $hooks = new Hooks($fawpami, $scripts);
+        $hooks = new Hooks($fawpami);
 
         $this->assertStringStartsWith(
             $this->svgDataUriPrefix,
@@ -226,10 +209,7 @@ class HooksTest extends TestCase
         $fawpami->shouldReceive('isFaClass')->andReturn(true);
         $fawpami->shouldReceive('isFaClassV4')->andReturn(false);
 
-        $scripts = Mockery::mock(Scripts::class);
-        $scripts->shouldReceive('registerMenuPage');
-
-        $hooks = new Hooks($fawpami, $scripts);
+        $hooks = new Hooks($fawpami);
 
         $this->assertStringStartsWith(
             $this->svgDataUriPrefix,
@@ -257,10 +237,7 @@ class HooksTest extends TestCase
         $fawpami->shouldReceive('isFaClass')->andReturn(true);
         $fawpami->shouldReceive('isFaClassV4')->andReturn(true);
 
-        $scripts = Mockery::mock(Scripts::class);
-        $scripts->shouldReceive('registerMenuPage');
-
-        $hooks = new Hooks($fawpami, $scripts);
+        $hooks = new Hooks($fawpami);
 
         $this->assertStringStartsWith(
             $this->svgDataUriPrefix,

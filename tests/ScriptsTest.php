@@ -11,14 +11,13 @@ class ScriptsTest extends TestCase
     {
         $menuPage = 'fawpamimenupage';
         $postType = 'fawpamiposttype';
-        $scripts = new Scripts();
 
-        $scripts->registerMenuPage($menuPage);
-        $scripts->registerPostType($postType);
+        Scripts::registerMenuPage($menuPage);
+        Scripts::registerPostType($postType);
 
         $this->expectOutputRegex("/\.toplevel_page_{$menuPage}/");
         $this->expectOutputRegex("/\.menu-icon-{$postType}/");
 
-        $scripts->printScripts();
+        Scripts::print();
     }
 }

@@ -9,16 +9,10 @@ require_once 'Scripts.php';
 class Hooks
 {
     private Fawpami $fawpami;
-    private Scripts $scripts;
 
-    /**
-     * @param Fawpami $fawpami
-     * @param Scripts $scripts
-     */
-    public function __construct(Fawpami $fawpami, Scripts $scripts)
+    public function __construct(Fawpami $fawpami)
     {
         $this->fawpami = $fawpami;
-        $this->scripts = $scripts;
     }
 
     /**
@@ -43,7 +37,7 @@ class Hooks
             return $args;
         }
 
-        $this->scripts->registerPostType($name);
+        Scripts::registerPostType($name);
 
         if ($isFaClassV4) {
             $this->fawpami->addV4SyntaxWarning($menuIcon);
@@ -96,7 +90,7 @@ class Hooks
 
         // The most recently registered menu page should be this one
         end($pages);
-        $this->scripts->registerMenuPage(key($pages));
+        Scripts::registerMenuPage(key($pages));
 
         if ($isFaClassV4) {
             $this->fawpami->addV4SyntaxWarning($menuIcon);

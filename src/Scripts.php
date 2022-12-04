@@ -5,13 +5,12 @@ namespace Fawpami;
 class Scripts
 {
     /** @var string[] */
-    private array $menuPages = [];
+    private static array $menuPages = [];
 
     /** @var string[] */
-    private array $postTypes = [];
+    private static array $postTypes = [];
 
-    private function iconStyle(string $class): string
-    {
+    private static function getAddClassJs(string $class): string {
         return <<<JS
 document
     .querySelectorAll('.{$class} .svg')[0]
@@ -20,39 +19,44 @@ document
 JS;
     }
 
-    public function registerMenuPage(string $page): void
-    {
-        $this->menuPages[] = $page;
+    private static function getMenuPageClass(string $page): string {
+        return "toplevel_page_$page";
     }
 
-    public function registerPostType(string $postType): void
-    {
-        $this->postTypes[] = $postType;
+    private static function getPostTypeClass(string $postType): string {
+        return "menu-icon-$postType";
     }
 
-    public function printScripts(): void
+    public static function registerMenuPage(string $page): void
     {
-        if ($this->menuPages || $this->postTypes) {
-            $menuPageStyles = implode(
-                "\n",
-                array_map(function ($page) {
-                    return $this->iconStyle("toplevel_page_{$page}");
-                }, $this->menuPages)
-            );
-            $postTypeStyles = implode(
-                "\n",
-                array_map(function ($post) {
-                    return $this->iconStyle("menu-icon-{$post}");
-                }, $this->postTypes)
-            );
+        self::$menuPages[] = $page;
+    }
 
-            echo <<<HTML
+    public static function registerPostType(string $postType): void
+    {
+        self::$postTypes[] = $postType;
+    }
+
+    public static function print(): void
+    {
+        $statements = [];
+
+        foreach (self::$menuPages as $menuPage) {
+            $statements[] = self::getAddClassJs(self::getMenuPageClass($menuPage));
+        }
+
+        foreach (self::$postTypes as $postType) {
+            $statements[] = self::getAddClassJs(self::getPostTypeClass($postType));
+        }
+
+        $statements = implode("\n", $statements);
+
+        echo <<<HTML
 <!-- FA WP Admin Menu Icons icon styles -->
 <script>
 (function (){
     function main() {
-        {$menuPageStyles}
-        {$postTypeStyles}
+        $statements
     }
 
     if (document.readyState !== 'loading') {
@@ -63,6 +67,5 @@ JS;
 })();
 </script>
 HTML;
-        }
     }
 }

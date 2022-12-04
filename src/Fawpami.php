@@ -8,6 +8,7 @@ use function get_plugin_data;
 
 require_once 'AdminNotices.php';
 require_once 'Hooks.php';
+require_once 'Scripts.php';
 require_once 'Styles.php';
 require_once 'Version.php';
 
@@ -45,12 +46,11 @@ class Fawpami
 
     public function addHooks(): void
     {
-        $scripts = new Scripts();
-        $hooks = new Hooks($this, $scripts);
+        $hooks = new Hooks($this);
         $styles = new Styles();
 
         add_action('admin_notices', [AdminNotices::class, 'print']);
-        add_action('admin_print_footer_scripts', [$scripts, 'printScripts']);
+        add_action('admin_print_footer_scripts', [Scripts::class, 'print']);
         add_action('admin_init', [$styles, 'add']);
         add_filter(
             'register_post_type_args',
