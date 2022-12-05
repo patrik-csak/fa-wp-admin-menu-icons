@@ -27,10 +27,7 @@ class HooksTest extends TestCase
 
     public function testFilterRegisterPostTypeArgsWithoutMenuIcon(): void
     {
-        $fawpami = new Fawpami();
-        $hooks = new Hooks($fawpami);
-
-        $this->assertEquals([], $hooks->filterRegisterPostTypeArgs([], ''));
+        $this->assertEquals([], Hooks::filterRegisterPostTypeArgs([], ''));
     }
 
     public function testFilterRegisterPostTypeArgsWithInvalidMenuIcon(): void
@@ -53,15 +50,7 @@ class HooksTest extends TestCase
             ['return' => 404]
         );
 
-        $adminNotices = Mockery::mock(AdminNotices::class);
-        $adminNotices->shouldReceive('add');
-
-        $fawpami = Mockery::mock('Fawpami\Fawpami[isFaClass]');
-        $fawpami->shouldReceive('isFaClass')->andReturn(true);
-
-        $hooks = new Hooks($fawpami);
-
-        $args = $hooks->filterRegisterPostTypeArgs(
+        $args = Hooks::filterRegisterPostTypeArgs(
             ['menu_icon' => 'fas fa-emosewa'],
             ''
         );
@@ -79,12 +68,7 @@ class HooksTest extends TestCase
             ['return' => $this->svgDataUriPrefix]
         );
 
-        $fawpami = Mockery::mock('Fawpami\Fawpami[isFaClass]');
-        $fawpami->shouldReceive('isFaClass')->andReturn(true);
-
-        $hooks = new Hooks($fawpami);
-
-        $args = $hooks->filterRegisterPostTypeArgs(
+        $args = Hooks::filterRegisterPostTypeArgs(
             ['menu_icon' => 'fas fa-camera-retro'],
             ''
         );
@@ -97,11 +81,9 @@ class HooksTest extends TestCase
 
     public function testFilterSetUrlSchemeWithoutIcon(): void
     {
-        $hooks = new Hooks();
+        $url = 'https://example.com';
 
-        $url = 'http://www.example.com';
-
-        $this->assertEquals($url, $hooks->filterSetUrlScheme($url));
+        $this->assertEquals($url, Hooks::filterSetUrlScheme($url));
     }
 
     public function testFilterSetUrlSchemeWithInvalidMenuIcon(): void

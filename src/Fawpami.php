@@ -14,22 +14,16 @@ class Fawpami
 
     public function addHooks(): void
     {
-        $hooks = new Hooks($this);
-
         add_action('admin_notices', [AdminNotices::class, 'print']);
         add_action('admin_print_footer_scripts', [Scripts::class, 'print']);
         add_action('admin_init', [Styles::class, 'add']);
         add_filter(
             'register_post_type_args',
-            static function ($args, $name) use ($hooks) {
-                return $hooks->filterRegisterPostTypeArgs($args, $name);
-            },
+            [Hooks::class, 'filterRegisterPostTypeArgs'],
             10,
-            2
+            2,
         );
-        add_filter('set_url_scheme', static function ($url) use ($hooks) {
-            return $hooks->filterSetUrlScheme($url);
-        });
+        add_filter('set_url_scheme', [Hooks::class, 'filterSetUrlScheme']);
     }
 
     /**

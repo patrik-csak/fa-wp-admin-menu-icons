@@ -11,7 +11,7 @@ class Hooks
     /**
      * Replace Font Awesome class string with icon SVG data URI
      */
-    public function filterRegisterPostTypeArgs(array $args, string $name): array
+    public static function filterRegisterPostTypeArgs(array $args, string $name): array
     {
         $menuIcon = $args['menu_icon'] ?? null;
 
@@ -42,7 +42,7 @@ class Hooks
     /**
      * Replace Font Awesome class string with icon SVG data URI
      */
-    public function filterSetUrlScheme(string $url): string
+    public static function filterSetUrlScheme(string $url): string
     {
         if (!Fawpami::isFaClass($url)) {
             return $url;
