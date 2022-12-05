@@ -26,16 +26,4 @@ class Fawpami
         );
         add_filter('set_url_scheme', [Hooks::class, 'filterSetUrlScheme']);
     }
-
-    /**
-     * Test whether a string is a valid Font Awesome v5 class.
-     *
-     * For Font Awesome v5, the class should look like this:
-     * `[fas|far|fab] fa-<icon>`, for example: `fas fa-camera-retro`. See
-     * {@link https://fontawesome.com/v5/docs/web/reference-icons/}
-     */
-    public static function isFaClass(string $string): bool
-    {
-        return preg_match('/^fa[bsr]\s+fa-[\w-]+$/', $string) === 1;
-    }
 }
