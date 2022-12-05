@@ -2,53 +2,40 @@
 
 namespace Fawpami;
 
+use Exception;
 use SimpleXMLElement;
-use function add_option;
-use function get_option;
-use function is_wp_error;
-use function wp_remote_get;
-use function wp_remote_retrieve_response_code;
 
-require_once 'Exception.php';
+require_once 'Fawpami.php';
 
 class Icon
 {
-    private string $icon;
+    private const FONT_AWESOME_CLASS_PATTERN = '/^fa-?(?<style>b|brands|r|regular|s|solid)\s+fa-(?<name>[a-z-]+)$/';
 
-    private string $style;
+    public function __construct(
+        private string $name,
+        private string $style,
+    ) {
+    }
 
-    /**
-     * @throws Exception
-     */
-    public function __construct(string $class)
+    public static function fromClass(string $class): self|null
     {
-        if (!Fawpami::isFaClass($class)) {
-            throw new Exception(
-                "'$class' is not a valid Font Awesome class"
-            );
-        }
-
-        preg_match(
-            '/^fa(?<style>[bsr])\s+fa-(?<icon>[\w-]+)$/',
+        $result = preg_match(
+            self::FONT_AWESOME_CLASS_PATTERN,
             $class,
-            $matches
+            $matches,
         );
 
-        $icon = $matches['icon'];
-
-        $style = match ($matches['style']) {
-            'b' => 'brands',
-            's' => 'solid',
-            'r' => 'regular',
-            default => null
-        };
-
-        if (!$style) {
-            throw new Exception("Failed to parse class '$class'");
+        if ($result !== 1) {
+            return null;
         }
 
-        $this->icon = $icon;
-        $this->style = $style;
+        $style = match ($matches['style']) {
+            'b', 'brands' => 'brands',
+            'r', 'regular' => 'regular',
+            's', 'solid' => 'solid',
+        };
+
+        return new self($matches['name'], $style);
     }
 
     /**
@@ -74,12 +61,11 @@ class Icon
 
     private function getOptionName(): string
     {
-        return "fawpami_icon_{$this->icon}_{$this->style}_" . Fawpami::FA_VERSION;
+        return "fawpami_icon_{$this->name}_{$this->style}_" . Fawpami::FA_VERSION;
     }
 
     /**
      * @throws Exception
-     * @throws \Exception
      */
     private function getSvgDataUriFromGitHub(): string
     {
@@ -99,7 +85,7 @@ class Icon
     {
         $url = 'https://raw.githubusercontent.com/FortAwesome/Font-Awesome/' .
             Fawpami::FA_VERSION .
-            "/svgs/$this->style/$this->icon.svg";
+            "/svgs/$this->style/$this->name.svg";
         $response = wp_remote_get($url);
         $body = wp_remote_retrieve_body($response);
 

@@ -2,6 +2,8 @@
 
 namespace Fawpami;
 
+use Exception;
+
 require_once 'AdminNotices.php';
 require_once 'Icon.php';
 require_once 'Scripts.php';
@@ -13,21 +15,23 @@ class Hooks
      */
     public static function filterRegisterPostTypeArgs(array $args, string $name): array
     {
-        $menuIcon = $args['menu_icon'] ?? null;
-
-        if (!$menuIcon || !Fawpami::isFaClass($menuIcon)) {
+        if (
+            !isset($args['menu_icon']) ||
+            !$icon = Icon::fromClass($args['menu_icon'])
+        ) {
             return $args;
         }
 
         Scripts::registerPostType($name);
 
         try {
-            $args['menu_icon'] = (new Icon($menuIcon))->getSvgDataUri();
+            $args['menu_icon'] = $icon->getSvgDataUri();
         } catch (Exception $exception) {
             AdminNotices::add($exception->getMessage(), 'error');
 
             try {
-                $args['menu_icon'] = (new Icon('fas fa-exclamation-triangle'))
+                $args['menu_icon'] = Icon
+                    ::fromClass('fa-solid fa-triangle-exclamation')
                     ->getSvgDataUri();
             } catch (Exception $exception) {
                 AdminNotices::add($exception->getMessage(), 'error');
@@ -42,7 +46,7 @@ class Hooks
      */
     public static function filterSetUrlScheme(string $url): string
     {
-        if (!Fawpami::isFaClass($url)) {
+        if (!$icon = Icon::fromClass($url)) {
             return $url;
         }
 
@@ -51,12 +55,12 @@ class Hooks
         Scripts::registerMenuPage(array_key_last($admin_page_hooks));
 
         try {
-            return (new Icon($url))->getSvgDataUri();
+            return $icon->getSvgDataUri();
         } catch (Exception $exception) {
             AdminNotices::add($exception->getMessage(), 'error');
 
             try {
-                return (new Icon('fas fa-exclamation-triangle'))
+                return Icon::fromClass('fa-solid fa-triangle-exclamation')
                     ->getSvgDataUri();
             } catch (Exception $exception) {
                 AdminNotices::add($exception->getMessage(), 'error');

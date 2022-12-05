@@ -1,66 +1,30 @@
 <?php
 
-use Fawpami\Exception;
 use Fawpami\Fawpami;
 use Fawpami\Icon;
 use PHPUnit\Framework\TestCase;
 
+require_once __DIR__ . '/../src/Icon.php';
+
 class IconTest extends TestCase
 {
-    public function testWithBadFaClass(): void
+    /**
+     * @dataProvider nonFontAwesomeClassesProvider
+     */
+    public function testFromClassWithNonFontAwesomeClass(string $string): void
     {
-        $fawpami = Mockery::mock('Fawpami\Fawpami[isFaClass]');
-        $fawpami->shouldReceive('isFaClass')->andReturn(false);
-
-        $this->expectException(Exception::class);
-
-        new Icon('emosewa');
+        $this->assertNull(Icon::fromClass($string));
     }
 
-    public function testNewBrandIcon(): void
+    /**
+     * @dataProvider fontAwesomeClassesProvider
+     */
+    public function testFromClassWithFontAwesomeClass(string $string): void
     {
-        $fawpami = Mockery::mock('Fawpami\Fawpami[isFaClass]');
-        $fawpami->shouldReceive('isFaClass')->andReturn(true);
-
-        $this->assertInstanceOf(
-            Icon::class,
-            new Icon('fab fa-500px'),
-        );
+        $this->assertInstanceOf(Icon::class, Icon::fromClass($string));
     }
 
-    public function testNewRegularIcon(): void
-    {
-        $fawpami = Mockery::mock('Fawpami\Fawpami[isFaClass]');
-        $fawpami->shouldReceive('isFaClass')->andReturn(true);
-
-        $this->assertInstanceOf(
-            Icon::class,
-            new Icon('far fa-address-book'),
-        );
-    }
-
-    public function testNewSolidIcon(): void
-    {
-        $fawpami = Mockery::mock('Fawpami\Fawpami[isFaClass]');
-        $fawpami->shouldReceive('isFaClass')->andReturn(true);
-
-        $this->assertInstanceOf(
-            Icon::class,
-            new Icon('fas fa-address-book'),
-        );
-    }
-
-    public function testNewIconWithInvalidClass(): void
-    {
-        $fawpami = Mockery::mock('Fawpami\Fawpami[isFaClass]');
-        $fawpami->shouldReceive('isFaClass')->andReturn(false);
-
-        $this->expectException(Exception::class);
-
-        new Icon('camera-retro');
-    }
-
-    public function testSvgDataUri(): void
+    public function testGetSvgDataUri(): void
     {
         $body = '<svg xmlns="http://www.w3.org/2000/svg"></svg>';
 
@@ -74,7 +38,7 @@ class IconTest extends TestCase
             ['return' => 200],
         );
 
-        $icon = new Icon('fas fa-camera-retro');
+        $icon = Icon::fromClass('fa-solid fa-user');
 
         $this->assertStringStartsWith(
             'data:image/svg+xml;base64,',
@@ -82,14 +46,14 @@ class IconTest extends TestCase
         );
     }
 
-    public function testSvgDataUriWithCachedIcon(): void
+    public function testGetSvgDataUriWithCachedIcon(): void
     {
         WP_Mock::userFunction('get_option', [
-            'args' => ['fawpami_icon_camera-retro_solid_' . Fawpami::FA_VERSION],
+            'args' => ['fawpami_icon_user_solid_' . Fawpami::FA_VERSION],
             'return' => 'data:image/svg+xml;base64,'
         ]);
 
-        $icon = new Icon('fas fa-camera-retro');
+        $icon = Icon::fromClass('fa-solid fa-user');
 
         $this->assertStringStartsWith(
             'data:image/svg+xml;base64,',
@@ -97,24 +61,7 @@ class IconTest extends TestCase
         );
     }
 
-    public function testSvgDataUriWithInvalidIcon(): void
-    {
-        WP_Mock::userFunction('get_option', ['return' => false]);
-        WP_Mock::userFunction('is_wp_error', ['return' => false]);
-        WP_Mock::userFunction('wp_remote_get', ['return' => []]);
-        WP_Mock::userFunction('wp_remote_retrieve_body', ['return' => '']);
-        WP_Mock::userFunction(
-            'wp_remote_retrieve_response_code',
-            ['return' => 404]
-        );
-
-        $icon = new Icon('fas fa-emosewa');
-
-        $this->expectException(Exception::class);
-        $icon->getSvgDataUri();
-    }
-
-    public function testSvgDataUriWithWpRemoteGetError(): void
+    public function testGetSvgDataUriWithWpRemoteGetError(): void
     {
         $errorMessage = 'Message from \WP_Error::get_error_message';
         $wpError = Mockery::mock('WP_Error');
@@ -126,12 +73,36 @@ class IconTest extends TestCase
         WP_Mock::userFunction('wp_remote_retrieve_body', ['return' => '']);
         WP_Mock::userFunction('is_wp_error', ['return' => true]);
 
-        $icon = new Icon('fas fa-camera-retro');
+        $icon = Icon::fromClass('fa-solid fa-user');
 
         $this->expectException(Exception::class);
         $this->expectExceptionMessage($errorMessage);
 
         $icon->getSvgDataUri();
+    }
+
+    public function nonFontAwesomeClassesProvider(): array
+    {
+        return [
+            ['dashicons-admin-users'],
+            ['fa fa-user'], // font awesome v4 syntax
+            ['user'],
+        ];
+    }
+
+    /**
+     * @link https://fontawesome.com/docs/web/add-icons/how-to#setting-different-families-styles
+     */
+    public function fontAwesomeClassesProvider(): array
+    {
+        return [
+            ['fa-regular fa-user'],
+            ['far fa-user'],
+            ['fa-solid fa-user'],
+            ['fas fa-user'],
+            ['fa-brands fa-font-awesome'],
+            ['fab fa-font-awesome'],
+        ];
     }
 
     protected function setUp(): void
