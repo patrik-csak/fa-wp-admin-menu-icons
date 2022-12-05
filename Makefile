@@ -25,7 +25,8 @@ clean:
 ########################################################################
 
 .PHONY : test
-test : $(phpunit) ; $(phpunit) tests
+test: $(phpunit) src/aliases.json
+	$(phpunit) tests
 
 .PHONY : test-coverage-code-climate
 test-coverage-code-climate: cc-test-reporter clover.xml
@@ -59,6 +60,9 @@ clover.xml: $(phpunit) ; XDEBUG_MODE=coverage $(phpunit) --coverage-clover clove
 
 composer.phar:
 	scripts/download-composer.sh
+
+src/aliases.json: FORCE
+	php scripts/make-aliases.php
 
 vendor/%: composer.phar ; $(composer) install
 

@@ -3,6 +3,7 @@
 namespace Fawpami;
 
 use Exception;
+use JsonException;
 use SimpleXMLElement;
 
 require_once 'Fawpami.php';
@@ -83,9 +84,10 @@ class Icon
      */
     private function getSvgFromGitHub(): string
     {
+        $name = $this->getUnaliasedName();
         $url = 'https://raw.githubusercontent.com/FortAwesome/Font-Awesome/' .
             Fawpami::FA_VERSION .
-            "/svgs/$this->style/$this->name.svg";
+            "/svgs/$this->style/$name.svg";
         $response = wp_remote_get($url);
         $body = wp_remote_retrieve_body($response);
 
@@ -103,5 +105,19 @@ class Icon
     private function cacheSvgDataUri(string $svgDataUri): void
     {
         add_option($this->getOptionName(), $svgDataUri);
+    }
+
+    /**
+     * @throws JsonException
+     */
+    private function getUnaliasedName(): string
+    {
+        $aliases = json_decode(
+            file_get_contents(__DIR__. '/aliases.json'),
+            associative: true,
+            flags: JSON_THROW_ON_ERROR,
+        );
+
+        return $aliases[$this->name] ?? $this->name;
     }
 }
