@@ -1,0 +1,38 @@
+version: '3'
+
+tasks:
+  clean:
+    cmds:
+      - rm -r cc-test-reporter clover.xml composer.phar vendor .phpunit.result.cache
+  clover.xml:
+    deps: [vendor]
+    cmds:
+      - vendor/bin/phpunit --coverage-clover clover.xml
+    env:
+      XDEBUG_MODE: coverage
+    generates:
+      - clover.xml
+  composer.phar:
+    cmds:
+      - scripts/download-composer.sh
+    sources:
+      - scripts/download-composer.sh
+    generates:
+      - composer.phar
+  src/aliases.json:
+    cmds:
+      - php scripts/make-aliases.php
+    sources:
+      - src/Fawpami.php
+    generates:
+      - src/aliases.json
+  test:
+    deps: [vendor]
+    cmds:
+      - vendor/bin/phpunit
+  vendor:
+    deps: [composer.phar]
+    cmds:
+      - php composer.phar install
+    generates:
+      - vendor
