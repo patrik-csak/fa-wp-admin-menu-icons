@@ -12,62 +12,72 @@ Use Font Awesome icons for custom post types and custom menu pages.
 
 == Description ==
 
-Use Font Awesome icons for custom post types and custom menu pages.
+[View on GitHub](https://github.com/ptrkcsk/fa-wp-admin-menu-icons) for better documentation
+
+**FA WP Admin Menu Icons** allows you to use Font Awesome icons for WordPress custom post types and custom menu pages by passing the Font Awesome class string, just like using Font Awesome on the front end
+
+Here's an example:
 
     register_post_type( 'custom_post_type', [
         //...
         'menu_icon' => 'fas fa-thumbs-up',
         //...
     ] );
-
-[FA WP Admin Menu Icons on GitHub](https://github.com/ptrkcsk/fa-wp-admin-menu-icons)
 
 == Usage ==
 
-FA WP Admin Menu Icons works for the following WordPress functions:
+= `register_post_type()` =
 
-- `register_post_type()`
-- `add_menu_page()`
-
-**Custom post type**
+To use a Font Awesome icon for your custom post type with [`register_post_type()`](http://developer.wordpress.org/reference/functions/register_post_type/), use a Font Awesome class string for the `$args['menu_icon]` parameter:
 
     register_post_type( 'custom_post_type', [
         //...
-        'menu_icon' => 'fas fa-thumbs-up',
+        'menu_icon' => 'fa-solid fa-thumbs-up',
         //...
     ] );
 
-**Custom menu page**
+= `add_menu_page()` =
+
+To use a Font Awesome icon for your custom menu page with [`add_menu_page()`](http://developer.wordpress.org/reference/functions/add_menu_page/), use a Font Awesome class string for the `$icon_url` parameter:
 
     add_menu_page(
-        'Custom Menu Page',
-        'Custom Menu Page',
-        'manage_options',
-        'custom_menu_page',
-        '',
-        'fas fa-thumbs-up', // $icon_url
+        page_title: 'Custom Menu Page',
+        menu_title: 'Custom Menu Page',
+        capability: 'manage_options',
+        menu_slug: 'custom_menu_page',
+        icon_url: 'fa-solid fa-thumbs-up',
     );
 
-== Requirements ==
+= Custom Post Type UI plugin =
 
-- WordPress v4.4+
-- PHP v7.3+
-- [SimpleXML PHP extension](https://www.php.net/manual/en/simplexml.installation.php) (enabled by default)
+To use a Font Awesome icon with the [Custom Post Type UI plugin](https://wordpress.org/plugins/custom-post-type-ui/), use a Font Awesome class string for the **Menu Icon** field when adding or editing a Post Type
 
 == Installation ==
 
-= Composer =
+= WordPress Admin Dashboard =
 
-    $ composer require wpackagist-plugin/fa-wp-admin-menu-icons
+In your WordPress Admin Dashboard, go to **Plugins > Add New**, search for 'fa wp admin menu icons', then click **Install Now**
 
-= Git =
+Read more about [automatic plugin installation with the WordPress Admin Dashboard](https://wordpress.org/support/article/managing-plugins/#automatic-plugin-installation-1)
 
-    $ cd <wp-content>/plugins
-    $ git clone git@github.com:ptrkcsk/fa-wp-admin-menu-icons.git
+= WP-CLI =
 
-= WordPress =
+Install with WP-CLI by running the following command:
 
-[How to install WordPress plugins.](https://codex.wordpress.org/Managing_Plugins#Installing_Plugins)
+    wp plugin install fa-wp-admin-menu-icons --activate
+
+= Install with Composer =
+
+Install with Composer by running the following command:
+
+    composer require wpackagist-plugin/fa-wp-admin-menu-icons
+
+= Install with Git =
+
+Install with Git by running the following commands:
+
+    cd <wp-content>/plugins
+    git clone git@github.com:ptrkcsk/fa-wp-admin-menu-icons.git
 
 == Caveats ==
 
