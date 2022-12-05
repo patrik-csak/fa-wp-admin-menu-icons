@@ -14,91 +14,108 @@ require_once 'Exception.php';
 
 class Icon
 {
-    private string $iconUrl;
-    private string $optionName;
+    private string $icon;
+
+    private string $style;
 
     /**
-     * $params['faClass']   string  Font Awesome class, i.e.
-     *                              `'fas fa-camera-retro'`
-     *
-     * @param array $params
-     *
      * @throws Exception
      */
-    public function __construct(array $params)
+    public function __construct(string $class)
     {
-        $faClass = $params['faClass'] ?? null;
-        $faGithubUrl = 'https://raw.githubusercontent.com/FortAwesome/Font-Awesome';
-
-        if (!$faClass) {
+        if (!Fawpami::isFaClass($class)) {
             throw new Exception(
-                __METHOD__ . ' called with missing parameter ' .
-                "`\$params['faClass']`"
-            );
-        }
-
-        if (!Fawpami::isFaClass($faClass)) {
-            throw new Exception(
-                "'{$faClass}' is not a valid Font Awesome class"
+                "'{$class}' is not a valid Font Awesome class"
             );
         }
 
         preg_match(
             '/^fa(?<style>[bsr])\s+fa-(?<icon>[\w-]+)$/',
-            $faClass,
+            $class,
             $matches
         );
 
         $icon = $matches['icon'];
 
-        if ($matches['style'] === 'b') {
-            $style = 'brands';
-        } elseif ($matches['style'] === 's') {
-            $style = 'solid';
-        } elseif ($matches['style'] === 'r') {
-            $style = 'regular';
+        $style = match ($matches['style']) {
+            'b' => 'brands',
+            's' => 'solid',
+            'r' => 'regular',
+            default => null
+        };
+
+        if (!$style) {
+            throw new Exception("Failed to parse class '$class'");
         }
 
-        $this->iconUrl = "{$faGithubUrl}/" . (Fawpami::FA_VERSION) .
-            "/svgs/{$style}/{$icon}.svg";
-        $this->optionName = 'fawpami_icon_'
-            . str_replace('-', '_', $icon) . "_{$style}_" .
-            (Fawpami::FA_VERSION);
+        $this->icon = $icon;
+        $this->style = $style;
+    }
+
+    private function getSvgDataUriFromCache(): string|false
+    {
+        return get_option($this->getOptionName());
+    }
+
+    private function getOptionName(): string
+    {
+        return "fawpami_icon_{$this->icon}_{$this->style}_" . Fawpami::FA_VERSION;
     }
 
     /**
-     * @return string
      * @throws Exception
      */
-    public function svgDataUri(): string
+    private function getSvgFromGitHub(): string
     {
-        if ($cached = get_option($this->optionName)) {
+        $url = 'https://raw.githubusercontent.com/FortAwesome/Font-Awesome/' .
+            Fawpami::FA_VERSION .
+            "/svgs/$this->style/$this->icon.svg";
+        $response = wp_remote_get($url);
+        $body = wp_remote_retrieve_body($response);
+
+        if (!$body || wp_remote_retrieve_response_code($response) !== 200) {
+            $message = is_wp_error($response)
+                ? $response->get_error_message()
+                : "Failed to download icon from $url";
+
+            throw new Exception($message);
+        }
+
+        return $body;
+    }
+
+    /**
+     * @throws Exception
+     * @throws \Exception
+     */
+    private function getSvgDataUriFromGitHub(): string
+    {
+        $svg = new SimpleXMLElement($this->getSvgFromGitHub());
+
+        // Add black fill, as recommended by WordPress:
+        // https://codex.wordpress.org/Function_Reference/register_post_type#menu_icon
+        $svg->addAttribute('style', 'fill:black');
+
+        return 'data:image/svg+xml;base64,' . base64_encode($svg->asXML());
+    }
+
+    private function cacheSvgDataUri(string $svgDataUri): void
+    {
+        add_option($this->getOptionName(), $svgDataUri);
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function getSvgDataUri(): string
+    {
+        if ($cached = $this->getSvgDataUriFromCache()) {
             return $cached;
         }
 
-        $response = wp_remote_get($this->iconUrl);
+        $svgDataUri = $this->getSvgDataUriFromGitHub();
 
-        if (is_wp_error($response)) {
-            throw new Exception($response->get_error_message());
-        }
-
-        if (($code = wp_remote_retrieve_response_code($response)) !== 200) {
-            throw new Exception(
-                "HTTP request to <code>{$this->iconUrl}</code> failed with " .
-                "code <code>{$code}</code>"
-            );
-        }
-
-        $svg = new SimpleXMLElement($response['body']);
-
-        /*
-         * Add black fill, as recommended by WordPres:
-         * https://codex.wordpress.org/Function_Reference/register_post_type#menu_icon
-         */
-        $svg->addAttribute('style', 'fill:black');
-        $svgDataUri = 'data:image/svg+xml;base64,'
-            . base64_encode($svg->asXML());
-        add_option($this->optionName, $svgDataUri);
+        $this->cacheSvgDataUri($svgDataUri);
 
         return $svgDataUri;
     }

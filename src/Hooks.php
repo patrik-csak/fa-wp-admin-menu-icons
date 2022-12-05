@@ -22,12 +22,16 @@ class Hooks
         Scripts::registerPostType($name);
 
         try {
-            $icon = new Icon(['faClass' => $menuIcon]);
-            $args['menu_icon'] = $icon->svgDataUri();
+            $args['menu_icon'] = (new Icon($menuIcon))->getSvgDataUri();
         } catch (Exception $exception) {
             AdminNotices::add($exception->getMessage(), 'error');
-            $icon = new Icon(['faClass' => 'fas fa-exclamation-triangle']);
-            $args['menu_icon'] = $icon->svgDataUri();
+
+            try {
+                $args['menu_icon'] = (new Icon('fas fa-exclamation-triangle'))
+                    ->getSvgDataUri();
+            } catch (Exception $exception) {
+                AdminNotices::add($exception->getMessage(), 'error');
+            }
         }
 
         return $args;
@@ -47,12 +51,18 @@ class Hooks
         Scripts::registerMenuPage(array_key_last($admin_page_hooks));
 
         try {
-            $icon = new Icon(['faClass' => $url]);
-            return $icon->svgDataUri();
+            return (new Icon($url))->getSvgDataUri();
         } catch (Exception $exception) {
             AdminNotices::add($exception->getMessage(), 'error');
-            $icon = new Icon(['faClass' => 'fas fa-exclamation-triangle']);
-            return $icon->svgDataUri();
+
+            try {
+                return (new Icon('fas fa-exclamation-triangle'))
+                    ->getSvgDataUri();
+            } catch (Exception $exception) {
+                AdminNotices::add($exception->getMessage(), 'error');
+
+                return $url;
+            }
         }
     }
 }

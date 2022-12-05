@@ -45,6 +45,7 @@ class HooksTest extends TestCase
         );
         WP_Mock::userFunction('is_wp_error', ['return' => false]);
         WP_Mock::userFunction('wp_remote_get', ['return' => []]);
+        WP_Mock::userFunction('wp_remote_retrieve_body', ['return' => '']);
         WP_Mock::userFunction(
             'wp_remote_retrieve_response_code',
             ['return' => 404]
@@ -103,6 +104,7 @@ class HooksTest extends TestCase
         );
         WP_Mock::userFunction('is_wp_error', ['return' => false]);
         WP_Mock::userFunction('wp_remote_get', ['return' => []]);
+        WP_Mock::userFunction('wp_remote_retrieve_body', ['return' => '']);
         WP_Mock::userFunction(
             'wp_remote_retrieve_response_code',
             ['return' => 404]

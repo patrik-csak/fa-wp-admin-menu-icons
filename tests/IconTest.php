@@ -31,10 +31,7 @@ class IconTest extends TestCase
 
         $this->expectException(Exception::class);
 
-        new Icon([
-            'faClass' => 'emosewa',
-            'fawpami' => $fawpami
-        ]);
+        new Icon('emosewa');
     }
 
     public function testNewBrandIcon(): void
@@ -44,10 +41,7 @@ class IconTest extends TestCase
 
         $this->assertInstanceOf(
             Icon::class,
-            new Icon([
-                'faClass' => 'fab fa-500px',
-                'fawpami' => $fawpami
-            ])
+            new Icon('fab fa-500px'),
         );
     }
 
@@ -58,10 +52,7 @@ class IconTest extends TestCase
 
         $this->assertInstanceOf(
             Icon::class,
-            new Icon([
-                'faClass' => 'far fa-address-book',
-                'fawpami' => $fawpami
-            ])
+            new Icon('far fa-address-book'),
         );
     }
 
@@ -72,10 +63,7 @@ class IconTest extends TestCase
 
         $this->assertInstanceOf(
             Icon::class,
-            new Icon([
-                'faClass' => 'fas fa-address-book',
-                'fawpami' => $fawpami
-            ])
+            new Icon('fas fa-address-book'),
         );
     }
 
@@ -86,55 +74,43 @@ class IconTest extends TestCase
 
         $this->expectException(Exception::class);
 
-        new Icon([
-            'faClass' => 'camera-retro',
-            'fawpami' => $fawpami
-        ]);
+        new Icon('camera-retro');
     }
 
     public function testSvgDataUri(): void
     {
+        $body = '<svg xmlns="http://www.w3.org/2000/svg"></svg>';
+
         WP_Mock::userFunction('add_option', ['return' => true]);
         WP_Mock::userFunction('get_option', ['return' => false]);
         WP_Mock::userFunction('is_wp_error', ['return' => false]);
-        WP_Mock::userFunction('wp_remote_get', [
-            'return' => [
-                'body' => '<svg xmlns="http://www.w3.org/2000/svg"></svg>'
-            ]
-        ]);
+        WP_Mock::userFunction('wp_remote_get', ['return' => ['body' => $body]]);
+        WP_Mock::userFunction('wp_remote_retrieve_body', ['return' => $body]);
         WP_Mock::userFunction(
             'wp_remote_retrieve_response_code',
-            ['return' => 200]
+            ['return' => 200],
         );
 
-        $fawpami = new Fawpami();
-        $icon = new Icon([
-            'faClass' => 'fas fa-camera-retro',
-            'fawpami' => $fawpami
-        ]);
+        $icon = new Icon('fas fa-camera-retro');
 
         $this->assertStringStartsWith(
             'data:image/svg+xml;base64,',
-            $icon->svgDataUri()
+            $icon->getSvgDataUri()
         );
     }
 
     public function testSvgDataUriWithCachedIcon(): void
     {
         WP_Mock::userFunction('get_option', [
-            'args' => ['fawpami_icon_camera_retro_solid_' . Fawpami::FA_VERSION],
+            'args' => ['fawpami_icon_camera-retro_solid_' . Fawpami::FA_VERSION],
             'return' => 'data:image/svg+xml;base64,'
         ]);
 
-        $fawpami = new Fawpami();
-        $icon = new Icon([
-            'faClass' => 'fas fa-camera-retro',
-            'fawpami' => $fawpami
-        ]);
+        $icon = new Icon('fas fa-camera-retro');
 
         $this->assertStringStartsWith(
             'data:image/svg+xml;base64,',
-            $icon->svgDataUri()
+            $icon->getSvgDataUri()
         );
     }
 
@@ -143,19 +119,16 @@ class IconTest extends TestCase
         WP_Mock::userFunction('get_option', ['return' => false]);
         WP_Mock::userFunction('is_wp_error', ['return' => false]);
         WP_Mock::userFunction('wp_remote_get', ['return' => []]);
+        WP_Mock::userFunction('wp_remote_retrieve_body', ['return' => '']);
         WP_Mock::userFunction(
             'wp_remote_retrieve_response_code',
             ['return' => 404]
         );
 
-        $fawpami = new Fawpami();
-        $icon = new Icon([
-            'faClass' => 'fas fa-emosewa',
-            'fawpami' => $fawpami
-        ]);
+        $icon = new Icon('fas fa-emosewa');
 
         $this->expectException(Exception::class);
-        $icon->svgDataUri();
+        $icon->getSvgDataUri();
     }
 
     public function testSvgDataUriWithWpRemoteGetError(): void
@@ -167,17 +140,14 @@ class IconTest extends TestCase
         WP_Mock::userFunction('get_option', ['return' => false]);
         WP_Mock::userFunction('is_wp_error', ['return' => true]);
         WP_Mock::userFunction('wp_remote_get', ['return' => $wpError]);
+        WP_Mock::userFunction('wp_remote_retrieve_body', ['return' => '']);
         WP_Mock::userFunction('is_wp_error', ['return' => true]);
 
-        $fawpami = new Fawpami();
-        $icon = new Icon([
-            'faClass' => 'fas fa-camera-retro',
-            'fawpami' => $fawpami
-        ]);
+        $icon = new Icon('fas fa-camera-retro');
 
         $this->expectException(Exception::class);
         $this->expectExceptionMessage($errorMessage);
 
-        $icon->svgDataUri();
+        $icon->getSvgDataUri();
     }
 }
