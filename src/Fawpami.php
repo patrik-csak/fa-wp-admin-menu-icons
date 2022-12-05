@@ -17,6 +17,7 @@ class Fawpami
         add_action('admin_notices', [AdminNotices::class, 'print']);
         add_action('admin_print_footer_scripts', [Scripts::class, 'print']);
         add_action('admin_init', [Styles::class, 'add']);
+
         add_filter(
             'register_post_type_args',
             [Hooks::class, 'filterRegisterPostTypeArgs'],

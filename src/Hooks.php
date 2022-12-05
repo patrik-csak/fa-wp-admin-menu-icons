@@ -26,14 +26,8 @@ class Hooks
             $args['menu_icon'] = $icon->svgDataUri();
         } catch (Exception $exception) {
             AdminNotices::add($exception->getMessage(), 'error');
-
-            try {
-                $icon = new Icon(['faClass' => 'fas fa-exclamation-triangle']);
-                $args['menu_icon'] = $icon->svgDataUri();
-            } catch (Exception $e) {
-                // This shouldn't happen because we know the exclamation
-                // triangle icon is valid
-            }
+            $icon = new Icon(['faClass' => 'fas fa-exclamation-triangle']);
+            $args['menu_icon'] = $icon->svgDataUri();
         }
 
         return $args;
@@ -48,31 +42,17 @@ class Hooks
             return $url;
         }
 
-        global $admin_page_hooks;
-        $pages = $admin_page_hooks;
-        $menuIcon = $url;
-
         // The most recently registered menu page should be this one
-        end($pages);
-        Scripts::registerMenuPage(key($pages));
+        global $admin_page_hooks;
+        Scripts::registerMenuPage(array_key_last($admin_page_hooks));
 
         try {
-            $icon = new Icon(['faClass' => $menuIcon]);
-
+            $icon = new Icon(['faClass' => $url]);
             return $icon->svgDataUri();
         } catch (Exception $exception) {
             AdminNotices::add($exception->getMessage(), 'error');
-
-            try {
-                $icon = new Icon(['faClass' => 'fas fa-exclamation-triangle']);
-
-                return $icon->svgDataUri();
-            } catch (Exception $e) {
-                // This shouldn't happen because we know the exclamation
-                // triangle icon is valid
-            }
+            $icon = new Icon(['faClass' => 'fas fa-exclamation-triangle']);
+            return $icon->svgDataUri();
         }
-
-        return $url;
     }
 }
