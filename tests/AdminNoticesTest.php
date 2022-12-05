@@ -7,16 +7,6 @@ require_once __DIR__ . '/../src/AdminNotices.php';
 
 class AdminNoticesTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        WP_Mock::setUp();
-    }
-
-    protected function tearDown(): void
-    {
-        WP_Mock::tearDown();
-    }
-
     public function testPrint(): void
     {
         // given
@@ -40,5 +30,15 @@ HTML
         // when
         AdminNotices::add($message, $style);
         AdminNotices::print();
+    }
+
+    protected function setUp(): void
+    {
+        WP_Mock::setUp();
+    }
+
+    protected function tearDown(): void
+    {
+        WP_Mock::tearDown();
     }
 }

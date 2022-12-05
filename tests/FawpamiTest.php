@@ -9,19 +9,6 @@ class FawpamiTest extends TestCase
 {
     private Fawpami $fawpami;
 
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->fawpami = new Fawpami();
-    }
-
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-        Mockery::close();
-    }
-
     public function testConstruct(): void
     {
         $this->assertInstanceOf(Fawpami::class, $this->fawpami);
@@ -58,5 +45,18 @@ class FawpamiTest extends TestCase
     public function testIsFaClassWithInvalidSyntax(): void
     {
         $this->assertFalse(Fawpami::isFaClass('camera-retro'));
+    }
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->fawpami = new Fawpami();
+    }
+
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+        Mockery::close();
     }
 }

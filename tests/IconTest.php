@@ -7,19 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 class IconTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-        WP_Mock::setUp();
-    }
-
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-        WP_Mock::tearDown();
-        Mockery::close();
-    }
-
     public function testWithBadFaClass(): void
     {
         $fawpami = Mockery::mock('Fawpami\Fawpami[isFaClass]');
@@ -145,5 +132,18 @@ class IconTest extends TestCase
         $this->expectExceptionMessage($errorMessage);
 
         $icon->getSvgDataUri();
+    }
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        WP_Mock::setUp();
+    }
+
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+        WP_Mock::tearDown();
+        Mockery::close();
     }
 }

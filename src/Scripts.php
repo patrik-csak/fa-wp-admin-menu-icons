@@ -10,26 +10,6 @@ class Scripts
     /** @var string[] */
     private static array $postTypes = [];
 
-    private static function getAddClassJs(string $class): string
-    {
-        return <<<JS
-document
-    .querySelectorAll('.$class .svg')[0]
-    .classList
-    .add('wp-menu-image--fawpami');
-JS;
-    }
-
-    private static function getMenuPageClass(string $page): string
-    {
-        return "toplevel_page_$page";
-    }
-
-    private static function getPostTypeClass(string $postType): string
-    {
-        return "menu-icon-$postType";
-    }
-
     public static function registerMenuPage(string $page): void
     {
         self::$menuPages[] = $page;
@@ -70,5 +50,25 @@ JS;
 })();
 </script>
 HTML;
+    }
+
+    private static function getAddClassJs(string $class): string
+    {
+        return <<<JS
+document
+    .querySelectorAll('.$class .svg')[0]
+    .classList
+    .add('wp-menu-image--fawpami');
+JS;
+    }
+
+    private static function getMenuPageClass(string $page): string
+    {
+        return "toplevel_page_$page";
+    }
+
+    private static function getPostTypeClass(string $postType): string
+    {
+        return "menu-icon-$postType";
     }
 }

@@ -8,19 +8,6 @@ class HooksTest extends TestCase
 {
     private string $svgDataUriPrefix = 'data:image/svg+xml;base64,';
 
-    protected function setUp(): void
-    {
-        parent::setUp();
-        WP_Mock::setUp();
-    }
-
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-        WP_Mock::tearDown();
-        unset($GLOBALS['admin_page_hooks']);
-    }
-
     public function testFilterRegisterPostTypeArgsWithoutMenuIcon(): void
     {
         $this->assertEquals([], Hooks::filterRegisterPostTypeArgs([], ''));
@@ -128,5 +115,18 @@ class HooksTest extends TestCase
             $this->svgDataUriPrefix,
             Hooks::filterSetUrlScheme('fas fa-camera-retro')
         );
+    }
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        WP_Mock::setUp();
+    }
+
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+        WP_Mock::tearDown();
+        unset($GLOBALS['admin_page_hooks']);
     }
 }
