@@ -41,7 +41,7 @@ class Fawpami
      * `[fas|far|fab] fa-<icon>`, for example: `fas fa-camera-retro`. See
      * {@link https://fontawesome.com/v5/docs/web/reference-icons/}
      */
-    public function isFaClass(string $string): bool
+    public static function isFaClass(string $string): bool
     {
         return preg_match('/^fa[bsr]\s+fa-[\w-]+$/', $string) === 1;
     }

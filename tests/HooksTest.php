@@ -97,10 +97,7 @@ class HooksTest extends TestCase
 
     public function testFilterSetUrlSchemeWithoutIcon(): void
     {
-        $fawpami = Mockery::mock(Fawpami::class,);
-        $fawpami->shouldReceive('isFaClass')->andReturn(false);
-
-        $hooks = new Hooks($fawpami);
+        $hooks = new Hooks();
 
         $url = 'http://www.example.com';
 
@@ -132,10 +129,7 @@ class HooksTest extends TestCase
         $adminNotices = Mockery::mock(AdminNotices::class);
         $adminNotices->shouldReceive('add');
 
-        $fawpami = Mockery::mock(Fawpami::class);
-        $fawpami->shouldReceive('isFaClass')->andReturn(true);
-
-        $hooks = new Hooks($fawpami);
+        $hooks = new Hooks();
 
         $this->assertStringStartsWith(
             $this->svgDataUriPrefix,
@@ -152,10 +146,7 @@ class HooksTest extends TestCase
             ['return' => $this->svgDataUriPrefix]
         );
 
-        $fawpami = Mockery::mock(Fawpami::class);
-        $fawpami->shouldReceive('isFaClass')->andReturn(true);
-
-        $hooks = new Hooks($fawpami);
+        $hooks = new Hooks();
 
         $this->assertStringStartsWith(
             $this->svgDataUriPrefix,

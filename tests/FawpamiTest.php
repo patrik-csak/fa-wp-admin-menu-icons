@@ -32,17 +32,17 @@ class FawpamiTest extends TestCase
 
     public function testIsFaClassWithSolidIcon(): void
     {
-        $this->assertTrue($this->fawpami->isFaClass('fas fa-camera-retro'));
+        $this->assertTrue(Fawpami::isFaClass('fas fa-camera-retro'));
     }
 
     public function testIsFaClassWithRegularIcon(): void
     {
-        $this->assertTrue($this->fawpami->isFaClass('far fa-camera-retro'));
+        $this->assertTrue(Fawpami::isFaClass('far fa-camera-retro'));
     }
 
     public function testIsFaClassWithBrandsIcon(): void
     {
-        $this->assertTrue($this->fawpami->isFaClass('fab fa-font-awesome'));
+        $this->assertTrue(Fawpami::isFaClass('fab fa-font-awesome'));
     }
 
     /**
@@ -50,17 +50,17 @@ class FawpamiTest extends TestCase
      */
     public function testIsFaClassWithLightIcon(): void
     {
-        $this->assertFalse($this->fawpami->isFaClass('fal fa-camera-retro'));
+        $this->assertFalse(Fawpami::isFaClass('fal fa-camera-retro'));
     }
 
     public function testIsFaClassWithFaV4Syntax(): void
     {
-        $this->assertFalse($this->fawpami->isFaClass('fa-camera-retro'));
+        $this->assertFalse(Fawpami::isFaClass('fa-camera-retro'));
     }
 
     public function testIsFaClassWithInvalidSyntax(): void
     {
-        $this->assertFalse($this->fawpami->isFaClass('camera-retro'));
+        $this->assertFalse(Fawpami::isFaClass('camera-retro'));
     }
 
     public function testPluginName(): void

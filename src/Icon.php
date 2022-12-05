@@ -20,7 +20,6 @@ class Icon
     /**
      * $params['faClass']   string  Font Awesome class, i.e.
      *                              `'fas fa-camera-retro'`
-     * $params['fawpami']   Fawpami
      *
      * @param array $params
      *
@@ -29,19 +28,16 @@ class Icon
     public function __construct(array $params)
     {
         $faClass = $params['faClass'] ?? null;
-        $fawpami = $params['fawpami'] ?? null;
         $faGithubUrl = 'https://raw.githubusercontent.com/FortAwesome/Font-Awesome';
 
-        foreach (['faClass', 'fawpami'] as $param) {
-            if (!$$param) {
-                throw new Exception(
-                    __METHOD__ . ' called with missing parameter ' .
-                    "`\$params['{$param}']`"
-                );
-            }
+        if (!$faClass) {
+            throw new Exception(
+                __METHOD__ . ' called with missing parameter ' .
+                "`\$params['faClass']`"
+            );
         }
 
-        if (!$fawpami->isFaClass($faClass)) {
+        if (!Fawpami::isFaClass($faClass)) {
             throw new Exception(
                 "'{$faClass}' is not a valid Font Awesome class"
             );

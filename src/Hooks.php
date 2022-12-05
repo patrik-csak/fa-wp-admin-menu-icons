@@ -8,13 +8,6 @@ require_once 'Scripts.php';
 
 class Hooks
 {
-    private Fawpami $fawpami;
-
-    public function __construct(Fawpami $fawpami)
-    {
-        $this->fawpami = $fawpami;
-    }
-
     /**
      * Replace Font Awesome class string with icon SVG data URI
      */
@@ -22,26 +15,20 @@ class Hooks
     {
         $menuIcon = $args['menu_icon'] ?? null;
 
-        if (!$menuIcon || !$this->fawpami->isFaClass($menuIcon)) {
+        if (!$menuIcon || !Fawpami::isFaClass($menuIcon)) {
             return $args;
         }
 
         Scripts::registerPostType($name);
 
         try {
-            $icon = new Icon([
-                'faClass' => $menuIcon,
-                'fawpami' => $this->fawpami,
-            ]);
+            $icon = new Icon(['faClass' => $menuIcon]);
             $args['menu_icon'] = $icon->svgDataUri();
         } catch (Exception $exception) {
             AdminNotices::add($exception->getMessage(), 'error');
 
             try {
-                $icon = new Icon([
-                    'faClass' => 'fas fa-exclamation-triangle',
-                    'fawpami' => $this->fawpami,
-                ]);
+                $icon = new Icon(['faClass' => 'fas fa-exclamation-triangle']);
                 $args['menu_icon'] = $icon->svgDataUri();
             } catch (Exception $e) {
                 // This shouldn't happen because we know the exclamation
@@ -57,7 +44,7 @@ class Hooks
      */
     public function filterSetUrlScheme(string $url): string
     {
-        if (!$this->fawpami->isFaClass($url)) {
+        if (!Fawpami::isFaClass($url)) {
             return $url;
         }
 
@@ -70,20 +57,14 @@ class Hooks
         Scripts::registerMenuPage(key($pages));
 
         try {
-            $icon = new Icon([
-                'faClass' => $menuIcon,
-                'fawpami' => $this->fawpami,
-            ]);
+            $icon = new Icon(['faClass' => $menuIcon]);
 
             return $icon->svgDataUri();
         } catch (Exception $exception) {
             AdminNotices::add($exception->getMessage(), 'error');
 
             try {
-                $icon = new Icon([
-                    'faClass' => 'fas fa-exclamation-triangle',
-                    'fawpami' => $this->fawpami,
-                ]);
+                $icon = new Icon(['faClass' => 'fas fa-exclamation-triangle']);
 
                 return $icon->svgDataUri();
             } catch (Exception $e) {
