@@ -62,16 +62,4 @@ class FawpamiTest extends TestCase
     {
         $this->assertFalse(Fawpami::isFaClass('camera-retro'));
     }
-
-    public function testPluginName(): void
-    {
-        WP_Mock::userFunction('get_plugin_data', [
-            'return' => ['Name' => 'FA WP Admin Menu Icons']
-        ]);
-
-        $this->assertEquals(
-            'FA WP Admin Menu Icons',
-            $this->fawpami->pluginName()
-        );
-    }
 }

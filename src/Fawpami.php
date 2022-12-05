@@ -2,8 +2,6 @@
 
 namespace Fawpami;
 
-use function get_plugin_data;
-
 require_once 'AdminNotices.php';
 require_once 'Hooks.php';
 require_once 'Scripts.php';
@@ -44,12 +42,5 @@ class Fawpami
     public static function isFaClass(string $string): bool
     {
         return preg_match('/^fa[bsr]\s+fa-[\w-]+$/', $string) === 1;
-    }
-
-    public function pluginName()
-    {
-        return get_plugin_data(
-            __DIR__ . '/../fa-wp-admin-menu-icons.php'
-        )['Name'];
     }
 }
