@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Require PHP v8.0+
 
+### Removed
+
+- Support for Font Awesome v4 icons
+- `Fawpami\\faVersion` filter
+
 ## [v6.0.0](https://github.com/ptrkcsk/fa-wp-admin-menu-icons/compare/v5.0.1...v6.0.0) - 2022-01-26
 
 ### Changed
