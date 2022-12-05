@@ -6,7 +6,7 @@ use Fawpami\Fawpami;
 
 $metadata = file_get_contents(
     'https://raw.githubusercontent.com/FortAwesome/Font-Awesome/' .
-    Fawpami::FA_VERSION . '/metadata/icons.json'
+    Fawpami::FONT_AWESOME_VERSION . '/metadata/icons.json'
 );
 
 $metadata = json_decode(

@@ -49,7 +49,7 @@ class IconTest extends TestCase
     public function testGetSvgDataUriWithCachedIcon(): void
     {
         WP_Mock::userFunction('get_option', [
-            'args' => ['fawpami_icon_user_solid_' . Fawpami::FA_VERSION],
+            'args' => ['fawpami_icon_user_solid_' . Fawpami::FONT_AWESOME_VERSION],
             'return' => 'data:image/svg+xml;base64,'
         ]);
 

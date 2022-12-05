@@ -62,7 +62,7 @@ class Icon
 
     private function getOptionName(): string
     {
-        return "fawpami_icon_{$this->name}_{$this->style}_" . Fawpami::FA_VERSION;
+        return "fawpami_icon_{$this->name}_{$this->style}_" . Fawpami::FONT_AWESOME_VERSION;
     }
 
     /**
@@ -86,7 +86,7 @@ class Icon
     {
         $name = $this->getUnaliasedName();
         $url = 'https://raw.githubusercontent.com/FortAwesome/Font-Awesome/' .
-            Fawpami::FA_VERSION .
+            Fawpami::FONT_AWESOME_VERSION .
             "/svgs/$this->style/$name.svg";
         $response = wp_remote_get($url);
         $body = wp_remote_retrieve_body($response);
