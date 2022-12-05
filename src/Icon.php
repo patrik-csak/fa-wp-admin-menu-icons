@@ -25,7 +25,7 @@ class Icon
     {
         if (!Fawpami::isFaClass($class)) {
             throw new Exception(
-                "'{$class}' is not a valid Font Awesome class"
+                "'$class' is not a valid Font Awesome class"
             );
         }
 

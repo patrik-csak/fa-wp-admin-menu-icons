@@ -1,16 +1,12 @@
 <?php
 
 use Fawpami\AdminNotices;
-use Fawpami\Fawpami;
 use Fawpami\Hooks;
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../src/Fawpami.php';
-
 class HooksTest extends TestCase
 {
-    /** @var string */
-    private $svgDataUriPrefix = 'data:image/svg+xml;base64,';
+    private string $svgDataUriPrefix = 'data:image/svg+xml;base64,';
 
     protected function setUp(): void
     {
@@ -113,11 +109,9 @@ class HooksTest extends TestCase
         $adminNotices = Mockery::mock(AdminNotices::class);
         $adminNotices->shouldReceive('add');
 
-        $hooks = new Hooks();
-
         $this->assertStringStartsWith(
             $this->svgDataUriPrefix,
-            $hooks->filterSetUrlScheme('fas fa-emosewa')
+            Hooks::filterSetUrlScheme('fas fa-emosewa')
         );
     }
 
@@ -130,11 +124,9 @@ class HooksTest extends TestCase
             ['return' => $this->svgDataUriPrefix]
         );
 
-        $hooks = new Hooks();
-
         $this->assertStringStartsWith(
             $this->svgDataUriPrefix,
-            $hooks->filterSetUrlScheme('fas fa-camera-retro')
+            Hooks::filterSetUrlScheme('fas fa-camera-retro')
         );
     }
 }

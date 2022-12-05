@@ -15,8 +15,8 @@ class ScriptsTest extends TestCase
         Scripts::registerMenuPage($menuPage);
         Scripts::registerPostType($postType);
 
-        $this->expectOutputRegex("/\.toplevel_page_{$menuPage}/");
-        $this->expectOutputRegex("/\.menu-icon-{$postType}/");
+        $this->expectOutputRegex("/\.toplevel_page_$menuPage/");
+        $this->expectOutputRegex("/\.menu-icon-$postType/");
 
         Scripts::print();
     }

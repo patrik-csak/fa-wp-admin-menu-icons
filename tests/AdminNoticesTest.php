@@ -32,7 +32,7 @@ class AdminNoticesTest extends TestCase
         $this->expectOutputString(
             <<< HTML
 <div class='notice notice-$style'>
-    <p><b>{$pluginName}:</b> {$message}</p>
+    <p><b>$pluginName:</b> $message</p>
 </div>
 HTML
         );

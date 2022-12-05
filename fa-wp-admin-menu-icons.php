@@ -32,11 +32,6 @@ if (!is_admin()) {
     return;
 }
 
-function init(): void
-{
-    require_once 'src/Fawpami.php';
+require_once 'src/Fawpami.php';
 
-    (new Fawpami())->addHooks();
-}
-
-add_action('plugins_loaded', __NAMESPACE__ . '\\init');
+add_action('plugins_loaded', [Fawpami::class, 'addHooks']);

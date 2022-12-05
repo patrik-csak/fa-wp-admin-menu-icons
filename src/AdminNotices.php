@@ -30,8 +30,8 @@ class AdminNotices
 
         foreach (self::$notices as $notice) {
             echo <<< HTML
-<div class='notice notice-{$notice->style}'>
-    <p><b>{$pluginName}:</b> {$notice->message}</p>
+<div class='notice notice-$notice->style'>
+    <p><b>$pluginName:</b> $notice->message</p>
 </div>
 HTML;
         }

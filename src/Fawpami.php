@@ -12,7 +12,7 @@ class Fawpami
     /** @var string */
     public const FA_VERSION = '5.15.4';
 
-    public function addHooks(): void
+    public static function addHooks(): void
     {
         add_action('admin_notices', [AdminNotices::class, 'print']);
         add_action('admin_print_footer_scripts', [Scripts::class, 'print']);

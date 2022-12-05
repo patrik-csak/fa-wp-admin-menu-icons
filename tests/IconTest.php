@@ -1,13 +1,9 @@
 <?php
 
-use Fawpami\AdminNotices;
 use Fawpami\Exception;
 use Fawpami\Fawpami;
 use Fawpami\Icon;
 use PHPUnit\Framework\TestCase;
-
-require_once __DIR__ . '/../src/Fawpami.php';
-require_once __DIR__ . '/../src/Icon.php';
 
 class IconTest extends TestCase
 {
