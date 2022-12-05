@@ -55,10 +55,11 @@ HTML;
     private static function getAddClassJs(string $class): string
     {
         return <<<JS
-document
-    .querySelectorAll('.$class .svg')[0]
-    .classList
-    .add('wp-menu-image--fawpami');
+if (document.querySelectorAll('.$class .svg')[0]) {
+    document.querySelectorAll('.$class .svg')[0]
+        .classList
+        .add('wp-menu-image--fawpami');
+}
 JS;
     }
 
