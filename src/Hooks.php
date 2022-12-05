@@ -12,6 +12,8 @@ class Hooks
 {
     /**
      * Replace Font Awesome class string with icon SVG data URI
+     *
+     * @throws Exception
      */
     public static function filterRegisterPostTypeArgs(array $args, string $name): array
     {
@@ -27,6 +29,10 @@ class Hooks
         try {
             $args['menu_icon'] = $icon->getSvgDataUri();
         } catch (Exception $exception) {
+            if (defined('WP_DEBUG') && WP_DEBUG) {
+                throw $exception;
+            }
+
             AdminNotices::add($exception->getMessage(), 'error');
 
             try {
@@ -43,6 +49,8 @@ class Hooks
 
     /**
      * Replace Font Awesome class string with icon SVG data URI
+     *
+     * @throws Exception
      */
     public static function filterSetUrlScheme(string $url): string
     {
@@ -57,6 +65,10 @@ class Hooks
         try {
             return $icon->getSvgDataUri();
         } catch (Exception $exception) {
+            if (defined('WP_DEBUG') && WP_DEBUG) {
+                throw $exception;
+            }
+
             AdminNotices::add($exception->getMessage(), 'error');
 
             try {
