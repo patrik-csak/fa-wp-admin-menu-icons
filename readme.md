@@ -3,9 +3,8 @@
 [![Badge indicating the version FA WP Admin Menu Icons is tested up to](https://img.shields.io/wordpress/plugin/tested/fa-wp-admin-menu-icons.svg)](https://wordpress.org/plugins/fa-wp-admin-menu-icons/) 
 [![Badge indicating FA WP Admin Menu Icon's download count](https://img.shields.io/wordpress/plugin/dt/fa-wp-admin-menu-icons.svg)](https://wordpress.org/plugins/fa-wp-admin-menu-icons/) 
 [![Badge indicating FA WP Admin Menu Icon's test coverage percentage](https://api.codeclimate.com/v1/badges/8e7095f8f9347a38a868/test_coverage)](https://codeclimate.com/github/ptrkcsk/fa-wp-admin-menu-icons/test_coverage)
-
 <a href="https://www.buymeacoffee.com/patrikcsak" target="_blank">
-    <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Yellow button with coffee cup and text that says 'Buy Me A Coffee'" style="height: 30px !important;width: 109px !important;">
+    <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Yellow button with coffee cup and text that says 'Buy Me A Coffee'" style="height: 20px !important">
 </a>
 
 **FA WP Admin Menu Icons** allows you to use Font Awesome icons for WordPress custom post types and custom menu pages by passing the Font Awesome class string, just like using Font Awesome on the front end
