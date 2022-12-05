@@ -83,6 +83,11 @@ Install with Git by running the following commands:
 
 FA WP Admin Menu Icons only supports Font Awesome's [free icons](https://fontawesome.com/v5.15/icons?d=gallery&p=2&m=free)
 
+== Screenshots ==
+
+1. Screenshot of WordPress Admin Dashboard menu with an example custom post type and custom menu page which use the Font Awesome flag icon
+2. Screenshot of Custom Post Type UI Menu Icon field populated with 'fa-solid fa-thumbs-up'
+
 == Changelog ==
 
 = 6.0.0 =
