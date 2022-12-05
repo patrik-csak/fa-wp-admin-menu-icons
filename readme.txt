@@ -1,5 +1,6 @@
 === FA WP Admin Menu Icons ===
 Contributors: ptrkcsk
+Donate link: https://www.buymeacoffee.com/patrikcsak
 Tags: fontawesome, icon, icons, custom
 Requires at least: 4.4
 Tested up to: 6.1
