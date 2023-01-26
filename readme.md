@@ -50,7 +50,7 @@ Install with Git by running the following commands:
 
 ```sh
 cd <wp-content>/plugins
-git clone git@github.com:ptrkcsk/fa-wp-admin-menu-icons.git
+git clone git@github.com:patrik-csak/fa-wp-admin-menu-icons.git
 ```
 
 ## Usage

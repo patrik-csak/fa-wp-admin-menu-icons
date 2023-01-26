@@ -13,7 +13,7 @@ Use Font Awesome icons for custom post types and custom menu pages.
 
 == Description ==
 
-[View on GitHub](https://github.com/ptrkcsk/fa-wp-admin-menu-icons) for better documentation
+[View on GitHub](https://github.com/patrik-csak/fa-wp-admin-menu-icons) for better documentation
 
 **FA WP Admin Menu Icons** allows you to use Font Awesome icons for WordPress custom post types and custom menu pages by passing the Font Awesome class string, just like using Font Awesome on the front end
 
@@ -78,7 +78,7 @@ Install with Composer by running the following command:
 Install with Git by running the following commands:
 
     cd <wp-content>/plugins
-    git clone git@github.com:ptrkcsk/fa-wp-admin-menu-icons.git
+    git clone git@github.com:patrik-csak/fa-wp-admin-menu-icons.git
 
 == Caveats ==
 
