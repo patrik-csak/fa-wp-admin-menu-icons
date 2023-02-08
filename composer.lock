@@ -1961,7 +1961,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "8.0 - 8.1",
+        "php": "8.0 - 8.2",
         "ext-simplexml": "*"
     },
     "platform-dev": [],
