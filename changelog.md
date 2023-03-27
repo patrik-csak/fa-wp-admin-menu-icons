@@ -5,13 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [v7.1.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v7.0.0...v7.1.0) - 2023-02-07
+## [Unreleased](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v7.1.0...HEAD)
+
+### Changed
+
+- Upgrade Font Awesome to v6.4.0
+
+## [7.1.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v7.0.0...v7.1.0) – 2023-02-07
 
 ### Changed
 
 - Upgrade Font Awesome to v6.3.0
 
-## [v7.0.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v6.0.0...v7.0.0) - 2022-12-05
+## [7.0.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v6.0.0...v7.0.0) – 2022-12-05
 
 ### Changed
 
@@ -22,21 +28,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Support for Font Awesome v4 icons
 - `Fawpami\\faVersion` filter
 
-## [v6.0.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v5.0.1...v6.0.0) - 2022-01-26
+## [6.0.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v5.0.1...v6.0.0) – 2022-01-26
 
 ### Changed
 
 - Require PHP v7.4+
 - Test with WordPress v5.9
 
-## [v5.0.1](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v5.0.0...v5.0.1) - 2021-10-27
+## [5.0.1](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v5.0.0...v5.0.1) – 2021-10-27
 
 ### Changed
 
 - Upgrade Font Awesome to v5.15.4
 - Test with WordPress v5.8.1
 
-## [v5.0.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v4.1.0...v5.0.0) - 2020-11-27
+## [5.0.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v4.1.0...v5.0.0) – 2020-11-27
 
 ### Changed
 
@@ -44,26 +50,26 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Test with WordPress v5.5.3
 - Drop support for PHP v7.2
 
-## [v4.1.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v4.0.0...v4.1.0) - 2020-04-14
+## [4.1.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v4.0.0...v4.1.0) – 2020-04-14
 
 ### Changed
 
 - Test with WordPress v5.2.1
 - Upgrade Font Awesome to v5.13.0
 
-## [v4.0.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v3.9.1...v4.0.0) - 2020-03-10
+## [4.0.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v3.9.1...v4.0.0) – 2020-03-10
 
 ### Removed
 
 - Support for EOL PHP versions
 
-## [v3.9.1](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v3.9.0...v3.9.1) - 2020-03-10
+## [3.9.1](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v3.9.0...v3.9.1) – 2020-03-10
 
 ### Added
 
 - Restore support for EOL PHP versions because it's a breaking change
 
-## [v3.9.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v3.8.0...v3.9.0) - 2020-03-07
+## [3.9.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v3.8.0...v3.9.0) – 2020-03-07
 
 ### Changed
 
@@ -73,13 +79,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Support for EOL PHP versions
 
-## [v3.8.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v3.7.0...v3.8.0) - 2019-10-14
+## [3.8.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v3.7.0...v3.8.0) – 2019-10-14
 
 ### Changed
 
 - Update Font Awesome from v5.9.0 to v5.11.2
 
-## [v3.7.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v3.6.0...v3.7.0) - 2019-06-08
+## [3.7.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v3.6.0...v3.7.0) – 2019-06-08
 
 ### Added
 
@@ -90,44 +96,44 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Update Font Awesome from v5.6.0 to v5.9.0
 
-## [v3.6.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v3.5.0...v3.6.0) - 2018-12-07
+## [3.6.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v3.5.0...v3.6.0) – 2018-12-07
 
 ### Changed
 
 - Update Font Awesome from v5.5.0 to v5.6.0
 
-## [v3.5.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v3.4.0...v3.5.0) - 2018-11-03
+## [3.5.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v3.4.0...v3.5.0) – 2018-11-03
 
 ### Changed
 
 - Update Font Awesome from v5.4.2 to v5.5.0
 
-## [v3.4.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v3.3.0...v3.4.0) - 2018-10-28
+## [3.4.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v3.3.0...v3.4.0) – 2018-10-28
 
 ### Changed
 
 - Update Font Awesome from v5.4.1 to v5.4.2
 
-## [v3.3.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v3.2.0...v3.3.0) - 2018-10-13
+## [3.3.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v3.2.0...v3.3.0) – 2018-10-13
 
 ### Changed
 
 - Update Font Awesome from v5.3.1 to v5.4.1
 
-## [v3.2.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v3.1.0...v3.2.0) - 2018-08-31
+## [3.2.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v3.1.0...v3.2.0) – 2018-08-31
 
 ### Changed
 
 - Improve Makefile
 - Update Font Awesome from v5.2.0 to v5.3.1
 
-## [v3.1.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v3.0.0...v3.1.0) - 2018-07-29
+## [3.1.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v3.0.0...v3.1.0) – 2018-07-29
 
 ### Changed
 
 - Update Font Awesome from v5.1.0 to v5.2.0
 
-## [v3.0.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v2.8.0...v3.0.0) - 2018-07-05
+## [3.0.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v2.8.0...v3.0.0) – 2018-07-05
 
 ### Changed
 
@@ -138,7 +144,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - `composer.json.version`
 
-## [v2.8.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v2.7.0...v2.8.0) - 2018-06-20
+## [2.8.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v2.7.0...v2.8.0) – 2018-06-20
 
 ### Added
 
@@ -149,13 +155,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Update `.gitattributes`
 - Update Font Awesome from v5.0.13 to v5.1.0
 
-## [v2.7.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v2.6.0...v2.7.0) - 2018-05-10
+## [2.7.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v2.6.0...v2.7.0) – 2018-05-10
 
 ### Changed
 
 - Update Font Awesome from v5.0.12 to v5.0.13
 
-## [v2.6.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v2.5.0...v2.6.0) - 2018-05-03
+## [2.6.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v2.5.0...v2.6.0) – 2018-05-03
 
 ### Added
 
@@ -167,44 +173,44 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Update Font Awesome from v5.0.11 to v5.0.12
 - Update Font Awesome shims
 
-## [2.5.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v2.4.0...v2.5.0) - 2018-05-02
+## [2.5.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v2.4.0...v2.5.0) – 2018-05-02
 
 ### Changed
 
 - Update Font Awesome from v5.0.10 to v5.0.11
 - Update Composer PHP version range
 
-## [2.4.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v2.3.1...v2.4.0) - 2018-04-21
+## [2.4.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v2.3.1...v2.4.0) – 2018-04-21
 
 ### Changed
 
 - Update Font Awesome from v5.0.9 to v5.0.10
 
-## [2.3.1](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v2.3.0...v2.3.1) - 2018-03-29
+## [2.3.1](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v2.3.0...v2.3.1) – 2018-03-29
 
 ### Changed
 
 - Update README.txt changelog
 
-## [2.3.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v2.2.1...v2.3.0) - 2018-03-29
+## [2.3.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v2.2.1...v2.3.0) – 2018-03-29
 
 ### Changed
 
 - Bump Font Awesome version from 5.0.8 to 5.0.9
 
-## [2.2.1](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v2.2.0...v2.2.1) - 2018-03-25
+## [2.2.1](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v2.2.0...v2.2.1) – 2018-03-25
 
 ### Fixed
 
 - Fix styles action
 
-## [2.2.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v2.1.0...v2.2.0) - 2018-03-25
+## [2.2.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v2.1.0...v2.2.0) – 2018-03-25
 
 ### Added
 
 - Add support for Font Awesome versions. Icons are now cached with their Font Awesome version so they can be updated when the Font Awesome version changes.
 
-## [2.1.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v2.0.1...v2.1.0) - 2018-03-19
+## [2.1.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v2.0.1...v2.1.0) – 2018-03-19
 
 ### Added
 
@@ -220,7 +226,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Make icons smaller so they look better next to Dashicons
 - Update Font Awesome shims
 
-## [2.0.1](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v2.0.0...v2.0.1) - 2017-12-21
+## [2.0.1](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v2.0.0...v2.0.1) – 2017-12-21
 
 ### Added
 
@@ -231,7 +237,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fix old syntax in readme examples
 - Add missing 'Usage' section to `README.txt`
 
-## [2.0.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v1.0.4...v2.0.0) - 2017-12-20
+## [2.0.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v1.0.4...v2.0.0) – 2017-12-20
 
 ### Added
 
@@ -246,7 +252,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Deprecate use of Font Awesome 4 class syntax
 
-## [1.0.4](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v1.0.3...v1.0.4) - 2017-10-29
+## [1.0.4](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v1.0.3...v1.0.4) – 2017-10-29
 
 ### Changed
 
@@ -256,22 +262,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Remove caveat from documentation because it no longer applies
 
-## [1.0.3](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v1.0.2...v1.0.3) - 2017-06-17
+## [1.0.3](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v1.0.2...v1.0.3) – 2017-06-17
 
 ### Added
 
 - Add more icons
 
-## [1.0.2](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v1.0.1...v1.0.2) - 2017-06-16
+## [1.0.2](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v1.0.1...v1.0.2) – 2017-06-16
 
 ### Fixed
 
 - Fix undefined index
 
-## [1.0.1](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v1.0.0...v1.0.1) - 2017-06-16
+## [1.0.1](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v1.0.0...v1.0.1) – 2017-06-16
 
 ### Fixed
 
 - Add icons to `icons/`. The directory was empty on the WordPress plugin repository.
 
-## 1.0.0 - 2017-03-25
+## 1.0.0 – 2017-03-25
