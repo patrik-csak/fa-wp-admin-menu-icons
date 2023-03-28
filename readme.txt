@@ -82,7 +82,7 @@ Install with Git by running the following commands:
 
 == Caveats ==
 
-FA WP Admin Menu Icons only supports Font Awesome's [free icons](https://fontawesome.com/v5.15/icons?d=gallery&p=2&m=free)
+FA WP Admin Menu Icons only supports Font Awesome's [free icons](https://fontawesome.com/search?o=r&m=free)
 
 == Screenshots ==
 
