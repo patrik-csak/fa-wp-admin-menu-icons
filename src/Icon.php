@@ -87,7 +87,7 @@ class Icon
         $name = $this->getUnaliasedName();
         $url = 'https://raw.githubusercontent.com/FortAwesome/Font-Awesome/' .
             Fawpami::FONT_AWESOME_VERSION .
-            "/svgs/$this->style/$name.svg";
+            "/free/svgs/$this->style/$name.svg";
         $response = wp_remote_get($url);
         $body = wp_remote_retrieve_body($response);
 

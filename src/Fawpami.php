@@ -10,7 +10,7 @@ require_once 'Styles.php';
 class Fawpami
 {
     /** @var string */
-    public const FONT_AWESOME_VERSION = '6.4.0';
+    public const FONT_AWESOME_VERSION = '6.5.0';
 
     public static function addHooks(): void
     {
