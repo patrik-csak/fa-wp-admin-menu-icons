@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 
 - Upgrade Font Awesome from v6.4.0 to v6.5.0
+- Require PHP v8.1+
 
 ## [7.2.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v7.1.0...v7.2.0) – 2023-03-27
 
