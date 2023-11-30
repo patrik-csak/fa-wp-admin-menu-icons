@@ -81,7 +81,7 @@ class IconTest extends TestCase
         $icon->getSvgDataUri();
     }
 
-    public function nonFontAwesomeClassesProvider(): array
+    public static function nonFontAwesomeClassesProvider(): array
     {
         return [
             ['dashicons-admin-users'],
@@ -93,7 +93,7 @@ class IconTest extends TestCase
     /**
      * @link https://fontawesome.com/docs/web/add-icons/how-to#setting-different-families-styles
      */
-    public function fontAwesomeClassesProvider(): array
+    public static function fontAwesomeClassesProvider(): array
     {
         return [
             ['fa-regular fa-user'],
