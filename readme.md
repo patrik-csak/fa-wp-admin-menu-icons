@@ -38,11 +38,8 @@ wp plugin install fa-wp-admin-menu-icons --activate
 
 ### Install with Composer
 
-Install with Composer by running the following command:
-
-```sh
-composer require wpackagist-plugin/fa-wp-admin-menu-icons
-```
+1. Follow the setup instructions for [WordPress Packagist](https://wpackagist.org)
+2. Require `wpackagist-plugin/fa-wp-admin-menu-icons`
 
 ### Install with Git
 

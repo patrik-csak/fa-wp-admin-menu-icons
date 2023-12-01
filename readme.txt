@@ -21,7 +21,7 @@ Here's an example:
 
     register_post_type( 'custom_post_type', [
         //...
-        'menu_icon' => 'fas fa-thumbs-up',
+        'menu_icon' => 'fa-solid fa-thumbs-up',
         //...
     ] );
 
@@ -69,9 +69,8 @@ Install with WP-CLI by running the following command:
 
 = Install with Composer =
 
-Install with Composer by running the following command:
-
-    composer require wpackagist-plugin/fa-wp-admin-menu-icons
+1. Follow the setup instructions for [WordPress Packagist](https://wpackagist.org)
+2. Require `wpackagist-plugin/fa-wp-admin-menu-icons`
 
 = Install with Git =
 
