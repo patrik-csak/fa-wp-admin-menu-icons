@@ -5,7 +5,7 @@ Tags: fontawesome, icon, icons, custom
 Requires at least: 4.4
 Tested up to: 6.4.1
 Requires PHP: 8.1
-Stable tag: 8.1.0
+Stable tag: 8.1.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
@@ -90,6 +90,12 @@ FA WP Admin Menu Icons only supports Font Awesome's [free icons](https://fontawe
 2. Screenshot of Custom Post Type UI Menu Icon field populated with 'fa-solid fa-thumbs-up'
 
 == Changelog ==
+
+= 8.1.1 =
+
+**Changed**
+
+- Require PHP v8.1 in readme.txt
 
 = 8.1.0 =
 
