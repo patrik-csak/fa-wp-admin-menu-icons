@@ -3,7 +3,7 @@ Contributors: ptrkcsk
 Donate link: https://www.buymeacoffee.com/patrikcsak
 Tags: fontawesome, icon, icons, custom
 Requires at least: 4.4
-Tested up to: 6.4.1
+Tested up to: 6.5
 Requires PHP: 8.1
 Stable tag: 8.1.1
 License: GPLv3
