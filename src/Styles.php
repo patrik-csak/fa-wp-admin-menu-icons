@@ -11,7 +11,7 @@ class Styles
             <<<'CSS'
 /* FA WP Admin Menu Icons icon styles */
 #adminmenu div.wp-menu-image--fawpami.svg {
-    background-size: 20px 20px;
+    background-size: 16px 16px;
 }
 CSS,
         );
