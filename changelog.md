@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 
-- Decreased icon size for more consistency with Dashicons
+- Decreased icon size to be more similar to Dashicons
 
 ## [8.1.1](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v8.1.0...v8.1.1) – 2023-12-01
 
