@@ -7,14 +7,14 @@ jobs:
       matrix:
         php-version: ['8.1', '8.2', '8.3']
     steps:
-      - uses: actions/checkout@v3
-      - uses: shivammathur/setup-php@2.22.0
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
-      - if: matrix.php-version == '8.2'
-        uses: arduino/setup-task@v1
-      - if: matrix.php-version == '8.2'
-        uses: paambaati/codeclimate-action@v3.2.0
+      - if: matrix.php-version == '8.3'
+        uses: arduino/setup-task@v2
+      - if: matrix.php-version == '8.3'
+        uses: paambaati/codeclimate-action@v5.0.0
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
         with:
