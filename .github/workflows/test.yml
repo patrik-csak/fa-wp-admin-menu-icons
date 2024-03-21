@@ -11,10 +11,16 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
-      - if: matrix.php-version == '8.3'
-        uses: arduino/setup-task@v2
-      - if: matrix.php-version == '8.3'
-        uses: paambaati/codeclimate-action@v5.0.0
+      - uses: arduino/setup-task@v2
+      - run: task test
+  coverage:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+      - uses: arduino/setup-task@v2
+      - uses: paambaati/codeclimate-action@v5.0.0
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
         with:
