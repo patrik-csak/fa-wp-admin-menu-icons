@@ -2,6 +2,8 @@
 
 **FA WP Admin Menu Icons** allows you to use Font Awesome icons for WordPress custom post types and custom menu pages by passing the Font Awesome class string, just like using Font Awesome on the front end
 
+![Screenshot of WordPress admin dashboard with Font Awesome icons for a custom post type and a custom menu page](.wordpress-org/screenshot-1.png)
+
 Here's an example:
 
 ```php
