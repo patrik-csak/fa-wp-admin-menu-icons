@@ -5,7 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [v8.3.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v8.2.0...v8.3.0) – 2024-04-03
+## [Unreleased](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v8.3.0...HEAD)
+
+### Changed
+
+- Upgrade Font Awesome from v6.5.2 to v6.6.0
+
+## [8.3.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v8.2.0...v8.3.0) – 2024-04-03
 
 ### Changed
 
@@ -42,7 +48,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Upgrade Font Awesome to v6.4.0
 
-## [7.1.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v7.0.0...v7.1.0) – 2023-02-07
+## [7.1.0](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v8.0.0...v7.1.0) – 2023-02-07
 
 ### Changed
 
