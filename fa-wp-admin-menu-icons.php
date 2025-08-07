@@ -3,7 +3,7 @@
  * Plugin Name: FA WP Admin Menu Icons
  * Plugin URI: https://github.com/patrik-csak/fa-wp-admin-menu-icons
  * Description: Use Font Awesome icons for custom post types and custom menu pages.
- * Version: 8.4.0
+ * Version: 9.0.0
  * Author: Patrik Csak
  * Author URI: https://patrikcsak.com
  * License: GPL
