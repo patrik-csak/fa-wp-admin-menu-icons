@@ -2,7 +2,6 @@
 .phpunit.result.cache
 .task
 cc-test-reporter
-clover.xml
 composer.phar
 composer-setup.php
 tests/coverage

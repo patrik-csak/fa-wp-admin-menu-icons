@@ -3,15 +3,7 @@ version: '3'
 tasks:
   clean:
     cmds:
-      - rm -r cc-test-reporter clover.xml composer.phar vendor .phpunit.result.cache
-  clover.xml:
-    deps: [vendor]
-    cmds:
-      - vendor/bin/phpunit --coverage-clover clover.xml
-    env:
-      XDEBUG_MODE: coverage
-    generates:
-      - clover.xml
+      - rm -r cc-test-reporter composer.phar vendor .phpunit.result.cache
   composer.phar:
     cmds:
       - scripts/download-composer.sh

@@ -13,15 +13,3 @@ jobs:
           php-version: ${{ matrix.php-version }}
       - uses: arduino/setup-task@v2
       - run: task test
-  coverage:
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: shivammathur/setup-php@v2
-      - uses: arduino/setup-task@v2
-      - uses: paambaati/codeclimate-action@v5.0.0
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-        with:
-          coverageCommand: task clover.xml
