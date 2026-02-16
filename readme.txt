@@ -5,7 +5,7 @@ Tags: fontawesome, icon, icons, custom
 Requires at least: 4.4
 Tested up to: 6.9.1
 Requires PHP: 8.1
-Stable tag: 9.0.0
+Stable tag: 9.1.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
