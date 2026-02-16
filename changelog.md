@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased](https://github.com/patrik-csak/fa-wp-admin-menu-icons/compare/v9.0.0...HEAD)
 
+### Added
+
+- Support for PHP v8.5
+
 ### Changed
 
 - Upgrade Font Awesome from v7.0.0 to v7.2.0
