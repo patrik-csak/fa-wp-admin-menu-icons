@@ -2,7 +2,7 @@
 
 namespace Fawpami;
 
-class AdminNotice
+readonly class AdminNotice
 {
     /**
      * @param string $message

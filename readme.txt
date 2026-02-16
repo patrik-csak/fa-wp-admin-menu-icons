@@ -4,7 +4,7 @@ Donate link: https://www.buymeacoffee.com/patrikcsak
 Tags: fontawesome, icon, icons, custom
 Requires at least: 4.4
 Tested up to: 6.9.1
-Requires PHP: 8.1
+Requires PHP: 8.2
 Stable tag: 9.1.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html

@@ -8,7 +8,7 @@ use SimpleXMLElement;
 
 require_once 'Fawpami.php';
 
-class Icon
+readonly class Icon
 {
     private const FONT_AWESOME_CLASS_PATTERN = '/^fa-?(?<style>b|brands|r|regular|s|solid)\s+fa-(?<name>[a-z-]+)$/';
 

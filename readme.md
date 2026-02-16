@@ -19,7 +19,7 @@ See [Usage](#usage) for more examples
 ## Requirements
 
 - WordPress v4.4+
-- PHP v8.1+
+- PHP v8.2+
 - [SimpleXML PHP extension](https://www.php.net/manual/en/simplexml.installation.php) (enabled by default)
 
 ## Installation
