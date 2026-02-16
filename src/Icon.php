@@ -18,7 +18,7 @@ class Icon
     ) {
     }
 
-    public static function fromClass(string $class): self|null
+    public static function fromClass(string $class): ?self
     {
         $result = preg_match(
             self::FONT_AWESOME_CLASS_PATTERN,
