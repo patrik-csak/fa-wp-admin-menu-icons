@@ -1,5 +1,9 @@
 on:
   - push
+
+# https://docs.zizmor.sh/audits/#excessive-permissions
+permissions: {}
+
 jobs:
   test:
     runs-on: ubuntu-latest
