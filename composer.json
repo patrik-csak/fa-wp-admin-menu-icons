@@ -17,6 +17,10 @@
   "support": {
     "issues": "https://github.com/patrik-csak/fa-wp-admin-menu-icons/issues"
   },
+  "scripts": {
+    "build": "@php scripts/make-aliases.php",
+    "test": "phpunit"
+  },
   "require": {
     "php": "8.2 - 8.5",
     "ext-simplexml": "*"

@@ -1,8 +1,4 @@
 .phpunit.cache
 .phpunit.result.cache
-.task
-cc-test-reporter
-composer.phar
-composer-setup.php
 tests/coverage
 vendor

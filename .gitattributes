@@ -14,4 +14,3 @@ composer.lock  export-ignore
 license.md     export-ignore
 phpunit.xml    export-ignore
 readme.md      export-ignore
-Taskfile.yml   export-ignore
